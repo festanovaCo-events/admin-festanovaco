@@ -1,0 +1,7 @@
+{
+  "common": {
+    "hello": "Hello worlsd!",
+    "login": "Login",
+    "dashboard": "Dashboard"
+  }
+}

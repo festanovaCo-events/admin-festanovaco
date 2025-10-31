@@ -1,0 +1,7 @@
+{
+  "common": {
+    "hello": "¡Hola munwdo!",
+    "login": "Iniciar sesión",
+    "dashboard": "Panel"
+  }
+}
