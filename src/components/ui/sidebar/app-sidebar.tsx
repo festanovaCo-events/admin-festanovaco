@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useLocale } from "next-intl";
 import { ChevronRight } from "lucide-react";
 import {
   Sidebar,
@@ -28,12 +29,13 @@ import { NavItem } from "@/interfaces";
 
 export const AppSidebar = () => {
   const pathname = usePathname();
+  const locale = useLocale();
 
   const getItemClasses = (active: boolean) =>
     `${active ? "text-[#00A76F]" : "text-[#637381]"} font-medium`;
 
   const renderItem = (item: NavItem, depth = 0) => {
-    const isActive = pathname === item.href;
+    const isActive = pathname === `/${locale}${item.href}`;
     const Icon = item.icon;
     const hasChildren = item.children?.length;
 
