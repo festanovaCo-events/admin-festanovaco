@@ -1,5 +1,5 @@
 import { NavSection } from "@/interfaces";
-import { CircleGauge, Newspaper, TrendingUp, User } from "lucide-react";
+import { CalendarPlus, CircleGauge, MailPlus, TrendingUp } from "lucide-react";
 
 export const NAV_SECTIONS: NavSection[] = [
   {
@@ -13,19 +13,19 @@ export const NAV_SECTIONS: NavSection[] = [
     label: "MANAGEMENT",
     items: [
       {
-        title: "User",
-        href: "/dashboard/user",
-        icon: User,
+        title: "Event",
+        href: "/dashboard/event",
+        icon: CalendarPlus,
         children: [
-          { title: "Profile", href: "/dashboard/user/profile" },
-          { title: "Cards", href: "/dashboard/user/cards" },
-          { title: "List", href: "/dashboard/user/list" },
-          { title: "Create", href: "/dashboard/user/create" },
-          { title: "Edit", href: "/dashboard/user/edit" },
-          { title: "Account", href: "/dashboard/user/account" },
+          { title: "List", href: "/dashboard/event/list" },
+          { title: "Create", href: "/dashboard/event/create" },
         ],
       },
-      { title: "Blog", href: "/dashboard/blog", icon: Newspaper },
+      {
+        title: "Template email",
+        href: "/dashboard/template-email",
+        icon: MailPlus,
+      },
     ],
   },
 ];
