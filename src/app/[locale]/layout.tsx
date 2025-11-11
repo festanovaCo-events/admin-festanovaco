@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
-  params: Promise<{ locale: "es" | "en" }>;
+  params: Promise<{ locale: string }>;
 }
 
 export default async function RootLayout({
