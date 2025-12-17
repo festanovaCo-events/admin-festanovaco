@@ -2,6 +2,7 @@
 
 import { FC } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import {
   CommandDialog,
   CommandEmpty,
@@ -16,6 +17,8 @@ import { Separator } from "@/components/shadcn/ui/separator";
 
 export const SearchPanels: FC<SearchDialogProps> = ({ open, onOpenChange }) => {
   const router = useRouter();
+  const t = useTranslations("search");
+  const tDashboard = useTranslations("dashboard");
 
   const handleSelect = (path: string) => {
     onOpenChange(false);
@@ -30,31 +33,35 @@ export const SearchPanels: FC<SearchDialogProps> = ({ open, onOpenChange }) => {
     >
       <div className="flex items-center p-3">
         <CommandInput
-          placeholder="Search..."
+          placeholder={t("placeholder")}
           className="border-none focus:ring-0"
         />
         <kbd className="pointer-events-none ml-auto inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-2 font-mono text-xs font-medium text-muted-foreground">
-          Esc
+          {t("esc")}
         </kbd>
       </div>
       <Separator />
       <CommandList className="max-h-[400px] px-3 py-4">
-        <CommandEmpty>No results found.</CommandEmpty>
+        <CommandEmpty>{t("noResults")}</CommandEmpty>
         <CommandGroup>
-          {NAVIGATION_ITEMS.map((item) => (
-            <CommandItem
-              key={item.path}
-              value={item.title}
-              onSelect={() => handleSelect(item.path)}
-              className="flex items-center justify-between px-4 py-3 aria-selected:border-2 aria-selected:border-cyan-400 aria-selected:bg-cyan-50/50"
-            >
-              <div className="flex flex-col gap-1">
-                <span className="font-medium">{item.title}</span>
-                <span className="text-xs text-gray-500">{item.path}</span>
-              </div>
-              <span className="text-sm text-gray-600">{item.category}</span>
-            </CommandItem>
-          ))}
+          {NAVIGATION_ITEMS.map((item) => {
+            const translatedTitle = item.title === "App" ? tDashboard("app") : item.title === "Analytics" ? tDashboard("analytics") : item.title;
+            const translatedCategory = item.category === "Overview" ? tDashboard("overview") : item.category;
+            return (
+              <CommandItem
+                key={item.path}
+                value={item.title}
+                onSelect={() => handleSelect(item.path)}
+                className="flex items-center justify-between px-4 py-3 aria-selected:border-2 aria-selected:border-cyan-400 aria-selected:bg-cyan-50/50"
+              >
+                <div className="flex flex-col gap-1">
+                  <span className="font-medium">{translatedTitle}</span>
+                  <span className="text-xs text-gray-500">{item.path}</span>
+                </div>
+                <span className="text-sm text-gray-600">{translatedCategory}</span>
+              </CommandItem>
+            );
+          })}
         </CommandGroup>
       </CommandList>
     </CommandDialog>

@@ -2,6 +2,7 @@
 
 import { FC, useState } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/shadcn/ui/button";
 import { Badge } from "@/components/shadcn/ui/badge";
@@ -18,6 +19,7 @@ import { ProfileDrawerProps } from "@/interfaces";
 
 export const SheetProfile: FC<ProfileDrawerProps> = ({ children }) => {
   const [open, setOpen] = useState(false);
+  const t = useTranslations("profile");
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -76,35 +78,45 @@ export const SheetProfile: FC<ProfileDrawerProps> = ({ children }) => {
           </div>
 
           <nav className="flex-1 space-y-1 px-2">
-            {MENU_ITEMS.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-gray-700 transition-colors hover:bg-gray-100"
-              >
-                <item.icon className="h-5 w-5 text-gray-500" />
-                <span className="flex-1 text-sm font-medium">{item.label}</span>
-                {item.badge && (
-                  <Badge
-                    variant="destructive"
-                    className="h-5 min-w-5 rounded-full px-1.5 text-xs"
-                  >
-                    {item.badge}
-                  </Badge>
-                )}
-              </Link>
-            ))}
+            {MENU_ITEMS.map((item) => {
+              const translatedLabel = 
+                item.label === "Home" ? t("home") :
+                item.label === "Profile" ? t("profile") :
+                item.label === "Projects" ? t("projects") :
+                item.label === "Subscription" ? t("subscription") :
+                item.label === "Security" ? t("security") :
+                item.label === "Account settings" ? t("accountSettings") :
+                item.label;
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-gray-700 transition-colors hover:bg-gray-100"
+                >
+                  <item.icon className="h-5 w-5 text-gray-500" />
+                  <span className="flex-1 text-sm font-medium">{translatedLabel}</span>
+                  {item.badge && (
+                    <Badge
+                      variant="destructive"
+                      className="h-5 min-w-5 rounded-full px-1.5 text-xs"
+                    >
+                      {item.badge}
+                    </Badge>
+                  )}
+                </Link>
+              );
+            })}
           </nav>
 
           <div className="mx-2 mb-4 overflow-hidden rounded-2xl bg-linear-to-br from-orange-400 via-pink-400 to-purple-500 p-6">
             <div className="relative">
-              <h3 className="text-2xl font-bold text-white">35% OFF</h3>
+              <h3 className="text-2xl font-bold text-white">{t("upgrade.title")}</h3>
               <p className="mt-1 text-sm text-white/90">
-                Power up Productivity!
+                {t("upgrade.subtitle")}
               </p>
               <Button className="mt-4 bg-yellow-400 text-gray-900 hover:bg-yellow-500 font-semibold">
-                Upgrade to Pro
+                {t("upgrade.button")}
               </Button>
               <div className="absolute -right-2 -top-2">
                 <div className="relative h-20 w-20">
@@ -143,7 +155,7 @@ export const SheetProfile: FC<ProfileDrawerProps> = ({ children }) => {
               variant="outline"
               className="w-full border-red-200 bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700"
             >
-              Logout
+              {t("logout")}
             </Button>
           </div>
         </div>

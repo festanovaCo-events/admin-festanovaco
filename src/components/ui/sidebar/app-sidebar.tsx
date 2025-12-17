@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { ChevronRight } from "lucide-react";
 import {
   Sidebar,
@@ -30,14 +30,29 @@ import { NavItem } from "@/interfaces";
 export const AppSidebar = () => {
   const pathname = usePathname();
   const locale = useLocale();
+  const t = useTranslations("dashboard");
+  const tSidebar = useTranslations("sidebar");
 
   const getItemClasses = (active: boolean) =>
     `${active ? "text-[#00A76F]" : "text-[#637381]"} font-medium`;
+
+  const getTranslatedTitle = (title: string): string => {
+    const translations: Record<string, string> = {
+      "App": t("app"),
+      "Analytics": t("analytics"),
+      "Event": tSidebar("event"),
+      "List": tSidebar("list"),
+      "Create": tSidebar("create"),
+      "Template email": tSidebar("templateEmail"),
+    };
+    return translations[title] || title;
+  };
 
   const renderItem = (item: NavItem, depth = 0) => {
     const isActive = pathname === `/${locale}${item.href}`;
     const Icon = item.icon;
     const hasChildren = item.children?.length;
+    const translatedTitle = getTranslatedTitle(item.title);
 
     if (hasChildren) {
       return (
@@ -45,11 +60,11 @@ export const AppSidebar = () => {
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
               <SidebarMenuButton
-                tooltip={item.title}
+                tooltip={translatedTitle}
                 className="px-3 py-5 [&[data-active='true']]:bg-[rgba(0,167,111,18%)]"
               >
                 {Icon && <Icon className={getItemClasses(isActive)} />}
-                <span className={getItemClasses(isActive)}>{item.title}</span>
+                <span className={getItemClasses(isActive)}>{translatedTitle}</span>
                 <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
               </SidebarMenuButton>
             </CollapsibleTrigger>
@@ -70,13 +85,13 @@ export const AppSidebar = () => {
       <Wrapper key={item.href}>
         <Button
           asChild
-          tooltip={item.title}
+          tooltip={translatedTitle}
           isActive={isActive}
           className="px-3 py-5 [&[data-active='true']]:bg-[rgba(0,167,111,18%)]"
         >
           <Link href={item.href ?? "#"}>
             {Icon && <Icon className={getItemClasses(isActive)} />}
-            <span className={getItemClasses(isActive)}>{item.title}</span>
+            <span className={getItemClasses(isActive)}>{translatedTitle}</span>
             {item.badge && <SidebarMenuBadge>{item.badge}</SidebarMenuBadge>}
           </Link>
         </Button>
@@ -96,7 +111,7 @@ export const AppSidebar = () => {
                   <span className="text-lg font-bold text-white">N</span>
                 </div>
                 <span className="font-semibold group-data-[collapsible=icon]:hidden">
-                  Dashboard
+                  {t("title")}
                 </span>
               </Link>
             </SidebarMenuButton>
@@ -112,7 +127,7 @@ export const AppSidebar = () => {
             key={label}
           >
             <SidebarGroupLabel className="text-[#919EAB] font-bold group-data-[collapsible=icon]:hidden">
-              {label}
+              {label === "OVERVIEW" ? t("overview") : label === "MANAGEMENT" ? t("management") : label}
             </SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>{items.map((item) => renderItem(item))}</SidebarMenu>
