@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 import { getMessages } from "next-intl/server";
 import { hasLocale, NextIntlClientProvider, useMessages } from "next-intl";
-import { Open_Sans } from "next/font/google";
+import { Nunito } from "next/font/google";
 import "./globals.css";
 import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 
-const openSans = Open_Sans({
-  variable: "--font-open-sans",
+const nunito = Nunito({
+  variable: "--font-nunito",
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -35,7 +35,7 @@ export default async function RootLayout({
   console.log("Messages loaded for locale:", locale);
   return (
     <html lang={locale}>
-      <body className={`${openSans.variable}  antialiased`}>
+      <body className={`${nunito.variable} font-sans antialiased`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>
