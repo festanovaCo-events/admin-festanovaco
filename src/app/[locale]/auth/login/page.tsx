@@ -5,6 +5,7 @@ import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/shadcn/ui/button";
 import { Input } from "@/components/shadcn/ui/input";
 import {
@@ -16,13 +17,14 @@ import {
   FormMessage,
 } from "@/components/shadcn/ui/form";
 import { AuthLayout } from "@/components/layouts";
-import { loginSchema, type LoginFormValues } from "@/schema";
+import { createLoginSchema, type LoginFormValues } from "@/schema";
 
 const LoginPage = () => {
+  const t = useTranslations("auth.login");
   const [showPassword, setShowPassword] = useState(false);
 
   const form = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(createLoginSchema(t)),
     defaultValues: {
       email: "",
       password: "",
@@ -39,15 +41,15 @@ const LoginPage = () => {
         <div className="w-full max-w-md space-y-6">
           <div className="space-y-2">
             <h1 className="text-3xl font-semibold text-foreground">
-              Sign in to your account
+              {t("title")}
             </h1>
             <p className="text-muted-foreground">
-              Don’t have an account?
+              {t("subtitle")}{" "}
               <Link
                 href="/auth/register"
                 className="text-teal-600 hover:text-teal-700 font-medium ml-1"
               >
-                Get started
+                {t("getStarted")}
               </Link>
             </p>
           </div>
@@ -59,11 +61,11 @@ const LoginPage = () => {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email address</FormLabel>
+                    <FormLabel>{t("email")}</FormLabel>
                     <FormControl>
                       <Input
                         type="email"
-                        placeholder="you@example.com"
+                        placeholder={t("emailPlaceholder")}
                         {...field}
                       />
                     </FormControl>
@@ -78,19 +80,19 @@ const LoginPage = () => {
                 render={({ field }) => (
                   <FormItem>
                     <div className="flex items-center justify-between">
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel>{t("password")}</FormLabel>
                       <Link
                         href="/auth/forgot-password"
                         className="text-sm text-gray-700 hover:text-gray-900"
                       >
-                        Forgot password?
+                        {t("forgotPassword")}
                       </Link>
                     </div>
                     <FormControl>
                       <div className="relative">
                         <Input
                           type={showPassword ? "text" : "password"}
-                          placeholder="6+ characters"
+                          placeholder={t("passwordPlaceholder")}
                           {...field}
                         />
                         <button
@@ -115,7 +117,7 @@ const LoginPage = () => {
                 type="submit"
                 className="w-full bg-gray-900 hover:bg-gray-800 text-white h-12 text-base cursor-pointer"
               >
-                Sign in
+                {t("signIn")}
               </Button>
             </form>
           </Form>

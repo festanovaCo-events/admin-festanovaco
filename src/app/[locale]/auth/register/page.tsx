@@ -5,6 +5,7 @@ import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/shadcn/ui/button";
 import { Input } from "@/components/shadcn/ui/input";
 import {
@@ -16,13 +17,14 @@ import {
   FormMessage,
 } from "@/components/shadcn/ui/form";
 import { AuthLayout } from "@/components/layouts";
-import { RegisterFormValues, registerSchema } from "@/schema";
+import { createRegisterSchema, type RegisterFormValues } from "@/schema";
 
 const RegisterPage = () => {
+  const t = useTranslations("auth.register");
   const [showPassword, setShowPassword] = useState(false);
 
   const form = useForm<RegisterFormValues>({
-    resolver: zodResolver(registerSchema),
+    resolver: zodResolver(createRegisterSchema(t)),
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -36,20 +38,20 @@ const RegisterPage = () => {
   };
 
   return (
-    <AuthLayout title="Manage the job">
+    <AuthLayout>
       <div className="min-h-screen flex items-center justify-center bg-background p-4">
         <div className="w-full max-w-md space-y-6">
           <div className="space-y-2">
             <h1 className="text-3xl font-semibold text-foreground">
-              Get started absolutely free
+              {t("title")}
             </h1>
             <p className="text-muted-foreground">
-              Already have an account?
+              {t("subtitle")}{" "}
               <Link
                 href="/auth/login"
                 className="text-teal-600 hover:text-teal-700 font-medium ml-1"
               >
-                Get started
+                {t("signIn")}
               </Link>
             </p>
           </div>
@@ -63,10 +65,10 @@ const RegisterPage = () => {
                     name="firstName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>First name</FormLabel>
+                        <FormLabel>{t("firstName")}</FormLabel>
                         <FormControl>
                           <Input
-                            placeholder={form.getValues("firstName")}
+                            placeholder={t("firstName")}
                             {...field}
                           />
                         </FormControl>
@@ -81,10 +83,10 @@ const RegisterPage = () => {
                     name="lastName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Last name</FormLabel>
+                        <FormLabel>{t("lastName")}</FormLabel>
                         <FormControl>
                           <Input
-                            placeholder={form.getValues("lastName")}
+                            placeholder={t("lastName")}
                             {...field}
                           />
                         </FormControl>
@@ -101,10 +103,10 @@ const RegisterPage = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
+                      <FormLabel>{t("email")}</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder={form.getValues("email")}
+                          placeholder={t("email")}
                           {...field}
                         />
                       </FormControl>
@@ -120,12 +122,12 @@ const RegisterPage = () => {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel>{t("password")}</FormLabel>
                       <FormControl>
                         <div className="relative">
                           <Input
                             type={showPassword ? "text" : "password"}
-                            placeholder={form.getValues("password")}
+                            placeholder={t("password")}
                             {...field}
                           />
                           <button
@@ -151,7 +153,7 @@ const RegisterPage = () => {
                 type="submit"
                 className="w-full bg-gray-900 hover:bg-gray-800 text-white h-12 text-base cursor-pointer"
               >
-                Create account
+                {t("createAccount")}
               </Button>
             </form>
           </Form>

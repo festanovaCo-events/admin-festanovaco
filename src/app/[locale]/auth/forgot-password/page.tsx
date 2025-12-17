@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/shadcn/ui/button";
 import { Input } from "@/components/shadcn/ui/input";
 import {
@@ -16,11 +17,12 @@ import {
   FormMessage,
 } from "@/components/shadcn/ui/form";
 import { AuthLayout } from "@/components/layouts";
-import { forgotPasswordSchema, type ForgotPasswordValues } from "@/schema";
+import { createForgotPasswordSchema, type ForgotPasswordValues } from "@/schema";
 
 const ForgotPasswordPage = () => {
+  const t = useTranslations("auth.forgotPassword");
   const form = useForm<ForgotPasswordValues>({
-    resolver: zodResolver(forgotPasswordSchema),
+    resolver: zodResolver(createForgotPasswordSchema(t)),
     defaultValues: {
       email: "",
     },
@@ -31,7 +33,7 @@ const ForgotPasswordPage = () => {
   };
 
   return (
-    <AuthLayout title="Manage the job">
+    <AuthLayout>
       <div className="min-h-screen flex items-center justify-center bg-background p-4">
         <div className="w-full max-w-md space-y-8">
           <div className="flex flex-col items-center text-center space-y-4">
@@ -46,12 +48,11 @@ const ForgotPasswordPage = () => {
             />
 
             <h1 className="text-3xl font-semibold text-foreground">
-              Forgot your password?
+              {t("title")}
             </h1>
 
             <p className="text-muted-foreground max-w-sm">
-              Please enter the email address associated with your account and
-              we'll email you a link to reset your password.
+              {t("description")}
             </p>
           </div>
 
@@ -62,12 +63,12 @@ const ForgotPasswordPage = () => {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email address</FormLabel>
+                    <FormLabel>{t("email")}</FormLabel>
                     <FormControl>
                       <Input
                         id="email"
                         type="email"
-                        placeholder="example@gmail.com"
+                        placeholder={t("emailPlaceholder")}
                         {...field}
                       />
                     </FormControl>
@@ -80,7 +81,7 @@ const ForgotPasswordPage = () => {
                 type="submit"
                 className="w-full bg-gray-700 hover:bg-gray-600 text-white h-12 text-base cursor-pointer"
               >
-                Send request
+                {t("sendRequest")}
               </Button>
 
               <Link
@@ -88,7 +89,7 @@ const ForgotPasswordPage = () => {
                 className="flex items-center justify-center gap-1 text-sm text-foreground hover:text-gray-700 cursor-pointer"
               >
                 <ChevronLeft className="w-4 h-4" />
-                Return to sign in
+                {t("returnToSignIn")}
               </Link>
             </form>
           </Form>

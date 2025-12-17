@@ -1,19 +1,21 @@
+"use client";
+
 import { FC } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { AuthLayoutProps } from "@/interfaces";
 
-export const AuthLayout: FC<AuthLayoutProps> = ({
-  children,
-  title = "Hi, Welcome back",
-}) => {
+export const AuthLayout: FC<AuthLayoutProps> = ({ children }) => {
+  const t = useTranslations("auth.welcome");
+  
   return (
     <div className="flex min-h-screen">
       <div className="hidden lg:flex lg:w-1/4 bg-gray-50 flex-col justify-between p-12">
         <div className="flex items-center justify-center flex-col flex-1 gap-8">
           <div className="flex flex-col">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">{title}</h1>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">{t("title")}</h1>
             <p className="text-gray-600 text-sm">
-              More effectively with optimized workflows.
+              {t("subtitle")}
             </p>
           </div>
 
