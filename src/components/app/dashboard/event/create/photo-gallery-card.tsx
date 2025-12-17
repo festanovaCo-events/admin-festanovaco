@@ -1,4 +1,7 @@
+"use client";
+
 import { FC } from "react";
+import { useTranslations } from "next-intl";
 import { ImageIcon, X } from "lucide-react";
 import {
   Card,
@@ -9,6 +12,7 @@ import {
 } from "@/components/shadcn/ui/card";
 import { FormField, FormItem, FormMessage } from "@/components/shadcn/ui/form";
 import { PhotoGalleryCardProps } from "@/interfaces";
+import { PHOTO_UPLOAD_LIMITS, INPUT_TYPES, FILE_ACCEPT_TYPES } from "@/constants";
 
 export const PhotoGalleryCard: FC<PhotoGalleryCardProps> = ({
   form,
@@ -19,6 +23,7 @@ export const PhotoGalleryCard: FC<PhotoGalleryCardProps> = ({
   handlePhotoUpload,
   removePhoto,
 }) => {
+  const t = useTranslations("event.create.gallery");
   const inputId = title.replace(/\s+/g, "-").toLowerCase();
   return (
     <FormField
@@ -34,7 +39,7 @@ export const PhotoGalleryCard: FC<PhotoGalleryCardProps> = ({
               <CardDescription>{description}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              {photos.length < 10 && (
+              {photos.length < PHOTO_UPLOAD_LIMITS.GALLERY_MAX && (
                 <div className="flex items-center justify-center w-full">
                   <label
                     htmlFor={inputId}
@@ -43,19 +48,19 @@ export const PhotoGalleryCard: FC<PhotoGalleryCardProps> = ({
                     <div className="flex flex-col items-center justify-center pt-5 pb-6">
                       <ImageIcon className="w-8 h-8 mb-2 text-muted-foreground" />
                       <p className="mb-2 text-sm text-muted-foreground">
-                        <span className="font-semibold">Click para subir</span>{" "}
-                        o arrastra y suelta
+                        <span className="font-semibold">{t("uploadClick")}</span>{" "}
+                        {t("uploadDragDrop")}
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        PNG, JPG, GIF (MAX. 5MB)
+                        {t("uploadFormats")}
                       </p>
                     </div>
                     <input
                       id={inputId}
                       name={inputId}
-                      type="file"
+                      type={INPUT_TYPES.FILE}
                       className="hidden"
-                      accept="image/*"
+                      accept={FILE_ACCEPT_TYPES.IMAGE}
                       multiple
                       onChange={(e) => {
                         handlePhotoUpload(e);

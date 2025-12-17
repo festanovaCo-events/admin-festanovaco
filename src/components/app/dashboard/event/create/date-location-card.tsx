@@ -1,4 +1,7 @@
+"use client";
+
 import { FC } from "react";
+import { useTranslations } from "next-intl";
 import { Calendar, Clock, MapPin } from "lucide-react";
 import {
   Card,
@@ -16,27 +19,32 @@ import {
   FormMessage,
 } from "@/components/shadcn/ui/form";
 import { DateLocationCardProps } from "@/interfaces";
+import {
+  EVENT_CREATE_FIELD_NAMES,
+  INPUT_TYPES,
+} from "@/constants";
 
 export const DateLocationCard: FC<DateLocationCardProps> = ({ form }) => {
+  const t = useTranslations("event.create.dateLocation");
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Fecha y Ubicación</CardTitle>
-        <CardDescription>Cuándo y dónde se realizará el evento</CardDescription>
+        <CardTitle>{t("title")}</CardTitle>
+        <CardDescription>{t("description")}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <FormField
             control={form.control}
-            name="date"
+            name={EVENT_CREATE_FIELD_NAMES.DATE}
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="date">
+                <FormLabel htmlFor={EVENT_CREATE_FIELD_NAMES.DATE}>
                   <Calendar className="h-4 w-4" />
-                  Fecha del Evento
+                  {t("eventDate")}
                 </FormLabel>
                 <FormControl>
-                  <Input id="date" type="date" {...field} />
+                  <Input id={EVENT_CREATE_FIELD_NAMES.DATE} type={INPUT_TYPES.DATE} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -45,15 +53,15 @@ export const DateLocationCard: FC<DateLocationCardProps> = ({ form }) => {
 
           <FormField
             control={form.control}
-            name="time"
+            name={EVENT_CREATE_FIELD_NAMES.TIME}
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="time">
+                <FormLabel htmlFor={EVENT_CREATE_FIELD_NAMES.TIME}>
                   <Clock className="h-4 w-4" />
-                  Hora del Evento
+                  {t("eventTime")}
                 </FormLabel>
                 <FormControl>
-                  <Input id="time" type="time" {...field} />
+                  <Input id={EVENT_CREATE_FIELD_NAMES.TIME} type={INPUT_TYPES.TIME} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -63,17 +71,17 @@ export const DateLocationCard: FC<DateLocationCardProps> = ({ form }) => {
 
         <FormField
           control={form.control}
-          name="location"
+          name={EVENT_CREATE_FIELD_NAMES.LOCATION}
           render={({ field }) => (
             <FormItem>
-              <FormLabel htmlFor="location">
+              <FormLabel htmlFor={EVENT_CREATE_FIELD_NAMES.LOCATION}>
                 <MapPin className="h-4 w-4" />
-                Lugar del Evento
+                {t("eventLocation")}
               </FormLabel>
               <FormControl>
                 <Input
-                  id="location"
-                  placeholder="Ej: Salón de Eventos El Jardín, Calle Principal 123"
+                  id={EVENT_CREATE_FIELD_NAMES.LOCATION}
+                  placeholder={t("eventLocationPlaceholder")}
                   {...field}
                 />
               </FormControl>

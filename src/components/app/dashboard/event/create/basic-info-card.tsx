@@ -1,6 +1,7 @@
 "use client";
 
 import { FC } from "react";
+import { useTranslations } from "next-intl";
 import {
   Card,
   CardContent,
@@ -22,11 +23,18 @@ import { EVENT_TYPES } from "@/constants";
 import { BasicInfoCardProps } from "@/interfaces";
 
 export const BasicInfoCard: FC<BasicInfoCardProps> = ({ form }) => {
+  const t = useTranslations("event.create.basicInfo");
+  const tTypes = useTranslations("event.types");
+  
+  const translatedEventTypes = EVENT_TYPES.map((type) => ({
+    value: type.value,
+    label: tTypes(type.value),
+  }));
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Detalles del Evento</CardTitle>
-        <CardDescription>Información básica sobre tu evento</CardDescription>
+        <CardTitle>{t("title")}</CardTitle>
+        <CardDescription>{t("description")}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <FormField
@@ -34,11 +42,11 @@ export const BasicInfoCard: FC<BasicInfoCardProps> = ({ form }) => {
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel htmlFor="title">Título del Evento</FormLabel>
+              <FormLabel htmlFor="title">{t("eventTitle")}</FormLabel>
               <FormControl>
                 <Input
                   id="title"
-                  placeholder="Ej: Boda de María y Juan"
+                  placeholder={t("eventTitlePlaceholder")}
                   {...field}
                 />
               </FormControl>
@@ -52,11 +60,11 @@ export const BasicInfoCard: FC<BasicInfoCardProps> = ({ form }) => {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel htmlFor="description">Descripción</FormLabel>
+              <FormLabel htmlFor="description">{t("description")}</FormLabel>
               <FormControl>
                 <Textarea
                   id="description"
-                  placeholder="Describe tu evento especial..."
+                  placeholder={t("descriptionPlaceholder")}
                   rows={4}
                   {...field}
                 />
@@ -75,9 +83,9 @@ export const BasicInfoCard: FC<BasicInfoCardProps> = ({ form }) => {
                 <SelectOption
                   eventType={field.value ?? ""}
                   setEventType={field.onChange}
-                  options={EVENT_TYPES}
-                  label="Tipo de Evento"
-                  placeholder="Selecciona el tipo de evento"
+                  options={translatedEventTypes}
+                  label={t("eventType")}
+                  placeholder={t("eventTypePlaceholder")}
                 />
               </FormControl>
               <FormMessage />

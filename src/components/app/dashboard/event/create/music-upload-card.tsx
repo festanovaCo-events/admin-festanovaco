@@ -1,4 +1,7 @@
+"use client";
+
 import { FC } from "react";
+import { useTranslations } from "next-intl";
 import { Music } from "lucide-react";
 import {
   Card,
@@ -17,57 +20,64 @@ import {
 } from "@/components/shadcn/ui/form";
 import { cn } from "@/lib/utils";
 import { MusicUploadCardProps } from "@/interfaces";
+import {
+  MUSIC_OPTION_VALUES,
+  EVENT_CREATE_FIELD_NAMES,
+  INPUT_TYPES,
+  FILE_ACCEPT_TYPES,
+} from "@/constants";
 
 export const MusicUploadCard: FC<MusicUploadCardProps> = ({ form }) => {
-  const musicOption = form.watch("musicOption");
-  const musicFile = form.watch("musicFile");
+  const t = useTranslations("event.create.music");
+  const musicOption = form.watch(EVENT_CREATE_FIELD_NAMES.MUSIC_OPTION);
+  const musicFile = form.watch(EVENT_CREATE_FIELD_NAMES.MUSIC_FILE);
 
   return (
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Music className="h-5 w-5" /> Música del Evento
+          <Music className="h-5 w-5" /> {t("title")}
         </CardTitle>
         <CardDescription>
-          Agrega una canción especial para tu evento
+          {t("description")}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex gap-4 mb-4">
           <Button
             type="button"
-            variant={musicOption === "url" ? "default" : "outline"}
+            variant={musicOption === MUSIC_OPTION_VALUES.URL ? "default" : "outline"}
             onClick={() => {
-              form.setValue("musicOption", "url");
-              form.setValue("musicFile", undefined);
+              form.setValue(EVENT_CREATE_FIELD_NAMES.MUSIC_OPTION, MUSIC_OPTION_VALUES.URL);
+              form.setValue(EVENT_CREATE_FIELD_NAMES.MUSIC_FILE, undefined);
             }}
             className="flex-1"
           >
-            URL de Canción
+            {t("urlOption")}
           </Button>
           <Button
             type="button"
-            variant={musicOption === "file" ? "default" : "outline"}
+            variant={musicOption === MUSIC_OPTION_VALUES.FILE ? "default" : "outline"}
             onClick={() => {
-              form.setValue("musicOption", "file");
-              form.setValue("musicUrl", "");
+              form.setValue(EVENT_CREATE_FIELD_NAMES.MUSIC_OPTION, MUSIC_OPTION_VALUES.FILE);
+              form.setValue(EVENT_CREATE_FIELD_NAMES.MUSIC_URL, "");
             }}
             className="flex-1"
           >
-            Subir Archivo
+            {t("fileOption")}
           </Button>
         </div>
 
-        {musicOption === "url" ? (
+        {musicOption === MUSIC_OPTION_VALUES.URL ? (
           <FormField
             control={form.control}
-            name="musicUrl"
+            name={EVENT_CREATE_FIELD_NAMES.MUSIC_URL}
             render={({ field }) => (
               <FormItem>
                 <FormControl>
                   <Input
-                    type="url"
-                    placeholder="https://www.youtube.com/watch?v=..."
+                    type={INPUT_TYPES.URL}
+                    placeholder={t("urlPlaceholder")}
                     value={typeof field.value === "string" ? field.value : ""}
                     onChange={field.onChange}
                   />
@@ -79,12 +89,12 @@ export const MusicUploadCard: FC<MusicUploadCardProps> = ({ form }) => {
         ) : (
           <FormField
             control={form.control}
-            name="musicFile"
+            name={EVENT_CREATE_FIELD_NAMES.MUSIC_FILE}
             render={() => (
               <FormItem>
                 <FormControl>
                   <label
-                    htmlFor="musicFile"
+                    htmlFor={EVENT_CREATE_FIELD_NAMES.MUSIC_FILE}
                     className={cn(
                       "flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer bg-muted/50 hover:bg-muted transition-colors",
                       musicFile && "border-accent bg-accent/10"
@@ -100,25 +110,25 @@ export const MusicUploadCard: FC<MusicUploadCardProps> = ({ form }) => {
                         <>
                           <p className="mb-2 text-sm text-muted-foreground">
                             <span className="font-semibold">
-                              Click para subir
+                              {t("uploadClick")}
                             </span>{" "}
-                            o arrastra y suelta
+                            {t("uploadDragDrop")}
                           </p>
                           <p className="text-xs text-muted-foreground">
-                            MP3, WAV, OGG (MAX. 10MB)
+                            {t("uploadFormats")}
                           </p>
                         </>
                       )}
                     </div>
                     <input
-                      id="musicFile"
-                      type="file"
+                      id={EVENT_CREATE_FIELD_NAMES.MUSIC_FILE}
+                      type={INPUT_TYPES.FILE}
                       className="hidden"
-                      accept="audio/*"
+                      accept={FILE_ACCEPT_TYPES.AUDIO}
                       onChange={(e) => {
                         const file = e.target.files?.[0];
                         if (file) {
-                          form.setValue("musicFile", file);
+                          form.setValue(EVENT_CREATE_FIELD_NAMES.MUSIC_FILE, file);
                         }
                       }}
                     />
