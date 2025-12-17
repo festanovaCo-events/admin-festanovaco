@@ -80,6 +80,7 @@
   "event": {
     "create": {
       "title": "Crear Evento",
+      "breadcrumb": "Panel > Evento > Crear",
       "steps": {
         "step1": {
           "name": "Detalles del Evento",
@@ -191,6 +192,42 @@
       "aniversario": "Aniversario",
       "graduacion": "Graduación",
       "corporativo": "Corporativo"
+    },
+    "list": {
+      "title": "Lista",
+      "breadcrumb": "Panel > Evento > Lista",
+      "searchPlaceholder": "Buscar...",
+      "sortBy": "Ordenar por",
+      "sortOptions": {
+        "latest": "Más recientes",
+        "oldest": "Más antiguos",
+        "title": "Título"
+      },
+      "noEvents": "No hay eventos disponibles",
+      "noResultsFor": "No se encontraron resultados para"
+    },
+    "detail": {
+      "title": "Detalle del Evento",
+      "breadcrumb": "Panel > Evento > Lista > Detalle",
+      "notFound": "Evento no encontrado",
+      "eventDate": "Fecha del Evento",
+      "eventTime": "Hora del Evento",
+      "eventLocation": "Lugar del Evento",
+      "ceremony": {
+        "title": "Detalles de la Ceremonia",
+        "date": "Fecha de la Ceremonia",
+        "time": "Hora de la Ceremonia",
+        "location": "Lugar de la Ceremonia"
+      },
+      "gallery": {
+        "title": "Galería de Fotos"
+      },
+      "music": {
+        "title": "Música del Evento"
+      },
+      "footerPhoto": {
+        "title": "Pie de Foto"
+      }
     }
   },
   "profile": {

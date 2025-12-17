@@ -80,6 +80,7 @@
   "event": {
     "create": {
       "title": "Create Event",
+      "breadcrumb": "Dashboard > Event > Create",
       "steps": {
         "step1": {
           "name": "Event Details",
@@ -191,6 +192,42 @@
       "aniversario": "Anniversary",
       "graduacion": "Graduation",
       "corporativo": "Corporate"
+    },
+    "list": {
+      "title": "List",
+      "breadcrumb": "Dashboard > Event > List",
+      "searchPlaceholder": "Search...",
+      "sortBy": "Sort by",
+      "sortOptions": {
+        "latest": "Latest",
+        "oldest": "Oldest",
+        "title": "Title"
+      },
+      "noEvents": "No events available",
+      "noResultsFor": "No results found for"
+    },
+    "detail": {
+      "title": "Event Detail",
+      "breadcrumb": "Dashboard > Event > List > Detail",
+      "notFound": "Event not found",
+      "eventDate": "Event Date",
+      "eventTime": "Event Time",
+      "eventLocation": "Event Location",
+      "ceremony": {
+        "title": "Ceremony Details",
+        "date": "Ceremony Date",
+        "time": "Ceremony Time",
+        "location": "Ceremony Location"
+      },
+      "gallery": {
+        "title": "Photo Gallery"
+      },
+      "music": {
+        "title": "Event Music"
+      },
+      "footerPhoto": {
+        "title": "Footer Photo"
+      }
     }
   },
   "profile": {
