@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { PHOTO_UPLOAD_LIMITS, FILE_SIZE_LIMITS } from "@/constants";
 
 interface UseImageUploadProps {
   maxPhotos?: number;
@@ -6,8 +7,8 @@ interface UseImageUploadProps {
 }
 
 export const useImageUpload = ({
-  maxPhotos = 10,
-  maxPhotoSizeMB = 5,
+  maxPhotos = PHOTO_UPLOAD_LIMITS.GALLERY_MAX,
+  maxPhotoSizeMB = FILE_SIZE_LIMITS.IMAGE_MAX_MB,
 }: UseImageUploadProps = {}) => {
   const [photos, setPhotos] = useState<File[]>([]);
 

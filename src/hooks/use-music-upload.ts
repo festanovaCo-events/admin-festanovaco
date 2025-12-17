@@ -1,13 +1,20 @@
 import { useState } from "react";
+import {
+  MUSIC_OPTION_VALUES,
+  FILE_SIZE_LIMITS,
+  type MusicOptionValue,
+} from "@/constants";
 
 interface UseMusicUploadProps {
   maxMusicSizeMB?: number;
 }
 
 export const useMusicUpload = ({
-  maxMusicSizeMB = 10,
+  maxMusicSizeMB = FILE_SIZE_LIMITS.MUSIC_MAX_MB,
 }: UseMusicUploadProps = {}) => {
-  const [musicOption, setMusicOption] = useState<"url" | "file">("url");
+  const [musicOption, setMusicOption] = useState<MusicOptionValue>(
+    MUSIC_OPTION_VALUES.URL
+  );
   const [musicFile, setMusicFile] = useState<File | null>(null);
   const [musicUrl, setMusicUrl] = useState<string>("");
 
@@ -26,7 +33,7 @@ export const useMusicUpload = ({
   };
 
   const resetMusic = () => {
-    setMusicOption("url");
+    setMusicOption(MUSIC_OPTION_VALUES.URL);
     setMusicFile(null);
     setMusicUrl("");
   };
