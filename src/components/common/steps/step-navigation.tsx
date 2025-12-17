@@ -1,18 +1,7 @@
 import { FC } from "react";
 import { Check, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-interface Step {
-  id: number;
-  name: string;
-  description: string;
-}
-
-interface StepNavigationProps {
-  steps: Step[];
-  currentStep: number;
-  completedSteps: number[];
-}
+import { StepNavigationProps } from "@/interfaces";
 
 export const StepNavigation: FC<StepNavigationProps> = ({
   steps,

@@ -57,6 +57,7 @@ export const AppHeader = () => {
               alt={currentLanguage.label}
               width={30}
               height={30}
+              style={{ height: "auto" }}
               draggable={false}
             />
           </Button>

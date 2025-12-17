@@ -7,14 +7,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/shadcn/ui/select";
+import { SelectOptionProps } from "@/interfaces";
 
-interface SelectOptionProps {
-  eventType: string;
-  setEventType: (value: string) => void;
-  options: { value: string; label: string }[];
-  placeholder?: string;
-  label: string;
-}
 export const SelectOption: FC<SelectOptionProps> = ({
   options,
   eventType,

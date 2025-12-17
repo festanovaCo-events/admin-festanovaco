@@ -4,13 +4,7 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/shadcn/ui/avatar";
-
-interface AvatarProps {
-  src: string;
-  alt: string;
-  fallback: string;
-  className?: string;
-}
+import { AvatarProps } from "@/interfaces";
 
 export const Avatar: FC<AvatarProps> = ({ src, alt, fallback, className }) => {
   return (

@@ -1,11 +1,7 @@
 import { FC } from "react";
 import { Loader2 } from "lucide-react";
 import { Card, CardContent } from "@/components/shadcn/ui/card";
-
-interface LoaderMessageProps {
-  title: string;
-  description: string;
-}
+import { LoaderMessageProps } from "@/interfaces";
 
 export const LoaderMessage: FC<LoaderMessageProps> = ({
   title,

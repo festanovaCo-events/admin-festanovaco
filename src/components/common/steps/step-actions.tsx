@@ -4,15 +4,7 @@ import { FC } from "react";
 import { useTranslations } from "next-intl";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/shadcn/ui/button";
-
-interface StepActionsProps {
-  currentStep: number;
-  totalSteps: number;
-  isLoading?: boolean;
-  onNext?: () => void;
-  onPrevious?: () => void;
-  onCancel?: () => void;
-}
+import { StepActionsProps } from "@/interfaces";
 
 export const StepActions: FC<StepActionsProps> = ({
   currentStep,

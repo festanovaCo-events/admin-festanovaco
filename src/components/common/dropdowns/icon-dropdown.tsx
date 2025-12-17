@@ -27,6 +27,7 @@ export const IconDropdown: React.FC<IconDropdownProps> = ({
               alt={option.label}
               width={iconSize}
               height={iconSize}
+              style={{ height: "auto" }}
               draggable={false}
             />
             <span className="ml-2 text-sm font-normal">{option.label}</span>
