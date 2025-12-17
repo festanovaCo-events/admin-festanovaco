@@ -1,7 +1,216 @@
 {
   "common": {
-    "hello": "Hello worlsd!",
+    "hello": "Hello world!",
     "login": "Login",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "search": "Search...",
+    "noResults": "No results found.",
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "next": "Next",
+    "previous": "Previous",
+    "back": "Back",
+    "continue": "Continue",
+    "submit": "Submit",
+    "close": "Close",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "auth": {
+    "welcome": {
+      "title": "Hi, Welcome back",
+      "subtitle": "More effectively with optimized workflows."
+    },
+    "login": {
+      "title": "Sign in to your account",
+      "subtitle": "Don't have an account?",
+      "getStarted": "Get started",
+      "email": "Email address",
+      "emailPlaceholder": "you@example.com",
+      "password": "Password",
+      "forgotPassword": "Forgot password?",
+      "passwordPlaceholder": "6+ characters",
+      "signIn": "Sign in"
+    },
+    "register": {
+      "title": "Get started absolutely free",
+      "subtitle": "Already have an account?",
+      "signIn": "Sign in",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "password": "Password",
+      "createAccount": "Create account"
+    },
+    "forgotPassword": {
+      "title": "Forgot your password?",
+      "description": "Please enter the email address associated with your account and we'll email you a link to reset your password.",
+      "email": "Email address",
+      "emailPlaceholder": "example@gmail.com",
+      "sendRequest": "Send request",
+      "returnToSignIn": "Return to sign in"
+    },
+    "validation": {
+      "emailRequired": "Email is required",
+      "emailInvalid": "Enter a valid email address",
+      "passwordRequired": "Password is required",
+      "passwordMin": "Password must be at least 6 characters",
+      "firstNameRequired": "First name is required",
+      "lastNameRequired": "Last name is required"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "app": "App",
+    "analytics": "Analytics",
+    "overview": "OVERVIEW",
+    "management": "MANAGEMENT"
+  },
+  "sidebar": {
+    "event": "Event",
+    "list": "List",
+    "create": "Create",
+    "templateEmail": "Template email"
+  },
+  "event": {
+    "create": {
+      "title": "Create Event",
+      "steps": {
+        "step1": {
+          "name": "Event Details",
+          "description": "Basic information"
+        },
+        "step2": {
+          "name": "Date and Location",
+          "description": "When and where"
+        },
+        "step3": {
+          "name": "Photo Gallery",
+          "description": "Event images"
+        },
+        "step4": {
+          "name": "Music",
+          "description": "Special song"
+        }
+      },
+      "basicInfo": {
+        "title": "Event Details",
+        "description": "Basic information about your event",
+        "eventTitle": "Event Title",
+        "eventTitlePlaceholder": "E.g: Maria and John's Wedding",
+        "description": "Description",
+        "descriptionPlaceholder": "Describe your special event...",
+        "eventType": "Event Type",
+        "eventTypePlaceholder": "Select the event type"
+      },
+      "dateLocation": {
+        "title": "Date and Location",
+        "description": "When and where the event will take place",
+        "eventDate": "Event Date",
+        "eventTime": "Event Time",
+        "eventLocation": "Event Location",
+        "eventLocationPlaceholder": "E.g: The Garden Event Hall, Main Street 123"
+      },
+      "ceremony": {
+        "title": "Ceremony Details",
+        "description": "Specific information about the wedding ceremony",
+        "ceremonyDate": "Ceremony Date",
+        "ceremonyTime": "Ceremony Time",
+        "ceremonyLocation": "Ceremony Location",
+        "ceremonyLocationPlaceholder": "E.g: San Francisco Church, Central Avenue 456"
+      },
+      "gallery": {
+        "bannerTitle": "Event Banner",
+        "bannerDescription": "Upload a banner photo for your event",
+        "galleryTitle": "Photo Gallery",
+        "galleryDescription": "Upload up to 10 photos for your event ({count}/10)",
+        "footerTitle": "Event Footer Photo",
+        "footerDescription": "Upload a photo for your event footer",
+        "uploadClick": "Click to upload",
+        "uploadDragDrop": "or drag and drop",
+        "uploadFormats": "PNG, JPG, GIF (MAX. 5MB)"
+      },
+      "music": {
+        "title": "Event Music",
+        "description": "Add a special song for your event",
+        "urlOption": "Song URL",
+        "fileOption": "Upload File",
+        "urlPlaceholder": "https://www.youtube.com/watch?v=...",
+        "uploadClick": "Click to upload",
+        "uploadDragDrop": "or drag and drop",
+        "uploadFormats": "MP3, WAV, OGG (MAX. 10MB)"
+      },
+      "actions": {
+        "previous": "Previous",
+        "cancel": "Cancel",
+        "next": "Next",
+        "saving": "Saving...",
+        "create": "Create Event",
+        "creating": "Creating..."
+      },
+      "loader": {
+        "saving": "Saving information...",
+        "creating": "Creating event...",
+        "pleaseWait": "Please wait a moment"
+      },
+      "validation": {
+        "titleRequired": "Event title is required",
+        "titleMin": "Title must be at least 3 characters",
+        "titleMax": "Title cannot exceed 100 characters",
+        "descriptionRequired": "Description is required",
+        "descriptionMin": "Description must be at least 10 characters",
+        "descriptionMax": "Description cannot exceed 500 characters",
+        "eventTypeRequired": "Select an event type",
+        "dateRequired": "Select the event date",
+        "timeRequired": "Select the event time",
+        "locationRequired": "Event location is required",
+        "locationMin": "Location must be at least 3 characters",
+        "ceremonyDateRequired": "Select the ceremony date",
+        "ceremonyTimeRequired": "Select the ceremony time",
+        "ceremonyLocationRequired": "Select the ceremony location",
+        "bannerRequired": "You must upload an image for the banner",
+        "bannerMax": "You can only upload 1 image",
+        "galleryMin": "You must upload at least one image to the gallery",
+        "galleryMax": "Maximum 10 photos",
+        "footerRequired": "You must upload an image for the footer",
+        "footerMax": "You can only upload 1 image",
+        "musicUrlInvalid": "Must be a valid URL",
+        "fileInvalid": "Must be a valid file",
+        "imageSizeExceeded": "Image cannot exceed {size} MB",
+        "musicSizeExceeded": "Song cannot exceed {size} MB"
+      }
+    },
+    "types": {
+      "boda": "Wedding",
+      "cumpleanos": "Birthday",
+      "aniversario": "Anniversary",
+      "graduacion": "Graduation",
+      "corporativo": "Corporate"
+    }
+  },
+  "profile": {
+    "title": "Profile",
+    "home": "Home",
+    "profile": "Profile",
+    "projects": "Projects",
+    "subscription": "Subscription",
+    "security": "Security",
+    "accountSettings": "Account settings",
+    "logout": "Logout",
+    "upgrade": {
+      "title": "35% OFF",
+      "subtitle": "Power up Productivity!",
+      "button": "Upgrade to Pro"
+    }
+  },
+  "search": {
+    "placeholder": "Search...",
+    "noResults": "No results found.",
+    "esc": "Esc"
   }
 }

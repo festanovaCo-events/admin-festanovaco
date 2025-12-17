@@ -1,7 +1,216 @@
 {
   "common": {
-    "hello": "¡Hola munwdo!",
+    "hello": "¡Hola mundo!",
     "login": "Iniciar sesión",
-    "dashboard": "Panel"
+    "dashboard": "Panel",
+    "search": "Buscar...",
+    "noResults": "No se encontraron resultados.",
+    "loading": "Cargando...",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "create": "Crear",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "back": "Atrás",
+    "continue": "Continuar",
+    "submit": "Enviar",
+    "close": "Cerrar",
+    "confirm": "Confirmar",
+    "yes": "Sí",
+    "no": "No"
+  },
+  "auth": {
+    "welcome": {
+      "title": "Hola, Bienvenido de nuevo",
+      "subtitle": "Más efectivamente con flujos de trabajo optimizados."
+    },
+    "login": {
+      "title": "Inicia sesión en tu cuenta",
+      "subtitle": "¿No tienes una cuenta?",
+      "getStarted": "Comienza ahora",
+      "email": "Dirección de correo electrónico",
+      "emailPlaceholder": "tu@ejemplo.com",
+      "password": "Contraseña",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "passwordPlaceholder": "6+ caracteres",
+      "signIn": "Iniciar sesión"
+    },
+    "register": {
+      "title": "Comienza completamente gratis",
+      "subtitle": "¿Ya tienes una cuenta?",
+      "signIn": "Iniciar sesión",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "createAccount": "Crear cuenta"
+    },
+    "forgotPassword": {
+      "title": "¿Olvidaste tu contraseña?",
+      "description": "Por favor ingresa la dirección de correo electrónico asociada con tu cuenta y te enviaremos un enlace para restablecer tu contraseña.",
+      "email": "Dirección de correo electrónico",
+      "emailPlaceholder": "ejemplo@gmail.com",
+      "sendRequest": "Enviar solicitud",
+      "returnToSignIn": "Volver a iniciar sesión"
+    },
+    "validation": {
+      "emailRequired": "El correo electrónico es requerido",
+      "emailInvalid": "Ingresa una dirección de correo electrónico válida",
+      "passwordRequired": "La contraseña es requerida",
+      "passwordMin": "La contraseña debe tener al menos 6 caracteres",
+      "firstNameRequired": "El nombre es requerido",
+      "lastNameRequired": "El apellido es requerido"
+    }
+  },
+  "dashboard": {
+    "title": "Panel",
+    "app": "App",
+    "analytics": "Analíticas",
+    "overview": "RESUMEN",
+    "management": "GESTIÓN"
+  },
+  "sidebar": {
+    "event": "Evento",
+    "list": "Lista",
+    "create": "Crear",
+    "templateEmail": "Plantilla de correo"
+  },
+  "event": {
+    "create": {
+      "title": "Crear Evento",
+      "steps": {
+        "step1": {
+          "name": "Detalles del Evento",
+          "description": "Información básica"
+        },
+        "step2": {
+          "name": "Fecha y Ubicación",
+          "description": "Cuándo y dónde"
+        },
+        "step3": {
+          "name": "Galería de Fotos",
+          "description": "Imágenes del evento"
+        },
+        "step4": {
+          "name": "Música",
+          "description": "Canción especial"
+        }
+      },
+      "basicInfo": {
+        "title": "Detalles del Evento",
+        "description": "Información básica sobre tu evento",
+        "eventTitle": "Título del Evento",
+        "eventTitlePlaceholder": "Ej: Boda de María y Juan",
+        "description": "Descripción",
+        "descriptionPlaceholder": "Describe tu evento especial...",
+        "eventType": "Tipo de Evento",
+        "eventTypePlaceholder": "Selecciona el tipo de evento"
+      },
+      "dateLocation": {
+        "title": "Fecha y Ubicación",
+        "description": "Cuándo y dónde se realizará el evento",
+        "eventDate": "Fecha del Evento",
+        "eventTime": "Hora del Evento",
+        "eventLocation": "Lugar del Evento",
+        "eventLocationPlaceholder": "Ej: Salón de Eventos El Jardín, Calle Principal 123"
+      },
+      "ceremony": {
+        "title": "Detalles de la Ceremonia",
+        "description": "Información específica de la ceremonia de boda",
+        "ceremonyDate": "Fecha de la Ceremonia",
+        "ceremonyTime": "Hora de la Ceremonia",
+        "ceremonyLocation": "Lugar de la Ceremonia",
+        "ceremonyLocationPlaceholder": "Ej: Iglesia San Francisco, Avenida Central 456"
+      },
+      "gallery": {
+        "bannerTitle": "Banner del Evento",
+        "bannerDescription": "Sube una foto de banner para tu evento",
+        "galleryTitle": "Galería de Fotos",
+        "galleryDescription": "Sube hasta 10 fotos para tu evento ({count}/10)",
+        "footerTitle": "Pie de Foto del Evento",
+        "footerDescription": "Sube una foto para el pie de foto de tu evento",
+        "uploadClick": "Click para subir",
+        "uploadDragDrop": "o arrastra y suelta",
+        "uploadFormats": "PNG, JPG, GIF (MAX. 5MB)"
+      },
+      "music": {
+        "title": "Música del Evento",
+        "description": "Agrega una canción especial para tu evento",
+        "urlOption": "URL de Canción",
+        "fileOption": "Subir Archivo",
+        "urlPlaceholder": "https://www.youtube.com/watch?v=...",
+        "uploadClick": "Click para subir",
+        "uploadDragDrop": "o arrastra y suelta",
+        "uploadFormats": "MP3, WAV, OGG (MAX. 10MB)"
+      },
+      "actions": {
+        "previous": "Anterior",
+        "cancel": "Cancelar",
+        "next": "Siguiente",
+        "saving": "Guardando...",
+        "create": "Crear Evento",
+        "creating": "Creando..."
+      },
+      "loader": {
+        "saving": "Guardando información...",
+        "creating": "Creando evento...",
+        "pleaseWait": "Por favor espera un momento"
+      },
+      "validation": {
+        "titleRequired": "El título del evento es obligatorio",
+        "titleMin": "El título debe tener al menos 3 caracteres",
+        "titleMax": "El título no puede exceder los 100 caracteres",
+        "descriptionRequired": "La descripción es obligatoria",
+        "descriptionMin": "La descripción debe tener al menos 10 caracteres",
+        "descriptionMax": "La descripción no puede exceder los 500 caracteres",
+        "eventTypeRequired": "Selecciona un tipo de evento",
+        "dateRequired": "Selecciona la fecha del evento",
+        "timeRequired": "Selecciona la hora del evento",
+        "locationRequired": "El lugar del evento es obligatorio",
+        "locationMin": "El lugar debe tener al menos 3 caracteres",
+        "ceremonyDateRequired": "Selecciona la fecha de la ceremonia",
+        "ceremonyTimeRequired": "Selecciona la hora de la ceremonia",
+        "ceremonyLocationRequired": "Selecciona el lugar de la ceremonia",
+        "bannerRequired": "Debes subir una imagen para el banner",
+        "bannerMax": "Solo puedes subir 1 imagen",
+        "galleryMin": "Debes subir al menos una imagen a la galería",
+        "galleryMax": "Máximo 10 fotos",
+        "footerRequired": "Debes subir una imagen para el pie de foto",
+        "footerMax": "Solo puedes subir 1 imagen",
+        "musicUrlInvalid": "Debe ser una URL válida",
+        "fileInvalid": "Debe ser un archivo válido",
+        "imageSizeExceeded": "La imagen no puede superar los {size} MB",
+        "musicSizeExceeded": "La canción no puede superar los {size} MB"
+      }
+    },
+    "types": {
+      "boda": "Boda",
+      "cumpleanos": "Cumpleaños",
+      "aniversario": "Aniversario",
+      "graduacion": "Graduación",
+      "corporativo": "Corporativo"
+    }
+  },
+  "profile": {
+    "title": "Perfil",
+    "home": "Inicio",
+    "profile": "Perfil",
+    "projects": "Proyectos",
+    "subscription": "Suscripción",
+    "security": "Seguridad",
+    "accountSettings": "Configuración de cuenta",
+    "logout": "Cerrar sesión",
+    "upgrade": {
+      "title": "35% DESCUENTO",
+      "subtitle": "¡Aumenta la Productividad!",
+      "button": "Actualizar a Pro"
+    }
+  },
+  "search": {
+    "placeholder": "Buscar...",
+    "noResults": "No se encontraron resultados.",
+    "esc": "Esc"
   }
 }
