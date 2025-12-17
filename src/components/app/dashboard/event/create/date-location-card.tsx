@@ -10,14 +10,7 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/shadcn/ui/card";
-import { Input } from "@/components/shadcn/ui/input";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/shadcn/ui/form";
+import { FormFieldWithIcon } from "@/components/common";
 import { DateLocationCardProps } from "@/interfaces";
 import {
   EVENT_CREATE_FIELD_NAMES,
@@ -34,60 +27,29 @@ export const DateLocationCard: FC<DateLocationCardProps> = ({ form }) => {
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <FormField
-            control={form.control}
+          <FormFieldWithIcon
+            form={form}
             name={EVENT_CREATE_FIELD_NAMES.DATE}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel htmlFor={EVENT_CREATE_FIELD_NAMES.DATE}>
-                  <Calendar className="h-4 w-4" />
-                  {t("eventDate")}
-                </FormLabel>
-                <FormControl>
-                  <Input id={EVENT_CREATE_FIELD_NAMES.DATE} type={INPUT_TYPES.DATE} {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label={t("eventDate")}
+            icon={<Calendar className="h-4 w-4" />}
+            type={INPUT_TYPES.DATE}
           />
 
-          <FormField
-            control={form.control}
+          <FormFieldWithIcon
+            form={form}
             name={EVENT_CREATE_FIELD_NAMES.TIME}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel htmlFor={EVENT_CREATE_FIELD_NAMES.TIME}>
-                  <Clock className="h-4 w-4" />
-                  {t("eventTime")}
-                </FormLabel>
-                <FormControl>
-                  <Input id={EVENT_CREATE_FIELD_NAMES.TIME} type={INPUT_TYPES.TIME} {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label={t("eventTime")}
+            icon={<Clock className="h-4 w-4" />}
+            type={INPUT_TYPES.TIME}
           />
         </div>
 
-        <FormField
-          control={form.control}
+        <FormFieldWithIcon
+          form={form}
           name={EVENT_CREATE_FIELD_NAMES.LOCATION}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel htmlFor={EVENT_CREATE_FIELD_NAMES.LOCATION}>
-                <MapPin className="h-4 w-4" />
-                {t("eventLocation")}
-              </FormLabel>
-              <FormControl>
-                <Input
-                  id={EVENT_CREATE_FIELD_NAMES.LOCATION}
-                  placeholder={t("eventLocationPlaceholder")}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t("eventLocation")}
+          icon={<MapPin className="h-4 w-4" />}
+          placeholder={t("eventLocationPlaceholder")}
         />
       </CardContent>
     </Card>

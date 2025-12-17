@@ -18,7 +18,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/shadcn/ui/form";
-import { cn } from "@/lib/utils";
+import { FileUploadZone } from "@/components/common";
 import { MusicUploadCardProps } from "@/interfaces";
 import {
   MUSIC_OPTION_VALUES,
@@ -93,46 +93,22 @@ export const MusicUploadCard: FC<MusicUploadCardProps> = ({ form }) => {
             render={() => (
               <FormItem>
                 <FormControl>
-                  <label
-                    htmlFor={EVENT_CREATE_FIELD_NAMES.MUSIC_FILE}
-                    className={cn(
-                      "flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer bg-muted/50 hover:bg-muted transition-colors",
-                      musicFile && "border-accent bg-accent/10"
-                    )}
-                  >
-                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                      <Music className="w-8 h-8 mb-2 text-muted-foreground" />
-                      {musicFile ? (
-                        <p className="text-sm font-semibold text-foreground">
-                          {musicFile.name}
-                        </p>
-                      ) : (
-                        <>
-                          <p className="mb-2 text-sm text-muted-foreground">
-                            <span className="font-semibold">
-                              {t("uploadClick")}
-                            </span>{" "}
-                            {t("uploadDragDrop")}
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            {t("uploadFormats")}
-                          </p>
-                        </>
-                      )}
-                    </div>
-                    <input
-                      id={EVENT_CREATE_FIELD_NAMES.MUSIC_FILE}
-                      type={INPUT_TYPES.FILE}
-                      className="hidden"
-                      accept={FILE_ACCEPT_TYPES.AUDIO}
-                      onChange={(e) => {
-                        const file = e.target.files?.[0];
-                        if (file) {
-                          form.setValue(EVENT_CREATE_FIELD_NAMES.MUSIC_FILE, file);
-                        }
-                      }}
-                    />
-                  </label>
+                  <FileUploadZone
+                    id={EVENT_CREATE_FIELD_NAMES.MUSIC_FILE}
+                    accept={FILE_ACCEPT_TYPES.AUDIO}
+                    icon={<Music className="w-8 h-8" />}
+                    label={t("uploadClick")}
+                    description={t("uploadDragDrop")}
+                    formats={t("uploadFormats")}
+                    hasFile={!!musicFile}
+                    fileName={musicFile?.name}
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        form.setValue(EVENT_CREATE_FIELD_NAMES.MUSIC_FILE, file);
+                      }
+                    }}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

@@ -10,14 +10,7 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/shadcn/ui/card";
-import { Input } from "@/components/shadcn/ui/input";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/shadcn/ui/form";
+import { FormFieldWithIcon } from "@/components/common";
 import { CeremonyDetailsCardProps } from "@/interfaces";
 import {
   EVENT_CREATE_FIELD_NAMES,
@@ -36,60 +29,29 @@ export const CeremonyDetailsCard: FC<CeremonyDetailsCardProps> = ({ form }) => {
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <FormField
-            control={form.control}
+          <FormFieldWithIcon
+            form={form}
             name={EVENT_CREATE_FIELD_NAMES.CEREMONY_DATE}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel htmlFor={EVENT_CREATE_FIELD_NAMES.CEREMONY_DATE}>
-                  <Calendar className="h-4 w-4" />
-                  {t("ceremonyDate")}
-                </FormLabel>
-                <FormControl>
-                  <Input id={EVENT_CREATE_FIELD_NAMES.CEREMONY_DATE} type={INPUT_TYPES.DATE} {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label={t("ceremonyDate")}
+            icon={<Calendar className="h-4 w-4" />}
+            type={INPUT_TYPES.DATE}
           />
 
-          <FormField
-            control={form.control}
+          <FormFieldWithIcon
+            form={form}
             name={EVENT_CREATE_FIELD_NAMES.CEREMONY_TIME}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel htmlFor={EVENT_CREATE_FIELD_NAMES.CEREMONY_TIME}>
-                  <Clock className="h-4 w-4" />
-                  {t("ceremonyTime")}
-                </FormLabel>
-                <FormControl>
-                  <Input id={EVENT_CREATE_FIELD_NAMES.CEREMONY_TIME} type={INPUT_TYPES.TIME} {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label={t("ceremonyTime")}
+            icon={<Clock className="h-4 w-4" />}
+            type={INPUT_TYPES.TIME}
           />
         </div>
 
-        <FormField
-          control={form.control}
+        <FormFieldWithIcon
+          form={form}
           name={EVENT_CREATE_FIELD_NAMES.CEREMONY_LOCATION}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel htmlFor={EVENT_CREATE_FIELD_NAMES.CEREMONY_LOCATION}>
-                <MapPin className="h-4 w-4" />
-                {t("ceremonyLocation")}
-              </FormLabel>
-              <FormControl>
-                <Input
-                  id={EVENT_CREATE_FIELD_NAMES.CEREMONY_LOCATION}
-                  placeholder={t("ceremonyLocationPlaceholder")}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t("ceremonyLocation")}
+          icon={<MapPin className="h-4 w-4" />}
+          placeholder={t("ceremonyLocationPlaceholder")}
         />
       </CardContent>
     </Card>

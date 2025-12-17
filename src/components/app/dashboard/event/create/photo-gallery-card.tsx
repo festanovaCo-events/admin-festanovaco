@@ -11,6 +11,7 @@ import {
   CardContent,
 } from "@/components/shadcn/ui/card";
 import { FormField, FormItem, FormMessage } from "@/components/shadcn/ui/form";
+import { FileUploadZone } from "@/components/common";
 import { PhotoGalleryCardProps } from "@/interfaces";
 import { PHOTO_UPLOAD_LIMITS, INPUT_TYPES, FILE_ACCEPT_TYPES } from "@/constants";
 
@@ -40,38 +41,22 @@ export const PhotoGalleryCard: FC<PhotoGalleryCardProps> = ({
             </CardHeader>
             <CardContent className="space-y-4">
               {photos.length < PHOTO_UPLOAD_LIMITS.GALLERY_MAX && (
-                <div className="flex items-center justify-center w-full">
-                  <label
-                    htmlFor={inputId}
-                    className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer bg-muted/50 hover:bg-muted transition-colors"
-                  >
-                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                      <ImageIcon className="w-8 h-8 mb-2 text-muted-foreground" />
-                      <p className="mb-2 text-sm text-muted-foreground">
-                        <span className="font-semibold">{t("uploadClick")}</span>{" "}
-                        {t("uploadDragDrop")}
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        {t("uploadFormats")}
-                      </p>
-                    </div>
-                    <input
-                      id={inputId}
-                      name={inputId}
-                      type={INPUT_TYPES.FILE}
-                      className="hidden"
-                      accept={FILE_ACCEPT_TYPES.IMAGE}
-                      multiple
-                      onChange={(e) => {
-                        handlePhotoUpload(e);
-                        form.setValue(name, [
-                          ...photos,
-                          ...Array.from(e.target.files ?? []),
-                        ]);
-                      }}
-                    />
-                  </label>
-                </div>
+                <FileUploadZone
+                  id={inputId}
+                  accept={FILE_ACCEPT_TYPES.IMAGE}
+                  multiple
+                  icon={<ImageIcon className="w-8 h-8" />}
+                  label={t("uploadClick")}
+                  description={t("uploadDragDrop")}
+                  formats={t("uploadFormats")}
+                  onChange={(e) => {
+                    handlePhotoUpload(e);
+                    form.setValue(name, [
+                      ...photos,
+                      ...Array.from(e.target.files ?? []),
+                    ]);
+                  }}
+                />
               )}
 
               {photos.length > 0 && (
