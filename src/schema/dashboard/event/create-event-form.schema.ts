@@ -17,7 +17,9 @@ export const EVENT_TYPES = [
 const MAX_IMAGE_SIZE = FILE_SIZE_LIMITS.IMAGE_MAX_MB * 1024 * 1024;
 const MAX_MUSIC_SIZE = FILE_SIZE_LIMITS.MUSIC_MAX_MB * 1024 * 1024;
 
-const createImageFileSchema = (t: (key: string) => string) => {
+const createImageFileSchema = (
+  t: (key: string, params?: Record<string, any>) => string
+) => {
   return z
     .custom<File>()
     .refine((file) => file instanceof File, {
@@ -28,7 +30,9 @@ const createImageFileSchema = (t: (key: string) => string) => {
     });
 };
 
-const createMusicFileSchema = (t: (key: string) => string) => {
+const createMusicFileSchema = (
+  t: (key: string, params?: Record<string, any>) => string
+) => {
   return z
     .custom<File>()
     .refine((file) => file instanceof File || file === undefined, {
@@ -39,7 +43,9 @@ const createMusicFileSchema = (t: (key: string) => string) => {
     });
 };
 
-export const createEventFormSchema = (t: (key: string) => string) => {
+export const createEventFormSchema = (
+  t: (key: string, params?: Record<string, any>) => string
+) => {
   const imageFileSchema = createImageFileSchema(t);
   const musicFileSchema = createMusicFileSchema(t);
 

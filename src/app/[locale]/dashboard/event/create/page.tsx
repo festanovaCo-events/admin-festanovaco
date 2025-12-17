@@ -11,6 +11,7 @@ import { CeremonyDetailsCard } from "@/components/app/dashboard/event/create/cer
 import { DateLocationCard } from "@/components/app/dashboard/event/create/date-location-card";
 import { BasicInfoCard } from "@/components/app/dashboard/event/create/basic-info-card";
 import {
+  Breadcrumb,
   LoaderMessage,
   StepActions,
   StepNavigation,
@@ -202,6 +203,12 @@ const CreateEventPage = () => {
           description={t("loader.pleaseWait")}
         />
       )}
+
+      {/* Header */}
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold text-gray-900">{t("title")}</h1>
+        <Breadcrumb text={t("breadcrumb")} />
+      </div>
 
       <StepNavigation
         steps={steps}
