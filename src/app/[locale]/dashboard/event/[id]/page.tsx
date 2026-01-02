@@ -18,93 +18,13 @@ import {
   CardTitle,
 } from "@/components/shadcn/ui/card";
 import { InfoRow } from "@/components/common";
-import { getEventTypeColor } from "@/lib/utils";
-import { useEventDateFormatter } from "@/hooks";
-import { getEventById } from "@/services/event.service";
-import { Event } from "@/interfaces";
+import { formatDate, getEventTypeColor } from "@/lib/utils";
 import Image from "next/image";
+import { MOCK_EVENTS_DETAIL } from "@/constants";
 
-// Interfaz extendida para incluir campos adicionales del detalle
-interface EventDetail extends Event {
-  ceremonyDate?: string;
-  ceremonyTime?: string;
-  ceremonyLocation?: string;
-  gallery?: string[];
-  footerPhoto?: string;
-  musicUrl?: string;
-}
-
-// Mock data extendido - Reemplazar con datos reales de la API
-const getEventDetailById = (id: string): EventDetail | null => {
-  const mockEventDetails: Record<string, EventDetail> = {
-    "1": {
-      id: "1",
-      title: "Boda de María y Juan",
-      description:
-        "Una celebración especial para unir nuestras vidas en matrimonio. Esperamos compartir este momento único con todos nuestros seres queridos. Este será un día lleno de amor, alegría y momentos inolvidables que recordaremos por siempre.",
-      eventType: "boda",
-      date: "2025-12-17",
-      time: "18:00",
-      location: "Salón de Eventos El Jardín, Calle Principal 123",
-      ceremonyDate: "2025-12-17",
-      ceremonyTime: "16:00",
-      ceremonyLocation: "Iglesia San Francisco, Avenida Central 456",
-      bannerPhoto:
-        "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800",
-      gallery: [
-        "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=400",
-        "https://images.unsplash.com/photo-1519741497674-611481863552?w=400",
-        "https://images.unsplash.com/photo-1511578314322-379afb476865?w=400",
-      ],
-      footerPhoto:
-        "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800",
-      musicUrl: "https://www.youtube.com/watch?v=example",
-      createdAt: "2025-12-01",
-    },
-    "2": {
-      id: "2",
-      title: "Cumpleaños de Ana - 30 años",
-      description:
-        "Celebración de cumpleaños número 30. Una noche llena de música, baile y diversión con todos nuestros amigos y familia.",
-      eventType: "cumpleanos",
-      date: "2025-12-20",
-      time: "20:00",
-      location: "Restaurante La Terraza, Avenida Central 456",
-      bannerPhoto:
-        "https://images.unsplash.com/photo-1511578314322-379afb476865?w=800",
-      gallery: [
-        "https://images.unsplash.com/photo-1511578314322-379afb476865?w=400",
-        "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=400",
-      ],
-      footerPhoto:
-        "https://images.unsplash.com/photo-1511578314322-379afb476865?w=800",
-      musicUrl: "https://www.youtube.com/watch?v=example2",
-      createdAt: "2025-11-25",
-    },
-    "3": {
-      id: "3",
-      title: "Aniversario de Bodas - 25 años",
-      description:
-        "Celebrando 25 años de amor y compromiso. Una velada romántica para recordar todos los momentos especiales que hemos compartido.",
-      eventType: "aniversario",
-      date: "2025-12-25",
-      time: "19:00",
-      location: "Hotel Grand Palace, Boulevard Norte 789",
-      bannerPhoto:
-        "https://images.unsplash.com/photo-1519741497674-611481863552?w=800",
-      gallery: [
-        "https://images.unsplash.com/photo-1519741497674-611481863552?w=400",
-        "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=400",
-        "https://images.unsplash.com/photo-1511578314322-379afb476865?w=400",
-        "https://images.unsplash.com/photo-1519741497674-611481863552?w=400",
-      ],
-      footerPhoto:
-        "https://images.unsplash.com/photo-1519741497674-611481863552?w=800",
-      musicUrl: "https://www.youtube.com/watch?v=example3",
-      createdAt: "2025-11-20",
-    },
-  };
-  return mockEventDetails[id] || null;
+// Mock data - Reemplazar con datos reales de la API
+const getEventById = (id: string) => {
+  return MOCK_EVENTS_DETAIL[id] || null;
 };
 
 export default function EventDetailPage() {
@@ -113,10 +33,9 @@ export default function EventDetailPage() {
   const t = useTranslations("event.detail");
   const tTypes = useTranslations("event.types");
   const tCommon = useTranslations("common");
-  const formatEventDate = useEventDateFormatter("long");
 
   const eventId = params.id as string;
-  const event = getEventDetailById(eventId);
+  const event = getEventById(eventId);
 
   if (!event) {
     return (
@@ -126,6 +45,10 @@ export default function EventDetailPage() {
       </div>
     );
   }
+
+  const formatEventDate = (dateString: string) => {
+    return formatDate(dateString, { locale: "es-ES", format: "long" });
+  };
 
   return (
     <div className="space-y-6">
@@ -219,12 +142,12 @@ export default function EventDetailPage() {
                 <InfoRow
                   icon={<Clock className="h-5 w-5" />}
                   label={t("ceremony.time")}
-                  value={event.ceremonyTime || ""}
+                  value={event.ceremonyTime}
                 />
                 <InfoRow
                   icon={<MapPin className="h-5 w-5" />}
                   label={t("ceremony.location")}
-                  value={event.ceremonyLocation || ""}
+                  value={event.ceremonyLocation}
                 />
               </CardContent>
             </Card>

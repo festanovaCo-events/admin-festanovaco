@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { Search, ArrowUpDown } from "lucide-react";
 import { Input } from "@/components/shadcn/ui/input";
@@ -12,18 +12,56 @@ import {
   SelectValue,
 } from "@/components/shadcn/ui/select";
 import { EventCard } from "@/components/app/dashboard/event/list/event-card";
-import { useEventFilter } from "@/hooks";
-import { getAllEvents } from "@/services/event.service";
-import { SortOption } from "@/interfaces";
+import { formatDate } from "@/lib/utils";
+import { Event, SortOption } from "@/interfaces";
+import { MOCK_EVENTS } from "@/constants";
 
 export default function EventListPage() {
   const t = useTranslations("event.list");
+  const tTypes = useTranslations("event.types");
+  const tCommon = useTranslations("common");
 
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<SortOption>("latest");
 
-  const events = getAllEvents();
-  const filteredAndSortedEvents = useEventFilter(events, searchQuery, sortBy);
+  const filteredAndSortedEvents = useMemo(() => {
+    let filtered = MOCK_EVENTS;
+
+    // Filtrar por búsqueda
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(
+        (event) =>
+          event.title.toLowerCase().includes(query) ||
+          event.description.toLowerCase().includes(query) ||
+          event.location.toLowerCase().includes(query)
+      );
+    }
+
+    // Ordenar
+    const sorted = [...filtered].sort((a, b) => {
+      switch (sortBy) {
+        case "latest":
+          return (
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
+        case "oldest":
+          return (
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+          );
+        case "title":
+          return a.title.localeCompare(b.title);
+        default:
+          return 0;
+      }
+    });
+
+    return sorted;
+  }, [searchQuery, sortBy]);
+
+  const formatEventDate = (dateString: string) => {
+    return formatDate(dateString, { locale: "es-ES", format: "short" });
+  };
 
   return (
     <div className="space-y-6">
@@ -69,7 +107,12 @@ export default function EventListPage() {
       {filteredAndSortedEvents.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {filteredAndSortedEvents.map((event) => (
-            <EventCard key={event.id} event={event} />
+            <EventCard
+              key={event.id}
+              event={event}
+              formatDate={formatEventDate}
+              getEventTypeLabel={(type) => tTypes(type as any)}
+            />
           ))}
         </div>
       ) : (

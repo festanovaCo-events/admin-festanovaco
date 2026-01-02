@@ -14,5 +14,6 @@ export type SortOption = "latest" | "oldest" | "title";
 
 export interface EventCardProps {
   event: Event;
+  formatDate: (date: string) => string;
+  getEventTypeLabel: (type: string) => string;
 }
-
