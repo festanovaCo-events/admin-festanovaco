@@ -1,5 +1,5 @@
 import { NavSection } from "@/interfaces";
-import { CalendarPlus, CircleGauge, MailPlus, TrendingUp } from "lucide-react";
+import { CalendarPlus, CircleGauge, MailPlus, TrendingUp, FileSpreadsheet } from "lucide-react";
 
 export const NAV_SECTIONS: NavSection[] = [
   {
@@ -25,6 +25,11 @@ export const NAV_SECTIONS: NavSection[] = [
         title: "Template email",
         href: "/dashboard/template-email",
         icon: MailPlus,
+      },
+      {
+        title: "File Manager",
+        href: "/dashboard/file-manager",
+        icon: FileSpreadsheet,
       },
     ],
   },

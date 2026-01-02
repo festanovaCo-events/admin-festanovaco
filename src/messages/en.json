@@ -75,7 +75,8 @@
     "event": "Event",
     "list": "List",
     "create": "Create",
-    "templateEmail": "Template email"
+    "templateEmail": "Template email",
+    "fileManager": "File Manager"
   },
   "event": {
     "create": {
@@ -249,5 +250,27 @@
     "placeholder": "Search...",
     "noResults": "No results found.",
     "esc": "Esc"
+  },
+  "fileManager": {
+    "title": "Excel File Manager",
+    "breadcrumb": "Dashboard > File Manager",
+    "upload": {
+      "title": "Upload Excel Files",
+      "label": "Click to upload",
+      "description": "or drag and drop",
+      "formats": "XLSX, XLS (MAX. 10MB)"
+    },
+    "files": {
+      "title": "Files",
+      "searchPlaceholder": "Search files...",
+      "empty": "No files uploaded",
+      "noResults": "No files found",
+      "noResultsFor": "No results found for",
+      "download": "Download"
+    },
+    "delete": {
+      "title": "Delete",
+      "description": "Are you sure you want to delete this file?"
+    }
   }
 }

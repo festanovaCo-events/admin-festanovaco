@@ -38,12 +38,13 @@ export const AppSidebar = () => {
 
   const getTranslatedTitle = (title: string): string => {
     const translations: Record<string, string> = {
-      "App": t("app"),
-      "Analytics": t("analytics"),
-      "Event": tSidebar("event"),
-      "List": tSidebar("list"),
-      "Create": tSidebar("create"),
+      App: t("app"),
+      Analytics: t("analytics"),
+      Event: tSidebar("event"),
+      List: tSidebar("list"),
+      Create: tSidebar("create"),
       "Template email": tSidebar("templateEmail"),
+      "File Manager": tSidebar("fileManager"),
     };
     return translations[title] || title;
   };
@@ -64,7 +65,9 @@ export const AppSidebar = () => {
                 className="px-3 py-5 [&[data-active='true']]:bg-[rgba(0,167,111,18%)]"
               >
                 {Icon && <Icon className={getItemClasses(isActive)} />}
-                <span className={getItemClasses(isActive)}>{translatedTitle}</span>
+                <span className={getItemClasses(isActive)}>
+                  {translatedTitle}
+                </span>
                 <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
               </SidebarMenuButton>
             </CollapsibleTrigger>
@@ -127,7 +130,11 @@ export const AppSidebar = () => {
             key={label}
           >
             <SidebarGroupLabel className="text-[#919EAB] font-bold group-data-[collapsible=icon]:hidden">
-              {label === "OVERVIEW" ? t("overview") : label === "MANAGEMENT" ? t("management") : label}
+              {label === "OVERVIEW"
+                ? t("overview")
+                : label === "MANAGEMENT"
+                ? t("management")
+                : label}
             </SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>{items.map((item) => renderItem(item))}</SidebarMenu>

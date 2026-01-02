@@ -75,7 +75,8 @@
     "event": "Evento",
     "list": "Lista",
     "create": "Crear",
-    "templateEmail": "Plantilla de correo"
+    "templateEmail": "Plantilla de correo",
+    "fileManager": "Gestor de Archivos"
   },
   "event": {
     "create": {
@@ -249,5 +250,27 @@
     "placeholder": "Buscar...",
     "noResults": "No se encontraron resultados.",
     "esc": "Esc"
+  },
+  "fileManager": {
+    "title": "Gestor de Archivos Excel",
+    "breadcrumb": "Panel > Gestor de Archivos",
+    "upload": {
+      "title": "Subir Archivos Excel",
+      "label": "Click para subir",
+      "description": "o arrastra y suelta",
+      "formats": "XLSX, XLS (MAX. 10MB)"
+    },
+    "files": {
+      "title": "Archivos",
+      "searchPlaceholder": "Buscar archivos...",
+      "empty": "No hay archivos subidos",
+      "noResults": "No se encontraron archivos",
+      "noResultsFor": "No se encontraron resultados para",
+      "download": "Descargar"
+    },
+    "delete": {
+      "title": "Eliminar",
+      "description": "¿Estás seguro de que quieres eliminar este archivo?"
+    }
   }
 }
