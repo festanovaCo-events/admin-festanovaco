@@ -5,3 +5,4 @@ export * from './sidebar';
 export * from './types';
 export * from './event-create';
 export * from './event-mocks';
+export * from './guest-list-mocks';

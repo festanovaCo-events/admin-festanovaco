@@ -13,7 +13,11 @@ import {
 import { FormField, FormItem, FormMessage } from "@/components/shadcn/ui/form";
 import { FileUploadZone } from "@/components/common";
 import { PhotoGalleryCardProps } from "@/interfaces";
-import { PHOTO_UPLOAD_LIMITS, INPUT_TYPES, FILE_ACCEPT_TYPES } from "@/constants";
+import {
+  PHOTO_UPLOAD_LIMITS,
+  INPUT_TYPES,
+  FILE_ACCEPT_TYPES,
+} from "@/constants";
 
 export const PhotoGalleryCard: FC<PhotoGalleryCardProps> = ({
   form,

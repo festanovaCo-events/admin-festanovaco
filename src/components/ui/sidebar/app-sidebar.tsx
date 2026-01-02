@@ -45,6 +45,7 @@ export const AppSidebar = () => {
       Create: tSidebar("create"),
       "Template email": tSidebar("templateEmail"),
       "File Manager": tSidebar("fileManager"),
+      "Guest List": tSidebar("guestList"),
     };
     return translations[title] || title;
   };

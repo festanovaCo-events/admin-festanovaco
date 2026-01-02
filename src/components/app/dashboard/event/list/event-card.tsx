@@ -2,24 +2,21 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 import { Calendar, MapPin, Clock } from "lucide-react";
 import { Card, CardContent } from "@/components/shadcn/ui/card";
 import { Skeleton } from "@/components/shadcn/ui/skeleton";
-import { cn, getEventTypeColor, truncateText } from "@/lib/utils";
-import { useEventDateFormatter } from "@/hooks";
+import { cn, getEventTypeColor } from "@/lib/utils";
 import Image from "next/image";
-import { Event } from "@/interfaces";
+import { EventCardProps } from "@/interfaces";
 
-interface EventCardProps {
-  event: Event;
-}
-
-export const EventCard: React.FC<EventCardProps> = ({ event }) => {
+export const EventCard: React.FC<EventCardProps> = ({
+  event,
+  formatDate,
+  getEventTypeLabel,
+}) => {
   const router = useRouter();
   const locale = useLocale();
-  const tTypes = useTranslations("event.types");
-  const formatDate = useEventDateFormatter("short");
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   const handleClick = () => {
@@ -30,8 +27,9 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
     setIsImageLoaded(true);
   };
 
-  const getEventTypeLabel = (type: string) => {
-    return tTypes(type as any);
+  const truncateDescription = (text: string, maxLength: number = 120) => {
+    if (text.length <= maxLength) return text;
+    return text.substring(0, maxLength) + "...";
   };
 
   return (
@@ -83,7 +81,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
           </div>
 
           <p className="text-sm text-gray-600 line-clamp-2">
-            {truncateText(event.description)}
+            {truncateDescription(event.description)}
           </p>
 
           <div className="space-y-2 pt-2 border-t">

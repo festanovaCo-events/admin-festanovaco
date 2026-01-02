@@ -76,7 +76,8 @@
     "list": "Lista",
     "create": "Crear",
     "templateEmail": "Plantilla de correo",
-    "fileManager": "Gestor de Archivos"
+    "fileManager": "Gestor de Archivos",
+    "guestList": "Lista de Invitados"
   },
   "event": {
     "create": {
@@ -271,6 +272,52 @@
     "delete": {
       "title": "Eliminar",
       "description": "¿Estás seguro de que quieres eliminar este archivo?"
+    }
+  },
+  "guestList": {
+    "title": "Listas de Invitados",
+    "breadcrumb": "Panel > Listas de Invitados",
+    "searchPlaceholder": "Buscar listas...",
+    "sortBy": "Ordenar por",
+    "sortOptions": {
+      "latest": "Más recientes",
+      "oldest": "Más antiguos",
+      "name": "Nombre"
+    },
+    "noLists": "No hay listas de invitados disponibles",
+    "noResultsFor": "No se encontraron resultados para",
+    "details": {
+      "title": "Detalle de Lista de Invitados",
+      "breadcrumb": "Panel > Listas de Invitados",
+      "back": "Volver",
+      "listInfo": "Información de la Lista",
+      "createdBy": "Creado por",
+      "createdAt": "Fecha de creación",
+      "totalGuests": "Total de invitados",
+      "total": "Total",
+      "confirmed": "Confirmados",
+      "pending": "Pendientes",
+      "searchPlaceholder": "Buscar invitados por nombre, email o teléfono...",
+      "all": "Todos",
+      "table": {
+        "name": "Nombre",
+        "email": "Email",
+        "phone": "Teléfono",
+        "status": "Estado",
+        "confirmedStatus": "Confirmado",
+        "pendingStatus": "Pendiente",
+        "confirmationDate": "Fecha de Confirmación",
+        "numberOfSeats": "Número de Cupos",
+        "subGuests": "Subinvitados",
+        "subGuestsList": "Subinvitados",
+        "seat": "cupo",
+        "seats": "cupos"
+      },
+      "noGuests": "No se encontraron invitados",
+      "noGuestsSearch": "Intenta con otros términos de búsqueda",
+      "showing": "Mostrando",
+      "of": "de",
+      "guests": "invitados"
     }
   }
 }

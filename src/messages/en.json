@@ -76,7 +76,8 @@
     "list": "List",
     "create": "Create",
     "templateEmail": "Template email",
-    "fileManager": "File Manager"
+    "fileManager": "File Manager",
+    "guestList": "Guest List"
   },
   "event": {
     "create": {
@@ -271,6 +272,52 @@
     "delete": {
       "title": "Delete",
       "description": "Are you sure you want to delete this file?"
+    }
+  },
+  "guestList": {
+    "title": "Guest Lists",
+    "breadcrumb": "Dashboard > Guest Lists",
+    "searchPlaceholder": "Search lists...",
+    "sortBy": "Sort by",
+    "sortOptions": {
+      "latest": "Latest",
+      "oldest": "Oldest",
+      "name": "Name"
+    },
+    "noLists": "No guest lists available",
+    "noResultsFor": "No results found for",
+    "details": {
+      "title": "Guest List Detail",
+      "breadcrumb": "Dashboard > Guest Lists",
+      "back": "Back",
+      "listInfo": "List Information",
+      "createdBy": "Created by",
+      "createdAt": "Creation Date",
+      "totalGuests": "Total Guests",
+      "total": "Total",
+      "confirmed": "Confirmed",
+      "pending": "Pending",
+      "searchPlaceholder": "Search guests by name, email or phone...",
+      "all": "All",
+      "table": {
+        "name": "Name",
+        "email": "Email",
+        "phone": "Phone",
+        "status": "Status",
+        "confirmedStatus": "Confirmed",
+        "pendingStatus": "Pending",
+        "confirmationDate": "Confirmation Date",
+        "numberOfSeats": "Number of Seats",
+        "subGuests": "Sub-guests",
+        "subGuestsList": "Sub-guests",
+        "seat": "seat",
+        "seats": "seats"
+      },
+      "noGuests": "No guests found",
+      "noGuestsSearch": "Try different search terms",
+      "showing": "Showing",
+      "of": "of",
+      "guests": "guests"
     }
   }
 }
