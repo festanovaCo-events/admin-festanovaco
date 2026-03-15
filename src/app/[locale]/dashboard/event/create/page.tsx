@@ -150,7 +150,6 @@ const CreateEventPage = () => {
     if (isValid) {
       setIsLoading(true);
 
-      // Simulate API call to save step data
       await new Promise((resolve) =>
         setTimeout(resolve, EVENT_CREATE_TIMEOUTS.STEP_SAVE)
       );
@@ -178,7 +177,6 @@ const CreateEventPage = () => {
   const onSubmit = async (data: CreateEventFormValues) => {
     setIsLoading(true);
 
-    // Simulate final API call
     await new Promise((resolve) =>
       setTimeout(resolve, EVENT_CREATE_TIMEOUTS.FINAL_SUBMIT)
     );
@@ -189,7 +187,6 @@ const CreateEventPage = () => {
 
     console.log("Form submitted:", data);
     setIsLoading(false);
-    // Handle form submission
   };
 
   const TITLE_LOADER =
@@ -204,7 +201,6 @@ const CreateEventPage = () => {
         />
       )}
 
-      {/* Header */}
       <div className="mb-6">
         <h1 className="text-3xl font-bold text-gray-900">{t("title")}</h1>
         <Breadcrumb text={t("breadcrumb")} />

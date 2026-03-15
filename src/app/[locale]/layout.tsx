@@ -5,6 +5,7 @@ import { Nunito } from "next/font/google";
 import "./globals.css";
 import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
+import { Toaster } from "@/components/shadcn/ui/sonner";
 
 const nunito = Nunito({
   variable: "--font-nunito",
@@ -38,6 +39,7 @@ export default async function RootLayout({
       <body className={`${nunito.variable} font-sans antialiased`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
+          <Toaster />
         </NextIntlClientProvider>
       </body>
     </html>

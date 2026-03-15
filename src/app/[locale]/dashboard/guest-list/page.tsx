@@ -25,7 +25,6 @@ export default function GuestListPage() {
   const filteredAndSortedLists = useMemo(() => {
     let filtered = MOCK_GUEST_LISTS;
 
-    // Filtrar por búsqueda
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(
@@ -36,7 +35,6 @@ export default function GuestListPage() {
       );
     }
 
-    // Ordenar
     const sorted = [...filtered].sort((a, b) => {
       switch (sortBy) {
         case "latest":

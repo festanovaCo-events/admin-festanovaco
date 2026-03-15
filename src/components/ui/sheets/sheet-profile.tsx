@@ -16,10 +16,16 @@ import {
 import { Avatar } from "@/components/common";
 import { MENU_ITEMS } from "@/constants";
 import { ProfileDrawerProps } from "@/interfaces";
+import { logout } from "@/services/auth.service";
 
 export const SheetProfile: FC<ProfileDrawerProps> = ({ children }) => {
   const [open, setOpen] = useState(false);
   const t = useTranslations("profile");
+
+  const handleLogout = () => {
+    logout();
+    setOpen(false);
+  };
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -153,6 +159,7 @@ export const SheetProfile: FC<ProfileDrawerProps> = ({ children }) => {
           <div className="px-2 pb-4">
             <Button
               variant="outline"
+              onClick={handleLogout}
               className="w-full border-red-200 bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700"
             >
               {t("logout")}

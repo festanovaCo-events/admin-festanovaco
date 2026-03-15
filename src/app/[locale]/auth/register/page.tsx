@@ -18,13 +18,20 @@ import {
 } from "@/components/shadcn/ui/form";
 import { AuthLayout } from "@/components/layouts";
 import { createRegisterSchema, type RegisterFormValues } from "@/schema";
+import { register, formatRegisterData, type RegisterResponse } from "@/services/auth.service";
+import { useRouter } from "@/i18n/routing";
+import { useAsyncRequest } from "@/hooks";
 
 const RegisterPage = () => {
   const t = useTranslations("auth.register");
+  const tSuccess = useTranslations("auth.success");
+  const tValidation = useTranslations("auth.validation");
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
 
   const form = useForm<RegisterFormValues>({
-    resolver: zodResolver(createRegisterSchema(t)),
+    resolver: zodResolver(createRegisterSchema(tValidation)),
+    mode: "onChange",
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -33,8 +40,22 @@ const RegisterPage = () => {
     },
   });
 
-  const onSubmit = (data: RegisterFormValues) => {
-    console.log("Registration data:", data);
+  const { isLoading, execute } = useAsyncRequest<RegisterResponse>({
+    successMessage: tSuccess("register"),
+    onSuccess: () => {
+      router.push("/dashboard");
+    },
+  });
+
+  const onSubmit = async (data: RegisterFormValues) => {
+    const registerData = formatRegisterData(
+      data.firstName,
+      data.lastName,
+      data.email,
+      data.password
+    );
+
+    await execute(() => register(registerData));
   };
 
   return (
@@ -69,6 +90,7 @@ const RegisterPage = () => {
                         <FormControl>
                           <Input
                             placeholder={t("firstName")}
+                            disabled={isLoading}
                             {...field}
                           />
                         </FormControl>
@@ -87,6 +109,7 @@ const RegisterPage = () => {
                         <FormControl>
                           <Input
                             placeholder={t("lastName")}
+                            disabled={isLoading}
                             {...field}
                           />
                         </FormControl>
@@ -106,7 +129,9 @@ const RegisterPage = () => {
                       <FormLabel>{t("email")}</FormLabel>
                       <FormControl>
                         <Input
+                          type="email"
                           placeholder={t("email")}
+                          disabled={isLoading}
                           {...field}
                         />
                       </FormControl>
@@ -120,7 +145,7 @@ const RegisterPage = () => {
                 <FormField
                   control={form.control}
                   name="password"
-                  render={({ field }) => (
+                  render={({ field, fieldState }) => (
                     <FormItem>
                       <FormLabel>{t("password")}</FormLabel>
                       <FormControl>
@@ -128,12 +153,15 @@ const RegisterPage = () => {
                           <Input
                             type={showPassword ? "text" : "password"}
                             placeholder={t("password")}
+                            disabled={isLoading}
+                            aria-invalid={fieldState.invalid}
                             {...field}
                           />
                           <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer"
+                            disabled={isLoading}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer disabled:opacity-50"
                           >
                             {showPassword ? (
                               <EyeOff className="w-5 h-5" />
@@ -151,9 +179,10 @@ const RegisterPage = () => {
 
               <Button
                 type="submit"
-                className="w-full bg-gray-900 hover:bg-gray-800 text-white h-12 text-base cursor-pointer"
+                disabled={isLoading}
+                className="w-full bg-gray-900 hover:bg-gray-800 text-white h-12 text-base cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {t("createAccount")}
+                {isLoading ? t("creatingAccount") || "Creando cuenta..." : t("createAccount")}
               </Button>
             </form>
           </Form>

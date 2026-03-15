@@ -15,14 +15,12 @@ export const useGuestFilter = ({
   const filteredGuests = useMemo(() => {
     let filtered = guests;
 
-    // Filtrar por estado
     if (statusFilter === "confirmed") {
       filtered = filtered.filter((g) => g.confirmed);
     } else if (statusFilter === "pending") {
       filtered = filtered.filter((g) => !g.confirmed);
     }
 
-    // Filtrar por búsqueda
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(

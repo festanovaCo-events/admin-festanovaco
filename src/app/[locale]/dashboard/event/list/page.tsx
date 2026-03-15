@@ -27,7 +27,6 @@ export default function EventListPage() {
   const filteredAndSortedEvents = useMemo(() => {
     let filtered = MOCK_EVENTS;
 
-    // Filtrar por búsqueda
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(
@@ -38,7 +37,6 @@ export default function EventListPage() {
       );
     }
 
-    // Ordenar
     const sorted = [...filtered].sort((a, b) => {
       switch (sortBy) {
         case "latest":

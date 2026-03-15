@@ -21,8 +21,9 @@ import { createForgotPasswordSchema, type ForgotPasswordValues } from "@/schema"
 
 const ForgotPasswordPage = () => {
   const t = useTranslations("auth.forgotPassword");
+  const tValidation = useTranslations("auth.validation");
   const form = useForm<ForgotPasswordValues>({
-    resolver: zodResolver(createForgotPasswordSchema(t)),
+    resolver: zodResolver(createForgotPasswordSchema(tValidation)),
     defaultValues: {
       email: "",
     },
