@@ -22,7 +22,6 @@ import { formatDate, getEventTypeColor } from "@/lib/utils";
 import Image from "next/image";
 import { MOCK_EVENTS_DETAIL } from "@/constants";
 
-// Mock data - Reemplazar con datos reales de la API
 const getEventById = (id: string) => {
   return MOCK_EVENTS_DETAIL[id] || null;
 };

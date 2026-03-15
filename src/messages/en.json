@@ -35,7 +35,8 @@
       "password": "Password",
       "forgotPassword": "Forgot password?",
       "passwordPlaceholder": "6+ characters",
-      "signIn": "Sign in"
+      "signIn": "Sign in",
+      "signingIn": "Signing in..."
     },
     "register": {
       "title": "Get started absolutely free",
@@ -45,7 +46,8 @@
       "lastName": "Last name",
       "email": "Email",
       "password": "Password",
-      "createAccount": "Create account"
+      "createAccount": "Create account",
+      "creatingAccount": "Creating account..."
     },
     "forgotPassword": {
       "title": "Forgot your password?",
@@ -62,6 +64,14 @@
       "passwordMin": "Password must be at least 6 characters",
       "firstNameRequired": "First name is required",
       "lastNameRequired": "Last name is required"
+    },
+    "success": {
+      "login": "Successfully signed in",
+      "register": "Account created successfully"
+    },
+    "errors": {
+      "loginFailed": "Failed to sign in. Please check your credentials",
+      "registerFailed": "Failed to create account. Please try again"
     }
   },
   "dashboard": {

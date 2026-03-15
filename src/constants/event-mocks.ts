@@ -5,7 +5,6 @@ import { Event } from "@/interfaces";
  * Estos datos se usan para desarrollo y pruebas
  */
 
-// Mock de eventos básicos (para lista)
 export const MOCK_EVENTS: Event[] = [
   {
     id: "1",
@@ -48,7 +47,6 @@ export const MOCK_EVENTS: Event[] = [
   },
 ];
 
-// Mock de eventos con detalles completos (para página de detalle)
 export const MOCK_EVENTS_DETAIL: Record<string, any> = {
   "1": {
     id: "1",

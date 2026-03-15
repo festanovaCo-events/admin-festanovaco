@@ -2,13 +2,8 @@ import { z } from "zod";
 
 export const createForgotPasswordSchema = (t: (key: string) => string) => {
   return z.object({
-    email: z.email(t("validation.emailInvalid")),
+    email: z.string().min(1, t("emailRequired")).email(t("emailInvalid")),
   });
 };
 
-// Default schema for backwards compatibility (will use English)
-export const forgotPasswordSchema = z.object({
-  email: z.email("Enter a valid email address"),
-});
-
-export type ForgotPasswordValues = z.infer<typeof forgotPasswordSchema>;
+export type ForgotPasswordValues = z.infer<ReturnType<typeof createForgotPasswordSchema>>;

@@ -17,7 +17,6 @@ export const usePagination = ({
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
-  // Resetear a página 1 cuando cambian las dependencias
   useEffect(() => {
     setCurrentPage(1);
   }, resetDependencies);

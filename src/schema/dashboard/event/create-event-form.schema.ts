@@ -125,7 +125,6 @@ export const createEventFormSchema = (
     });
 };
 
-// Default schema for backwards compatibility (will use Spanish)
 const imageFileSchemaDefault = z
   .custom<File>()
   .refine((file) => file instanceof File, {
@@ -210,7 +209,6 @@ export const createEventFormSchemaDefault = z
     }
   });
 
-// Base type that doesn't depend on translations
 export type CreateEventFormValues = z.infer<
   typeof createEventFormSchemaDefault
 >;

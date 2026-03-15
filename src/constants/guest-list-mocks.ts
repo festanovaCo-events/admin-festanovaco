@@ -1,6 +1,5 @@
 import { GuestList, Guest } from "@/interfaces";
 
-// Función para generar invitados automáticamente
 const generateGuests = (
   total: number,
   confirmed: number,
@@ -112,7 +111,6 @@ const generateGuests = (
     "Cano",
   ];
 
-  // Generar confirmados
   for (let i = 0; i < confirmed; i++) {
     const firstName = firstNames[i % firstNames.length];
     const lastName =
@@ -120,12 +118,9 @@ const generateGuests = (
     const confirmedDate = new Date(2024, 0, 15 + (i % 30));
     confirmedDate.setHours(10 + (i % 12), (i * 5) % 60);
 
-    // Algunos invitados tienen cupos adicionales (30% de probabilidad)
     const hasExtraSeats = i % 3 === 0;
-    // Usar un cálculo determinista basado en el índice en lugar de Math.random()
-    const numberOfSeats = hasExtraSeats ? (i % 3) + 2 : 1; // 2, 3 o 4 cupos de forma determinista
+    const numberOfSeats = hasExtraSeats ? (i % 3) + 2 : 1;
 
-    // Generar subinvitados si tiene cupos adicionales
     const subGuests =
       hasExtraSeats && numberOfSeats > 1
         ? Array.from({ length: numberOfSeats - 1 }, (_, subIndex) => {
@@ -165,7 +160,6 @@ const generateGuests = (
     });
   }
 
-  // Generar pendientes
   const pending = total - confirmed;
   for (let i = 0; i < pending; i++) {
     const firstName = firstNames[(confirmed + i) % firstNames.length];
@@ -174,10 +168,8 @@ const generateGuests = (
         Math.floor((confirmed + i) / firstNames.length) % lastNames.length
       ];
 
-    // Algunos pendientes también tienen cupos
     const hasExtraSeats = i % 4 === 0;
-    // Usar un cálculo determinista basado en el índice en lugar de Math.random()
-    const numberOfSeats = hasExtraSeats ? (i % 2) + 2 : 1; // 2 o 3 cupos de forma determinista
+    const numberOfSeats = hasExtraSeats ? (i % 2) + 2 : 1;
 
     const subGuests =
       hasExtraSeats && numberOfSeats > 1

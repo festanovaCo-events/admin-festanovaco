@@ -17,7 +17,6 @@ import {
 } from "@/components/app/dashboard/guest-list";
 import { useGuestFilter, usePagination } from "@/hooks";
 
-// Mock data - Reemplazar con datos reales de la API
 const getGuestListById = (id: string) => {
   return MOCK_GUEST_LISTS.find((list) => list.id === id) || null;
 };
@@ -55,14 +54,12 @@ export default function GuestListDetailPage() {
     );
   }
 
-  // Filtrar invitados
   const { filteredGuests } = useGuestFilter({
     guests: guestList.guests,
     searchQuery,
     statusFilter,
   });
 
-  // Paginación
   const { currentPage, totalPages, startIndex, endIndex, handlePageChange } =
     usePagination({
       totalItems: filteredGuests.length,

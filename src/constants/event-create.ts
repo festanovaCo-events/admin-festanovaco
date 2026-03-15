@@ -3,7 +3,6 @@
  * Centralizes all magic strings, numbers, and static data
  */
 
-// Music Option Values
 export const MUSIC_OPTION_VALUES = {
   URL: "url",
   FILE: "file",
@@ -11,7 +10,6 @@ export const MUSIC_OPTION_VALUES = {
 
 export type MusicOptionValue = typeof MUSIC_OPTION_VALUES[keyof typeof MUSIC_OPTION_VALUES];
 
-// Event Type Values
 export const EVENT_TYPE_VALUES = {
   WEDDING: "boda",
   BIRTHDAY: "cumpleanos",
@@ -22,35 +20,24 @@ export const EVENT_TYPE_VALUES = {
 
 export type EventTypeValue = typeof EVENT_TYPE_VALUES[keyof typeof EVENT_TYPE_VALUES];
 
-// Form Field Names
 export const EVENT_CREATE_FIELD_NAMES = {
-  // Step 1 - Basic Info
   TITLE: "title",
   DESCRIPTION: "description",
   EVENT_TYPE: "eventType",
-  
-  // Step 2 - Date and Location
   DATE: "date",
   TIME: "time",
   LOCATION: "location",
-  
-  // Step 2 - Ceremony (for weddings)
   CEREMONY_DATE: "ceremonyDate",
   CEREMONY_TIME: "ceremonyTime",
   CEREMONY_LOCATION: "ceremonyLocation",
-  
-  // Step 3 - Photos
   GALLERY: "gallery",
   BANNER_PHOTO: "bannerPhoto",
   FOOTER_PHOTO: "footerPhoto",
-  
-  // Step 4 - Music
   MUSIC_OPTION: "musicOption",
   MUSIC_URL: "musicUrl",
   MUSIC_FILE: "musicFile",
 } as const;
 
-// Field Groups for Validation
 export const EVENT_CREATE_FIELD_GROUPS = {
   STEP_1: [
     EVENT_CREATE_FIELD_NAMES.TITLE,
@@ -77,7 +64,6 @@ export const EVENT_CREATE_FIELD_GROUPS = {
   ],
 };
 
-// Step IDs
 export const EVENT_CREATE_STEP_IDS = {
   STEP_1: 1,
   STEP_2: 2,
@@ -87,26 +73,22 @@ export const EVENT_CREATE_STEP_IDS = {
 
 export type EventCreateStepId = typeof EVENT_CREATE_STEP_IDS[keyof typeof EVENT_CREATE_STEP_IDS];
 
-// Photo Upload Limits
 export const PHOTO_UPLOAD_LIMITS = {
   BANNER_MAX: 1,
   GALLERY_MAX: 10,
   FOOTER_MAX: 1,
 } as const;
 
-// File Size Limits (in MB)
 export const FILE_SIZE_LIMITS = {
   IMAGE_MAX_MB: 5,
   MUSIC_MAX_MB: 10,
 } as const;
 
-// Timeouts (in milliseconds)
 export const EVENT_CREATE_TIMEOUTS = {
   STEP_SAVE: 1500,
   FINAL_SUBMIT: 2000,
 } as const;
 
-// Default Form Values
 export const EVENT_CREATE_DEFAULT_VALUES = {
   TITLE: "",
   DESCRIPTION: "",
@@ -125,7 +107,6 @@ export const EVENT_CREATE_DEFAULT_VALUES = {
   MUSIC_FILE: undefined,
 };
 
-// Input Types
 export const INPUT_TYPES = {
   DATE: "date",
   TIME: "time",
@@ -134,13 +115,11 @@ export const INPUT_TYPES = {
   TEXT: "text",
 } as const;
 
-// Accept Types for File Inputs
 export const FILE_ACCEPT_TYPES = {
   IMAGE: "image/*",
   AUDIO: "audio/*",
 } as const;
 
-// Step Configuration Keys (for translations)
 export const EVENT_CREATE_STEP_KEYS = {
   STEP_1: "steps.step1",
   STEP_2: "steps.step2",

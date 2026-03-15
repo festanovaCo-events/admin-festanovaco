@@ -36,18 +36,15 @@ export const GuestDetailModal: React.FC<GuestDetailModalProps> = ({
   const confirmedGuests = guestList.guests.filter((g) => g.confirmed);
   const pendingGuests = guestList.guests.filter((g) => !g.confirmed);
 
-  // Filtrar invitados según búsqueda y estado
   const filteredGuests = useMemo(() => {
     let filtered = guestList.guests;
 
-    // Filtrar por estado
     if (filterStatus === "confirmed") {
       filtered = confirmedGuests;
     } else if (filterStatus === "pending") {
       filtered = pendingGuests;
     }
 
-    // Filtrar por búsqueda
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(

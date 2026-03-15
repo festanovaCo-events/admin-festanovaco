@@ -18,21 +18,35 @@ import {
 } from "@/components/shadcn/ui/form";
 import { AuthLayout } from "@/components/layouts";
 import { createLoginSchema, type LoginFormValues } from "@/schema";
+import { login, type LoginResponse } from "@/services/auth.service";
+import { useRouter } from "@/i18n/routing";
+import { useAsyncRequest } from "@/hooks";
 
 const LoginPage = () => {
   const t = useTranslations("auth.login");
+  const tSuccess = useTranslations("auth.success");
+  const tValidation = useTranslations("auth.validation");
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
 
   const form = useForm<LoginFormValues>({
-    resolver: zodResolver(createLoginSchema(t)),
+    resolver: zodResolver(createLoginSchema(tValidation)),
+    mode: "onChange",
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const onSubmit = (data: LoginFormValues) => {
-    console.log("Login attempt:", data);
+  const { isLoading, execute } = useAsyncRequest<LoginResponse>({
+    successMessage: tSuccess("login"),
+    onSuccess: () => {
+      router.push("/dashboard");
+    },
+  });
+
+  const onSubmit = async (data: LoginFormValues) => {
+    await execute(() => login(data));
   };
 
   return (
@@ -66,6 +80,7 @@ const LoginPage = () => {
                       <Input
                         type="email"
                         placeholder={t("emailPlaceholder")}
+                        disabled={isLoading}
                         {...field}
                       />
                     </FormControl>
@@ -77,7 +92,7 @@ const LoginPage = () => {
               <FormField
                 control={form.control}
                 name="password"
-                render={({ field }) => (
+                render={({ field, fieldState }) => (
                   <FormItem>
                     <div className="flex items-center justify-between">
                       <FormLabel>{t("password")}</FormLabel>
@@ -93,12 +108,15 @@ const LoginPage = () => {
                         <Input
                           type={showPassword ? "text" : "password"}
                           placeholder={t("passwordPlaceholder")}
+                          disabled={isLoading}
+                          aria-invalid={fieldState.invalid}
                           {...field}
                         />
                         <button
                           type="button"
                           onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer"
+                          disabled={isLoading}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer disabled:opacity-50"
                         >
                           {showPassword ? (
                             <EyeOff className="w-5 h-5" />
@@ -115,9 +133,10 @@ const LoginPage = () => {
 
               <Button
                 type="submit"
-                className="w-full bg-gray-900 hover:bg-gray-800 text-white h-12 text-base cursor-pointer"
+                disabled={isLoading}
+                className="w-full bg-gray-900 hover:bg-gray-800 text-white h-12 text-base cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {t("signIn")}
+                {isLoading ? t("signingIn") || "Iniciando sesión..." : t("signIn")}
               </Button>
             </form>
           </Form>

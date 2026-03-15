@@ -8,12 +8,11 @@ import { Avatar, IconDropdown } from "@/components/common";
 import { SearchPanels } from "../search/search-panels";
 import { SheetProfile } from "../sheets/sheet-profile";
 import { FLAGS } from "@/constants";
-import { usePathname, useRouter } from "@/i18n/routing"; // ✅ Usa el de next-intl/navigation
+import { usePathname, useRouter } from "@/i18n/routing";
 import { useLocale } from "next-intl";
 
 export const AppHeader = () => {
   const [openSearch, setOpenSearch] = useState(false);
-  // const [selectedFlag, setSelectedFlag] = useState(FLAGS[0]);
 
   const pathname = usePathname();
   const router = useRouter();
@@ -45,7 +44,6 @@ export const AppHeader = () => {
           </kbd>
         </Button>
 
-        {/* 🌍 Dropdown de idiomas */}
         <IconDropdown
           options={FLAGS}
           onSelect={(option) => handleLanguageChange(option.value)}

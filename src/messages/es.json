@@ -35,7 +35,8 @@
       "password": "Contraseña",
       "forgotPassword": "¿Olvidaste tu contraseña?",
       "passwordPlaceholder": "6+ caracteres",
-      "signIn": "Iniciar sesión"
+      "signIn": "Iniciar sesión",
+      "signingIn": "Iniciando sesión..."
     },
     "register": {
       "title": "Comienza completamente gratis",
@@ -45,7 +46,8 @@
       "lastName": "Apellido",
       "email": "Correo electrónico",
       "password": "Contraseña",
-      "createAccount": "Crear cuenta"
+      "createAccount": "Crear cuenta",
+      "creatingAccount": "Creando cuenta..."
     },
     "forgotPassword": {
       "title": "¿Olvidaste tu contraseña?",
@@ -62,6 +64,14 @@
       "passwordMin": "La contraseña debe tener al menos 6 caracteres",
       "firstNameRequired": "El nombre es requerido",
       "lastNameRequired": "El apellido es requerido"
+    },
+    "success": {
+      "login": "Sesión iniciada correctamente",
+      "register": "Cuenta creada correctamente"
+    },
+    "errors": {
+      "loginFailed": "Error al iniciar sesión. Por favor, verifica tus credenciales",
+      "registerFailed": "Error al crear la cuenta. Por favor, intenta nuevamente"
     }
   },
   "dashboard": {
