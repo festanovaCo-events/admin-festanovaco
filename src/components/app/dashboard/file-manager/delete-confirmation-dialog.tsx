@@ -19,7 +19,7 @@ export const DeleteConfirmationDialog: FC<DeleteConfirmationDialogProps> = ({
   onConfirm,
 }) => {
   const t = useTranslations("fileManager.delete");
-  const tCommon = useTranslations("common");
+  const tCommon = useTranslations("common.actions");
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

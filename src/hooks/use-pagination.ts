@@ -1,10 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-
-interface UsePaginationProps {
-  totalItems: number;
-  itemsPerPage: number;
-  resetDependencies?: unknown[];
-}
+import type { UsePaginationProps } from "@/interfaces/hooks";
 
 export const usePagination = ({
   totalItems,

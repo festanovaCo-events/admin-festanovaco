@@ -3,13 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Guest } from "@/interfaces";
 import { GuestTableRow } from "./guest-table-row";
-
-interface GuestTableProps {
-  guests: Guest[];
-  expandedGuests: Set<string>;
-  onToggleGuestExpansion: (guestId: string) => void;
-  searchQuery?: string;
-}
+import type { GuestTableProps } from "@/interfaces/components/app/dashboard/guest-list";
 
 export const GuestTable: React.FC<GuestTableProps> = ({
   guests,

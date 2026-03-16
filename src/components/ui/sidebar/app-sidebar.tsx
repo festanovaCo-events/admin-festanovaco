@@ -134,8 +134,8 @@ export const AppSidebar = () => {
               {label === "OVERVIEW"
                 ? t("overview")
                 : label === "MANAGEMENT"
-                ? t("management")
-                : label}
+                  ? t("management")
+                  : label}
             </SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>{items.map((item) => renderItem(item))}</SidebarMenu>

@@ -20,7 +20,7 @@ export const FileItem: FC<FileItemProps> = ({
   formatFileSize,
 }) => {
   const t = useTranslations("fileManager.files");
-  const tCommon = useTranslations("common");
+  const tCommon = useTranslations("common.actions");
 
   return (
     <div className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition-colors">

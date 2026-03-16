@@ -1,10 +1,7 @@
 "use client";
 
 import { SubGuest } from "@/interfaces";
-
-interface SubGuestCardProps {
-  subGuest: SubGuest;
-}
+import type { SubGuestCardProps } from "@/interfaces/components/app/dashboard/guest-list";
 
 export const SubGuestCard: React.FC<SubGuestCardProps> = ({ subGuest }) => {
   return (

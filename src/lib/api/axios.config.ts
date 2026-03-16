@@ -1,31 +1,29 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import { getAuthToken, removeAuthToken } from '@/lib/utils/cookies';
 import { redirectToLogin } from '@/lib/utils/auth';
+import { useAuthStore } from '@/stores/auth';
+import { TIMEOUTS } from '@/constants';
 
-/**
- * Configuración de la instancia de axios
- * Incluye interceptores para manejo automático de tokens y errores
- */
-
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3000';
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export const apiClient = axios.create({
   baseURL: API_BASE,
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 10000,
+  timeout: TIMEOUTS.AXIOS_DEFAULT,
 });
 
-/**
- * Interceptor de request: Inyecta el token de autenticación automáticamente
- */
 apiClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const token = getAuthToken();
     
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
+    }
+    
+    if (config.data instanceof FormData && config.headers) {
+      delete config.headers['Content-Type'];
     }
     
     return config;
@@ -35,9 +33,6 @@ apiClient.interceptors.request.use(
   }
 );
 
-/**
- * Interceptor de response: Maneja errores de autenticación
- */
 apiClient.interceptors.response.use(
   (response) => {
     return response;
@@ -45,6 +40,7 @@ apiClient.interceptors.response.use(
   (error: AxiosError) => {
     if (error.response?.status === 401) {
       removeAuthToken();
+      useAuthStore.getState().logout();
       
       if (typeof window !== 'undefined') {
         redirectToLogin();

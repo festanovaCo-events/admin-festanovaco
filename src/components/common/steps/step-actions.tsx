@@ -14,7 +14,7 @@ export const StepActions: FC<StepActionsProps> = ({
   onPrevious,
   onCancel,
 }) => {
-  const t = useTranslations("event.create.actions");
+  const t = useTranslations("common.actions");
   const isFirstStep = currentStep === 1;
   const isLastStep = currentStep === totalSteps;
 

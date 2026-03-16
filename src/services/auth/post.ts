@@ -1,7 +1,7 @@
 import { apiClient } from '@/lib/api';
 import { API_ROUTES } from '@/lib/api/routes';
-import { setAuthToken, removeAuthToken } from '@/lib/utils/cookies';
-import { redirectToLogin } from '@/lib/utils/auth';
+import { setAuthToken } from '@/lib/utils/cookies';
+import { useAuthStore } from '@/stores/auth';
 import type {
   LoginRequest,
   RegisterRequest,
@@ -9,11 +9,10 @@ import type {
   RegisterResponse,
 } from '@/interfaces';
 
-export type { LoginResponse, RegisterResponse };
-
 /**
- * Servicio de autenticación
+ * Servicio de autenticación - Métodos POST
  * Maneja las operaciones de login y registro
+ * Solo contiene llamados al API
  */
 
 /**
@@ -33,6 +32,7 @@ export async function login(
 
     if (response.data.success && response.data.data.token) {
       setAuthToken(response.data.data.token);
+      useAuthStore.getState().setUser(response.data.data);
     }
 
     return response.data;
@@ -58,40 +58,11 @@ export async function register(
 
     if (response.data.success && response.data.data.token) {
       setAuthToken(response.data.data.token);
+      useAuthStore.getState().setUser(response.data.data);
     }
 
     return response.data;
   } catch (error) {
     throw error;
   }
-}
-
-/**
- * Convierte los datos del formulario de registro (firstName + lastName) 
- * al formato esperado por el API (name)
- * @param firstName - Nombre del usuario
- * @param lastName - Apellido del usuario
- * @returns Objeto con name combinado
- */
-export function formatRegisterData(
-  firstName: string,
-  lastName: string,
-  email: string,
-  password: string
-): RegisterRequest {
-  return {
-    name: `${firstName} ${lastName}`.trim(),
-    email,
-    password,
-  };
-}
-
-/**
- * Cierra la sesión del usuario
- * Elimina el token de autenticación y redirige al login
- * Usa la misma lógica del interceptor para respetar el locale y evitar loops
- */
-export function logout(): void {
-  removeAuthToken();
-  redirectToLogin(true);
 }

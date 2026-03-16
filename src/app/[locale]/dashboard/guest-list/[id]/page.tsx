@@ -28,7 +28,7 @@ export default function GuestListDetailPage() {
   const t = useTranslations("guestList.details");
   const tTable = useTranslations("guestList.details.table");
   const tTypes = useTranslations("event.types");
-  const tCommon = useTranslations("common");
+  const tCommon = useTranslations("common.actions");
   const tPage = useTranslations("guestList");
 
   const [searchQuery, setSearchQuery] = useState("");

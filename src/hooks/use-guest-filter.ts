@@ -1,11 +1,5 @@
 import { useMemo } from "react";
-import { Guest } from "@/interfaces";
-
-interface UseGuestFilterProps {
-  guests: Guest[];
-  searchQuery: string;
-  statusFilter: "all" | "confirmed" | "pending";
-}
+import type { UseGuestFilterProps } from "@/interfaces/hooks";
 
 export const useGuestFilter = ({
   guests,

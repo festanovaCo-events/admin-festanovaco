@@ -6,18 +6,23 @@
     "search": "Buscar...",
     "noResults": "No se encontraron resultados.",
     "loading": "Cargando...",
-    "save": "Guardar",
-    "cancel": "Cancelar",
-    "delete": "Eliminar",
-    "edit": "Editar",
-    "create": "Crear",
-    "next": "Siguiente",
-    "previous": "Anterior",
-    "back": "Atrás",
-    "continue": "Continuar",
-    "submit": "Enviar",
-    "close": "Cerrar",
-    "confirm": "Confirmar",
+    "actions": {
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "delete": "Eliminar",
+      "edit": "Editar",
+      "create": "Crear",
+      "next": "Siguiente",
+      "previous": "Anterior",
+      "back": "Atrás",
+      "continue": "Continuar",
+      "submit": "Enviar",
+      "close": "Cerrar",
+      "confirm": "Confirmar",
+      "saving": "Guardando...",
+      "creating": "Creando...",
+      "config": "Configurar"
+    },
     "yes": "Sí",
     "no": "No"
   },
@@ -116,7 +121,7 @@
         "description": "Información básica sobre tu evento",
         "eventTitle": "Título del Evento",
         "eventTitlePlaceholder": "Ej: Boda de María y Juan",
-        "description": "Descripción",
+        "descriptionLabel": "Descripción",
         "descriptionPlaceholder": "Describe tu evento especial...",
         "eventType": "Tipo de Evento",
         "eventTypePlaceholder": "Selecciona el tipo de evento"
@@ -159,17 +164,55 @@
         "uploadFormats": "MP3, WAV, OGG (MAX. 10MB)"
       },
       "actions": {
-        "previous": "Anterior",
-        "cancel": "Cancelar",
-        "next": "Siguiente",
-        "saving": "Guardando...",
-        "create": "Crear Evento",
+        "createEvent": "Crear Evento",
+        "create": "Crear",
         "creating": "Creando..."
       },
       "loader": {
         "saving": "Guardando información...",
         "creating": "Creando evento...",
         "pleaseWait": "Por favor espera un momento"
+      },
+      "success": {
+        "created": "Evento creado exitosamente",
+        "configured": "Evento configurado exitosamente"
+      },
+      "error": {
+        "createFailed": "Error al crear el evento. Por favor, intenta nuevamente",
+        "uploadFailed": "Error al subir algunos archivos del evento",
+        "configureFailed": "Error al configurar el evento. Por favor, intenta nuevamente",
+        "noEventId": "No se encontró el ID del evento",
+        "onlyWedding": "La configuración solo está disponible para bodas",
+        "noAccountId": "No se encontró la cuenta de usuario. Por favor, inicia sesión nuevamente"
+      },
+      "simple": {
+        "title": "Crear Evento",
+        "description": "Completa la información básica del evento",
+        "fields": {
+          "title": "Título del Evento",
+          "titlePlaceholder": "Ej: Boda de Juan y María",
+          "type": "Tipo de Evento",
+          "typePlaceholder": "Selecciona el tipo de evento",
+          "mode": "Modo del Evento",
+          "modePlaceholder": "Selecciona el modo del evento",
+          "isPublic": "Evento Público",
+          "capacity": "Capacidad",
+          "capacityPlaceholder": "Ej: 150"
+        },
+        "modes": {
+          "onSite": "Presencial",
+          "online": "En línea",
+          "hybrid": "Híbrido"
+        },
+        "validation": {
+          "titleRequired": "El título del evento es obligatorio",
+          "titleMin": "El título debe tener al menos 3 caracteres",
+          "titleMax": "El título no puede exceder los 100 caracteres",
+          "typeRequired": "Selecciona un tipo de evento",
+          "modeRequired": "Selecciona un modo de evento",
+          "capacityMin": "La capacidad debe ser al menos 1",
+          "capacityMax": "La capacidad no puede exceder 10000"
+        }
       },
       "validation": {
         "titleRequired": "El título del evento es obligatorio",
@@ -203,7 +246,12 @@
       "cumpleanos": "Cumpleaños",
       "aniversario": "Aniversario",
       "graduacion": "Graduación",
-      "corporativo": "Corporativo"
+      "corporativo": "Corporativo",
+      "wedding": "Boda",
+      "birthday": "Cumpleaños",
+      "anniversary": "Aniversario",
+      "graduation": "Graduación",
+      "corporate": "Corporativo"
     },
     "list": {
       "title": "Lista",
@@ -216,7 +264,8 @@
         "title": "Título"
       },
       "noEvents": "No hay eventos disponibles",
-      "noResultsFor": "No se encontraron resultados para"
+      "noResultsFor": "No se encontraron resultados para",
+      "errorLoadingEvents": "Error al cargar los eventos. Por favor, intenta nuevamente."
     },
     "detail": {
       "title": "Detalle del Evento",
@@ -239,6 +288,70 @@
       },
       "footerPhoto": {
         "title": "Pie de Foto"
+      }
+    },
+    "config": {
+      "title": "Configurar Evento",
+      "breadcrumb": "Panel > Evento > Configurar",
+      "selectEventType": {
+        "title": "Seleccionar Tipo de Evento",
+        "description": "Elige qué tipo de evento deseas configurar",
+        "label": "Tipo de Evento",
+        "placeholder": "Selecciona el tipo de evento",
+        "comingSoon": "La configuración para este tipo de evento estará disponible próximamente."
+      },
+      "basicInfo": {
+        "title": "Información de la Boda",
+        "description": "Datos básicos de los novios",
+        "husbandName": "Nombre del Novio",
+        "husbandNamePlaceholder": "Ej: Juan Pérez",
+        "wifeName": "Nombre de la Novia",
+        "wifeNamePlaceholder": "Ej: María García",
+        "quote": "Cita/Frase",
+        "quotePlaceholder": "Ej: El amor no se mira el uno al otro, sino juntos en la misma dirección"
+      },
+      "dateLocation": {
+        "title": "Fecha y Ubicación",
+        "description": "Cuándo y dónde se realizará la fiesta",
+        "partyDateTime": "Fecha y Hora de la Fiesta",
+        "addressParty": "Dirección de la Fiesta",
+        "addressPartyPlaceholder": "Ej: Salón Los Jardines, Av. Principal 123"
+      },
+      "ceremony": {
+        "title": "Detalles de la Ceremonia",
+        "description": "Información específica de la ceremonia de boda",
+        "weddingDateTime": "Fecha y Hora de la Ceremonia",
+        "addressWedding": "Dirección de la Ceremonia",
+        "addressWeddingPlaceholder": "Ej: Iglesia San Juan, Calle Central 456"
+      },
+      "validation": {
+        "husbandNameRequired": "El nombre del novio es obligatorio",
+        "husbandNameMin": "El nombre del novio debe tener al menos 2 caracteres",
+        "husbandNameMax": "El nombre del novio no puede exceder los 100 caracteres",
+        "wifeNameRequired": "El nombre de la novia es obligatorio",
+        "wifeNameMin": "El nombre de la novia debe tener al menos 2 caracteres",
+        "wifeNameMax": "El nombre de la novia no puede exceder los 100 caracteres",
+        "quoteRequired": "La cita es obligatoria",
+        "quoteMin": "La cita debe tener al menos 10 caracteres",
+        "quoteMax": "La cita no puede exceder los 500 caracteres",
+        "partyDateTimeRequired": "La fecha y hora de la fiesta es obligatoria",
+        "addressPartyRequired": "La dirección de la fiesta es obligatoria",
+        "weddingDateTimeRequired": "La fecha y hora de la ceremonia es obligatoria",
+        "addressWeddingRequired": "La dirección de la ceremonia es obligatoria",
+        "bannerRequired": "Debes subir una imagen para el banner",
+        "bannerMax": "Solo puedes subir 1 imagen",
+        "galleryMin": "Debes subir al menos una imagen a la galería",
+        "galleryMax": "Máximo 10 fotos",
+        "footerRequired": "Debes subir una imagen para el pie de foto",
+        "footerMax": "Solo puedes subir 1 imagen",
+        "musicUrlInvalid": "Debe ser una URL válida",
+        "fileInvalid": "Debe ser un archivo válido",
+        "imageSizeExceeded": "La imagen no puede superar los {size} MB",
+        "musicSizeExceeded": "La canción no puede superar los {size} MB"
+      },
+      "notFound": {
+        "title": "Error: Tipo de evento o ID no encontrado",
+        "backToList": "Volver a la lista de eventos"
       }
     }
   },

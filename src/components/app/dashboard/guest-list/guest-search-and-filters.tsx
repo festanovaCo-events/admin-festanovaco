@@ -5,16 +5,7 @@ import { Input } from "@/components/shadcn/ui/input";
 import { Button } from "@/components/shadcn/ui/button";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
-
-interface GuestSearchAndFiltersProps {
-  searchQuery: string;
-  onSearchChange: (query: string) => void;
-  statusFilter: "all" | "confirmed" | "pending";
-  onStatusFilterChange: (filter: "all" | "confirmed" | "pending") => void;
-  totalCount: number;
-  confirmedCount: number;
-  pendingCount: number;
-}
+import type { GuestSearchAndFiltersProps } from "@/interfaces/components/app/dashboard/guest-list";
 
 export const GuestSearchAndFilters: React.FC<GuestSearchAndFiltersProps> = ({
   searchQuery,

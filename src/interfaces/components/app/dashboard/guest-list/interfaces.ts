@@ -41,3 +41,55 @@ export interface GuestDetailModalProps {
   formatDate: (date: string) => string;
 }
 
+export interface GuestTableProps {
+  guests: Guest[];
+  expandedGuests: Set<string>;
+  onToggleGuestExpansion: (guestId: string) => void;
+  searchQuery?: string;
+}
+
+export interface SubGuestsRowProps {
+  subGuests: SubGuest[];
+}
+
+export interface SubGuestCardProps {
+  subGuest: SubGuest;
+}
+
+export interface GuestTableRowProps {
+  guest: Guest;
+  index: number;
+  isExpanded: boolean;
+  onToggleExpand: () => void;
+}
+
+export interface GuestStatsCardsProps {
+  totalGuests: number;
+  confirmedCount: number;
+  pendingCount: number;
+}
+
+export interface GuestSearchAndFiltersProps {
+  searchQuery: string;
+  onSearchChange: (query: string) => void;
+  statusFilter: "all" | "confirmed" | "pending";
+  onStatusFilterChange: (filter: "all" | "confirmed" | "pending") => void;
+  totalCount: number;
+  confirmedCount: number;
+  pendingCount: number;
+}
+
+export interface GuestPaginationProps {
+  currentPage: number;
+  totalPages: number;
+  totalItems: number;
+  itemsPerPage: number;
+  startIndex: number;
+  endIndex: number;
+  onPageChange: (page: number) => void;
+}
+
+export interface GuestListInfoProps {
+  guestList: GuestList;
+  getEventTypeLabel: (type: string) => string;
+}

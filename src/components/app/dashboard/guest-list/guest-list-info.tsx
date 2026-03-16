@@ -6,11 +6,7 @@ import { formatDate, getEventTypeColor } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import { GuestList } from "@/interfaces";
-
-interface GuestListInfoProps {
-  guestList: GuestList;
-  getEventTypeLabel: (type: string) => string;
-}
+import type { GuestListInfoProps } from "@/interfaces/components/app/dashboard/guest-list";
 
 export const GuestListInfo: React.FC<GuestListInfoProps> = ({
   guestList,

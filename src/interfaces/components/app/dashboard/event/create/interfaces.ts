@@ -1,9 +1,9 @@
-import { UseFormReturn } from "react-hook-form";
-import { CreateEventFormValues } from "@/schema";
+import { UseFormReturn, Path } from "react-hook-form";
+import { EventConfigFormValues } from "@/schema";
 
 interface PhotoGalleryCardProps {
-  form: UseFormReturn<CreateEventFormValues>;
-  name: keyof CreateEventFormValues;
+  form: UseFormReturn<EventConfigFormValues>;
+  name: Path<EventConfigFormValues>;
   photos: File[];
   handlePhotoUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
   removePhoto: (index: number) => void;
@@ -12,19 +12,19 @@ interface PhotoGalleryCardProps {
 }
 
 interface MusicUploadCardProps {
-  form: UseFormReturn<CreateEventFormValues>;
+  form: UseFormReturn<EventConfigFormValues>;
 }
 
 interface BasicInfoCardProps {
-  form: UseFormReturn<CreateEventFormValues>;
+  form: UseFormReturn<EventConfigFormValues>;
 }
 
 interface DateLocationCardProps {
-  form: UseFormReturn<CreateEventFormValues>;
+  form: UseFormReturn<EventConfigFormValues>;
 }
 
 interface CeremonyDetailsCardProps {
-  form: UseFormReturn<CreateEventFormValues>;
+  form: UseFormReturn<EventConfigFormValues>;
 }
 
 export type {

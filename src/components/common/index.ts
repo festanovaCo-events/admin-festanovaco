@@ -4,6 +4,8 @@ export * from './dropdowns';
 export * from './file-upload';
 export * from './form-fields';
 export * from './info-display';
+export * from './layouts';
 export * from './loaders';
 export * from './selects';
+export * from './sort-select';
 export * from './steps';

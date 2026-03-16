@@ -4,10 +4,7 @@ import { Users } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { SubGuest } from "@/interfaces";
 import { SubGuestCard } from "./sub-guest-card";
-
-interface SubGuestsRowProps {
-  subGuests: SubGuest[];
-}
+import type { SubGuestsRowProps } from "@/interfaces/components/app/dashboard/guest-list";
 
 export const SubGuestsRow: React.FC<SubGuestsRowProps> = ({ subGuests }) => {
   const tTable = useTranslations("guestList.details.table");
@@ -23,7 +20,7 @@ export const SubGuestsRow: React.FC<SubGuestsRowProps> = ({ subGuests }) => {
             </span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-            {subGuests.map((subGuest) => (
+            {subGuests.map((subGuest: SubGuest) => (
               <SubGuestCard key={subGuest.id} subGuest={subGuest} />
             ))}
           </div>

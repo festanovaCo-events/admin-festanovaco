@@ -6,18 +6,23 @@
     "search": "Search...",
     "noResults": "No results found.",
     "loading": "Loading...",
-    "save": "Save",
-    "cancel": "Cancel",
-    "delete": "Delete",
-    "edit": "Edit",
-    "create": "Create",
-    "next": "Next",
-    "previous": "Previous",
-    "back": "Back",
-    "continue": "Continue",
-    "submit": "Submit",
-    "close": "Close",
-    "confirm": "Confirm",
+    "actions": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "edit": "Edit",
+      "create": "Create",
+      "next": "Next",
+      "previous": "Previous",
+      "back": "Back",
+      "continue": "Continue",
+      "submit": "Submit",
+      "close": "Close",
+      "confirm": "Confirm",
+      "saving": "Saving...",
+      "creating": "Creating...",
+      "config": "Configure"
+    },
     "yes": "Yes",
     "no": "No"
   },
@@ -116,7 +121,7 @@
         "description": "Basic information about your event",
         "eventTitle": "Event Title",
         "eventTitlePlaceholder": "E.g: Maria and John's Wedding",
-        "description": "Description",
+        "descriptionLabel": "Description",
         "descriptionPlaceholder": "Describe your special event...",
         "eventType": "Event Type",
         "eventTypePlaceholder": "Select the event type"
@@ -159,17 +164,55 @@
         "uploadFormats": "MP3, WAV, OGG (MAX. 10MB)"
       },
       "actions": {
-        "previous": "Previous",
-        "cancel": "Cancel",
-        "next": "Next",
-        "saving": "Saving...",
-        "create": "Create Event",
+        "createEvent": "Create Event",
+        "create": "Create",
         "creating": "Creating..."
       },
       "loader": {
         "saving": "Saving information...",
         "creating": "Creating event...",
         "pleaseWait": "Please wait a moment"
+      },
+      "success": {
+        "created": "Event created successfully",
+        "configured": "Event configured successfully"
+      },
+      "error": {
+        "createFailed": "Error creating event. Please try again",
+        "uploadFailed": "Error uploading some event files",
+        "configureFailed": "Error configuring event. Please try again",
+        "noEventId": "Event ID not found",
+        "onlyWedding": "Configuration is only available for weddings",
+        "noAccountId": "User account not found. Please log in again"
+      },
+      "simple": {
+        "title": "Create Event",
+        "description": "Complete the basic event information",
+        "fields": {
+          "title": "Event Title",
+          "titlePlaceholder": "E.g: Juan and María's Wedding",
+          "type": "Event Type",
+          "typePlaceholder": "Select the event type",
+          "mode": "Event Mode",
+          "modePlaceholder": "Select the event mode",
+          "isPublic": "Public Event",
+          "capacity": "Capacity",
+          "capacityPlaceholder": "E.g: 150"
+        },
+        "modes": {
+          "onSite": "On Site",
+          "online": "Online",
+          "hybrid": "Hybrid"
+        },
+        "validation": {
+          "titleRequired": "Event title is required",
+          "titleMin": "Title must be at least 3 characters",
+          "titleMax": "Title cannot exceed 100 characters",
+          "typeRequired": "Select an event type",
+          "modeRequired": "Select an event mode",
+          "capacityMin": "Capacity must be at least 1",
+          "capacityMax": "Capacity cannot exceed 10000"
+        }
       },
       "validation": {
         "titleRequired": "Event title is required",
@@ -203,7 +246,12 @@
       "cumpleanos": "Birthday",
       "aniversario": "Anniversary",
       "graduacion": "Graduation",
-      "corporativo": "Corporate"
+      "corporativo": "Corporate",
+      "wedding": "Wedding",
+      "birthday": "Birthday",
+      "anniversary": "Anniversary",
+      "graduation": "Graduation",
+      "corporate": "Corporate"
     },
     "list": {
       "title": "List",
@@ -216,7 +264,8 @@
         "title": "Title"
       },
       "noEvents": "No events available",
-      "noResultsFor": "No results found for"
+      "noResultsFor": "No results found for",
+      "errorLoadingEvents": "Error loading events. Please try again."
     },
     "detail": {
       "title": "Event Detail",
@@ -239,6 +288,70 @@
       },
       "footerPhoto": {
         "title": "Footer Photo"
+      }
+    },
+    "config": {
+      "title": "Configuration Event",
+      "breadcrumb": "Dashboard > Event > Configuration",
+      "selectEventType": {
+        "title": "Select Event Type",
+        "description": "Choose which type of event you want to configure",
+        "label": "Event Type",
+        "placeholder": "Select the event type",
+        "comingSoon": "Configuration for this event type will be available soon."
+      },
+      "basicInfo": {
+        "title": "Wedding Information",
+        "description": "Basic information about the couple",
+        "husbandName": "Husband Name",
+        "husbandNamePlaceholder": "E.g: John Smith",
+        "wifeName": "Wife Name",
+        "wifeNamePlaceholder": "E.g: Jane Doe",
+        "quote": "Quote",
+        "quotePlaceholder": "E.g: Love is not about looking at each other, but looking together in the same direction"
+      },
+      "dateLocation": {
+        "title": "Date and Location",
+        "description": "When and where the party will take place",
+        "partyDateTime": "Party Date and Time",
+        "addressParty": "Party Address",
+        "addressPartyPlaceholder": "E.g: The Garden Event Hall, Main Street 123"
+      },
+      "ceremony": {
+        "title": "Ceremony Details",
+        "description": "Specific information about the wedding ceremony",
+        "weddingDateTime": "Wedding Date and Time",
+        "addressWedding": "Wedding Address",
+        "addressWeddingPlaceholder": "E.g: San Francisco Church, Central Avenue 456"
+      },
+      "validation": {
+        "husbandNameRequired": "Husband name is required",
+        "husbandNameMin": "Husband name must be at least 2 characters",
+        "husbandNameMax": "Husband name cannot exceed 100 characters",
+        "wifeNameRequired": "Wife name is required",
+        "wifeNameMin": "Wife name must be at least 2 characters",
+        "wifeNameMax": "Wife name cannot exceed 100 characters",
+        "quoteRequired": "Quote is required",
+        "quoteMin": "Quote must be at least 10 characters",
+        "quoteMax": "Quote cannot exceed 500 characters",
+        "partyDateTimeRequired": "Party date and time is required",
+        "addressPartyRequired": "Party address is required",
+        "weddingDateTimeRequired": "Wedding date and time is required",
+        "addressWeddingRequired": "Wedding address is required",
+        "bannerRequired": "You must upload an image for the banner",
+        "bannerMax": "You can only upload 1 image",
+        "galleryMin": "You must upload at least one image to the gallery",
+        "galleryMax": "Maximum 10 photos",
+        "footerRequired": "You must upload an image for the footer",
+        "footerMax": "You can only upload 1 image",
+        "musicUrlInvalid": "Must be a valid URL",
+        "fileInvalid": "Must be a valid file",
+        "imageSizeExceeded": "Image cannot exceed {size} MB",
+        "musicSizeExceeded": "Song cannot exceed {size} MB"
+      },
+      "notFound": {
+        "title": "Error: Event type or ID not found",
+        "backToList": "Back to event list"
       }
     }
   },

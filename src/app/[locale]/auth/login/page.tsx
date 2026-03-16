@@ -18,7 +18,7 @@ import {
 } from "@/components/shadcn/ui/form";
 import { AuthLayout } from "@/components/layouts";
 import { createLoginSchema, type LoginFormValues } from "@/schema";
-import { login, type LoginResponse } from "@/services/auth.service";
+import { login, type LoginResponse } from "@/services/auth";
 import { useRouter } from "@/i18n/routing";
 import { useAsyncRequest } from "@/hooks";
 

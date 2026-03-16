@@ -16,7 +16,7 @@ import {
 import { Avatar } from "@/components/common";
 import { MENU_ITEMS } from "@/constants";
 import { ProfileDrawerProps } from "@/interfaces";
-import { logout } from "@/services/auth.service";
+import { logout } from "@/services/auth";
 
 export const SheetProfile: FC<ProfileDrawerProps> = ({ children }) => {
   const [open, setOpen] = useState(false);

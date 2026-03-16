@@ -38,15 +38,12 @@ export interface User {
   updatedAt: string;
   deletedAt: string;
   token: string;
-}
-
-export interface RegisterResponseData extends User {
-  account: Account;
-}
-
-export interface LoginResponseData extends User {
   accounts: Account[];
 }
+
+export type RegisterResponseData = User;
+
+export type LoginResponseData = User;
 
 export interface ApiResponse<T> {
   success: boolean;

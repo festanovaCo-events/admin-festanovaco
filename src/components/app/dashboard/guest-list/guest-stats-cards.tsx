@@ -3,12 +3,7 @@
 import { CheckCircle2, XCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/shadcn/ui/card";
 import { useTranslations } from "next-intl";
-
-interface GuestStatsCardsProps {
-  totalGuests: number;
-  confirmedCount: number;
-  pendingCount: number;
-}
+import type { GuestStatsCardsProps } from "@/interfaces/components/app/dashboard/guest-list";
 
 export const GuestStatsCards: React.FC<GuestStatsCardsProps> = ({
   totalGuests,

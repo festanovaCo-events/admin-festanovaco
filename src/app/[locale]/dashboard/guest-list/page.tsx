@@ -12,8 +12,8 @@ import {
   SelectValue,
 } from "@/components/shadcn/ui/select";
 import { GuestListCard } from "@/components/app/dashboard/guest-list";
-import { formatDate } from "@/lib/utils";
 import { MOCK_GUEST_LISTS } from "@/constants/guest-list-mocks";
+import { useEventDateFormatter } from "@/hooks";
 
 export default function GuestListPage() {
   const t = useTranslations("guestList");
@@ -21,6 +21,8 @@ export default function GuestListPage() {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<"latest" | "oldest" | "name">("latest");
+
+  const formatListDate = useEventDateFormatter("short");
 
   const filteredAndSortedLists = useMemo(() => {
     let filtered = MOCK_GUEST_LISTS;
@@ -54,10 +56,6 @@ export default function GuestListPage() {
 
     return sorted;
   }, [searchQuery, sortBy]);
-
-  const formatListDate = (dateString: string) => {
-    return formatDate(dateString, { locale: "es-ES", format: "short" });
-  };
 
   const getEventTypeLabel = (type: string) => {
     return tTypes(type as any);

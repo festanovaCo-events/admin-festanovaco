@@ -4,16 +4,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/shadcn/ui/button";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
-
-interface GuestPaginationProps {
-  currentPage: number;
-  totalPages: number;
-  totalItems: number;
-  itemsPerPage: number;
-  startIndex: number;
-  endIndex: number;
-  onPageChange: (page: number) => void;
-}
+import type { GuestPaginationProps } from "@/interfaces/components/app/dashboard/guest-list";
 
 export const GuestPagination: React.FC<GuestPaginationProps> = ({
   currentPage,
@@ -25,7 +16,7 @@ export const GuestPagination: React.FC<GuestPaginationProps> = ({
   onPageChange,
 }) => {
   const t = useTranslations("guestList.details");
-  const tCommon = useTranslations("common");
+  const tCommon = useTranslations("common.actions");
 
   if (totalItems <= itemsPerPage) {
     return (

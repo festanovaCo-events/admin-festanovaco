@@ -50,7 +50,7 @@ function isProtectedRoute(pathname: string): boolean {
   return PROTECTED_ROUTES.some(route => pathWithoutLocale.startsWith(route));
 }
 
-export default function middleware(request: NextRequest) {
+export default function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const authToken = request.cookies.get(AUTH_TOKEN_KEY)?.value;
   const isAuthenticated = !!authToken;

@@ -2,13 +2,15 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
-import { Calendar, MapPin, Clock } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { Calendar, MapPin, Clock, Settings } from "lucide-react";
+import { Button } from "@/components/shadcn/ui/button";
 import { Card, CardContent } from "@/components/shadcn/ui/card";
 import { Skeleton } from "@/components/shadcn/ui/skeleton";
 import { cn, getEventTypeColor } from "@/lib/utils";
 import Image from "next/image";
 import { EventCardProps } from "@/interfaces";
+import { EVENT_TYPE_MAP, EVENT_TYPES } from "@/constants";
 
 export const EventCard: React.FC<EventCardProps> = ({
   event,
@@ -17,10 +19,25 @@ export const EventCard: React.FC<EventCardProps> = ({
 }) => {
   const router = useRouter();
   const locale = useLocale();
+  const t = useTranslations("common.actions");
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   const handleClick = () => {
     router.push(`/${locale}/dashboard/event/${event.id}`);
+  };
+
+  const getConfigPath = () => {
+    const eventType = EVENT_TYPE_MAP[event.eventType.toLowerCase()] || EVENT_TYPES.WEDDING;
+    return `/${locale}/dashboard/event/config/${eventType}/${event.id}`;
+  };
+
+  const handleConfigClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    router.push(getConfigPath());
+  };
+
+  const handleConfigMouseEnter = () => {
+    router.prefetch(getConfigPath());
   };
 
   const handleImageLoad = () => {
@@ -56,7 +73,7 @@ export const EventCard: React.FC<EventCardProps> = ({
             />
           </>
         ) : (
-          <div className="w-full h-full bg-gradient-to-br from-blue-400 to-purple-500" />
+          <div className="w-full h-full bg-linear-to-br from-blue-400 to-purple-500" />
         )}
         <div className="absolute top-3 left-3 z-10">
           <span
@@ -97,6 +114,17 @@ export const EventCard: React.FC<EventCardProps> = ({
               <MapPin className="h-4 w-4 text-gray-400" />
               <span className="line-clamp-1">{event.location}</span>
             </div>
+
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleConfigClick}
+              onMouseEnter={handleConfigMouseEnter}
+              className="w-fit cursor-pointer mt-2"
+            >
+              <Settings className="h-4 w-4 mr-2" />
+              {t("config")}
+            </Button>
           </div>
         </div>
       </CardContent>

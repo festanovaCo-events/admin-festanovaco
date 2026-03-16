@@ -33,10 +33,13 @@ export default async function RootLayout({
     notFound();
   }
   const messages = await getMessages({ locale });
-  console.log("Messages loaded for locale:", locale);
+
   return (
     <html lang={locale}>
-      <body className={`${nunito.variable} font-sans antialiased`}>
+      <body
+        className={`${nunito.variable} font-sans antialiased`}
+        suppressHydrationWarning
+      >
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
           <Toaster />

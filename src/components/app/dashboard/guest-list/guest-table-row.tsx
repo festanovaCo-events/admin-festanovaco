@@ -9,13 +9,7 @@ import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import { Guest } from "@/interfaces";
 import { SubGuestsRow } from "./sub-guests-row";
-
-interface GuestTableRowProps {
-  guest: Guest;
-  index: number;
-  isExpanded: boolean;
-  onToggleExpand: () => void;
-}
+import type { GuestTableRowProps } from "@/interfaces/components/app/dashboard/guest-list";
 
 export const GuestTableRow: React.FC<GuestTableRowProps> = ({
   guest,

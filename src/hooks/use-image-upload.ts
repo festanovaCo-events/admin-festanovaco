@@ -1,10 +1,6 @@
 import { useState } from "react";
 import { PHOTO_UPLOAD_LIMITS, FILE_SIZE_LIMITS } from "@/constants";
-
-interface UseImageUploadProps {
-  maxPhotos?: number;
-  maxPhotoSizeMB?: number;
-}
+import type { UseImageUploadProps } from "@/interfaces/hooks";
 
 export const useImageUpload = ({
   maxPhotos = PHOTO_UPLOAD_LIMITS.GALLERY_MAX,
