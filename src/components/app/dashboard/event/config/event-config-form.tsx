@@ -1,8 +1,5 @@
 "use client";
 
-import { useMemo, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { Form } from "@/components/shadcn/ui/form";
 import { BasicInfoCardConfig } from "@/components/app/dashboard/event/config/basic-info-card-config";
@@ -11,18 +8,15 @@ import { CeremonyDetailsCardConfig } from "@/components/app/dashboard/event/conf
 import { MusicUploadCard } from "@/components/app/dashboard/event/config/music-upload-card";
 import { PhotoGalleryCard } from "@/components/app/dashboard/event/config/photo-gallery-card";
 import { StepActions } from "@/components/common";
-import type { EventConfigFormValues } from "@/schema";
-import { createEventConfigFormSchema } from "@/schema";
 import {
   EVENT_CREATE_STEP_IDS,
-  EVENT_CREATE_FIELD_GROUPS,
   EVENT_CREATE_FIELD_NAMES,
-  EVENT_CREATE_DEFAULT_VALUES,
   EVENT_TYPES,
 } from "@/constants";
 import type { EventConfigFormProps } from "@/interfaces/components/app/dashboard/event/config/event-config-form.interface";
 
 export const EventConfigForm = ({
+  form,
   currentStep,
   eventType,
   onSubmit,
@@ -44,35 +38,6 @@ export const EventConfigForm = ({
   onValidateStep,
 }: EventConfigFormProps) => {
   const t = useTranslations("event.create");
-  const tValidation = useTranslations("event.config.validation");
-
-  const resolver = useMemo(
-    () => zodResolver(createEventConfigFormSchema(tValidation, eventType)),
-    [tValidation, eventType]
-  );
-
-  const form = useForm<EventConfigFormValues>({
-    resolver,
-    defaultValues: {
-      husbandName: EVENT_CREATE_DEFAULT_VALUES.HUSBAND_NAME,
-      wifeName: EVENT_CREATE_DEFAULT_VALUES.WIFE_NAME,
-      quote: EVENT_CREATE_DEFAULT_VALUES.QUOTE,
-      partyDateTime: EVENT_CREATE_DEFAULT_VALUES.PARTY_DATETIME,
-      addressParty: EVENT_CREATE_DEFAULT_VALUES.ADDRESS_PARTY,
-      weddingDateTime: EVENT_CREATE_DEFAULT_VALUES.WEDDING_DATETIME,
-      addressWedding: EVENT_CREATE_DEFAULT_VALUES.ADDRESS_WEDDING,
-      gallery: EVENT_CREATE_DEFAULT_VALUES.GALLERY,
-      bannerPhoto: EVENT_CREATE_DEFAULT_VALUES.BANNER_PHOTO,
-      footerPhoto: EVENT_CREATE_DEFAULT_VALUES.FOOTER_PHOTO,
-      musicOption: EVENT_CREATE_DEFAULT_VALUES.MUSIC_OPTION,
-      musicUrl: EVENT_CREATE_DEFAULT_VALUES.MUSIC_URL,
-      musicFile: EVENT_CREATE_DEFAULT_VALUES.MUSIC_FILE,
-    },
-  });
-
-  useEffect(() => {
-    form.clearErrors();
-  }, [eventType, form]);
 
   const handleNextStep = async () => {
     if (onValidateStep) {

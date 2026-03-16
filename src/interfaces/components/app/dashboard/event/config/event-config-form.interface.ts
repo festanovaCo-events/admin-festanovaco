@@ -2,6 +2,7 @@ import { UseFormReturn } from "react-hook-form";
 import type { EventConfigFormValues } from "@/schema";
 
 export interface EventConfigFormProps {
+  form: UseFormReturn<EventConfigFormValues>;
   currentStep: number;
   eventType: string;
   onSubmit: (data: EventConfigFormValues) => Promise<void>;

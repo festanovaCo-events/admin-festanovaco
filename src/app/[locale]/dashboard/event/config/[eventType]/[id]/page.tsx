@@ -1,5 +1,8 @@
 "use client";
 
+import { useMemo, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { useRouter, useParams } from "next/navigation";
 import { EventConfigForm } from "@/components/app/dashboard/event/config/event-config-form";
@@ -14,6 +17,7 @@ import {
 } from "@/components/common";
 import { useImageUpload, useAsyncRequest, useEventConfigSteps } from "@/hooks";
 import type { EventConfigFormValues } from "@/schema";
+import { createEventConfigFormSchema } from "@/schema";
 import {
     configureEvent,
     uploadEventAsset,
@@ -24,11 +28,13 @@ import {
     PHOTO_UPLOAD_LIMITS,
     MUSIC_OPTION_VALUES,
     isEventTypeAvailable,
+    EVENT_CREATE_DEFAULT_VALUES,
 } from "@/constants";
 
 const EventConfigPage = () => {
     const t = useTranslations("event.create");
     const tConfig = useTranslations("event.config");
+    const tValidation = useTranslations("event.config.validation");
     const router = useRouter();
     const params = useParams();
 
@@ -45,6 +51,34 @@ const EventConfigPage = () => {
         markStepAsCompleted,
         validateStep,
     } = useEventConfigSteps({ eventType });
+
+    const resolver = useMemo(
+        () => zodResolver(createEventConfigFormSchema(tValidation, eventType)),
+        [tValidation, eventType]
+    );
+
+    const form = useForm<EventConfigFormValues>({
+        resolver,
+        defaultValues: {
+            husbandName: EVENT_CREATE_DEFAULT_VALUES.HUSBAND_NAME,
+            wifeName: EVENT_CREATE_DEFAULT_VALUES.WIFE_NAME,
+            quote: EVENT_CREATE_DEFAULT_VALUES.QUOTE,
+            partyDateTime: EVENT_CREATE_DEFAULT_VALUES.PARTY_DATETIME,
+            addressParty: EVENT_CREATE_DEFAULT_VALUES.ADDRESS_PARTY,
+            weddingDateTime: EVENT_CREATE_DEFAULT_VALUES.WEDDING_DATETIME,
+            addressWedding: EVENT_CREATE_DEFAULT_VALUES.ADDRESS_WEDDING,
+            gallery: EVENT_CREATE_DEFAULT_VALUES.GALLERY,
+            bannerPhoto: EVENT_CREATE_DEFAULT_VALUES.BANNER_PHOTO,
+            footerPhoto: EVENT_CREATE_DEFAULT_VALUES.FOOTER_PHOTO,
+            musicOption: EVENT_CREATE_DEFAULT_VALUES.MUSIC_OPTION,
+            musicUrl: EVENT_CREATE_DEFAULT_VALUES.MUSIC_URL,
+            musicFile: EVENT_CREATE_DEFAULT_VALUES.MUSIC_FILE,
+        },
+    });
+
+    useEffect(() => {
+        form.clearErrors();
+    }, [eventType, form]);
 
     const { isLoading, error, execute } = useAsyncRequest<EventConfigResponse>({
         successMessage: t("success.configured"),
@@ -123,7 +157,6 @@ const EventConfigPage = () => {
     const onSubmit = async (data: EventConfigFormValues) => {
         await execute(async () => {
             const configData = formatEventConfigData(data);
-
             const [configResponse] = await Promise.all([
                 configureEvent(eventType, eventId, configData),
                 uploadAllAssets(eventId, {
@@ -137,11 +170,10 @@ const EventConfigPage = () => {
             ]);
 
             markStepAsCompleted(currentStep);
-
             router.push("/dashboard/event/list");
-
             return configResponse;
         });
+
     };
 
     const TITLE_LOADER =
@@ -179,6 +211,7 @@ const EventConfigPage = () => {
                 />
 
                 <EventConfigForm
+                    form={form}
                     currentStep={currentStep}
                     eventType={eventType}
                     onSubmit={onSubmit}
