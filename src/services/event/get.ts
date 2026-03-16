@@ -22,9 +22,7 @@ import type {
  * @throws Error si la petición falla
  */
 export async function getEventById(id: string): Promise<Event | null> {
-  // Si el feature flag está activo, usar mocks
   if (FEATURE_FLAGS.USE_MOCK_GET_EVENT) {
-    // Simular delay de red
     await new Promise((resolve) => setTimeout(resolve, TIMEOUTS.MOCK_DELAY));
     
     const mockEvent = MOCK_EVENTS_DETAIL[id];
@@ -34,7 +32,6 @@ export async function getEventById(id: string): Promise<Event | null> {
     return null;
   }
 
-  // Llamada real a la API
   try {
     const response = await apiClient.get<GetEventResponse>(
       API_ROUTES.EVENT.GET_BY_ID(id)
@@ -56,15 +53,12 @@ export async function getEventById(id: string): Promise<Event | null> {
  * @throws Error si la petición falla
  */
 export async function listEvents(): Promise<Event[]> {
-  // Si el feature flag está activo, usar mocks
   if (FEATURE_FLAGS.USE_MOCK_LIST_EVENTS) {
-    // Simular delay de red
     await new Promise((resolve) => setTimeout(resolve, TIMEOUTS.MOCK_DELAY));
     
     return MOCK_EVENTS;
   }
 
-  // Llamada real a la API
   try {
     const response = await apiClient.get<ListEventsResponse>(
       API_ROUTES.EVENT.LIST
