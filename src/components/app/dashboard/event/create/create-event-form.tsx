@@ -46,6 +46,7 @@ export const CreateEventForm = ({ onSubmit, isLoading }: CreateEventFormProps) =
       title: "Boda de Juan y María",
       type: EVENT_TYPES.WEDDING,
       mode: EVENT_MODES.ON_SITE,
+      address: "",
       isPublic: true,
       capacity: 150,
     },
@@ -126,6 +127,23 @@ export const CreateEventForm = ({ onSubmit, isLoading }: CreateEventFormProps) =
                       <SelectItem value={EVENT_MODES.HYBRID}>{t("simple.modes.hybrid")}</SelectItem>
                     </SelectContent>
                   </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="address"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t("simple.fields.address")}</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder={t("simple.fields.addressPlaceholder")}
+                      {...field}
+                    />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}

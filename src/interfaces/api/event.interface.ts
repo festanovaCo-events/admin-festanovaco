@@ -7,6 +7,7 @@ export interface CreateEventRequest {
   title: string;
   type: EventType;
   mode: EventMode;
+  address: string;
   isPublic: boolean;
   capacity: number;
   startsAt: string;

@@ -195,6 +195,8 @@
           "typePlaceholder": "Select the event type",
           "mode": "Event Mode",
           "modePlaceholder": "Select the event mode",
+          "address": "Event Address",
+          "addressPlaceholder": "E.g: Main Street 123, Los Jardines Hall",
           "isPublic": "Public Event",
           "capacity": "Capacity",
           "capacityPlaceholder": "E.g: 150"
@@ -210,6 +212,8 @@
           "titleMax": "Title cannot exceed 100 characters",
           "typeRequired": "Select an event type",
           "modeRequired": "Select an event mode",
+          "addressRequired": "Event address is required",
+          "addressMin": "Address must be at least 3 characters",
           "capacityMin": "Capacity must be at least 1",
           "capacityMax": "Capacity cannot exceed 10000"
         }

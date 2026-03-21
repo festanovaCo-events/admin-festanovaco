@@ -42,6 +42,7 @@ const CreateEventPage = () => {
         title: data.title,
         type: data.type as EventType,
         mode: data.mode as EventMode,
+        address: data.address,
         isPublic: data.isPublic,
         capacity: data.capacity,
         startsAt: new Date().toISOString(),

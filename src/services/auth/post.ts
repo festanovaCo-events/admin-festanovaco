@@ -55,12 +55,6 @@ export async function register(
       API_ROUTES.AUTH.REGISTER,
       data
     );
-
-    if (response.data.success && response.data.data.token) {
-      setAuthToken(response.data.data.token);
-      useAuthStore.getState().setUser(response.data.data);
-    }
-
     return response.data;
   } catch (error) {
     throw error;

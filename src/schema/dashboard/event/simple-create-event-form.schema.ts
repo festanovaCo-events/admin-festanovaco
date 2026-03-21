@@ -26,6 +26,10 @@ export const createSimpleEventFormSchema = (
     ], {
       message: t("modeRequired"),
     }),
+    address: z
+      .string()
+      .min(1, t("addressRequired"))
+      .min(3, t("addressMin")),
     isPublic: z.boolean(),
     capacity: z
       .number()

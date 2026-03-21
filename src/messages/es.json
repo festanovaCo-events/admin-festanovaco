@@ -195,6 +195,8 @@
           "typePlaceholder": "Selecciona el tipo de evento",
           "mode": "Modo del Evento",
           "modePlaceholder": "Selecciona el modo del evento",
+          "address": "Dirección del Evento",
+          "addressPlaceholder": "Ej: Calle Principal 123, Salón Los Jardines",
           "isPublic": "Evento Público",
           "capacity": "Capacidad",
           "capacityPlaceholder": "Ej: 150"
@@ -210,6 +212,8 @@
           "titleMax": "El título no puede exceder los 100 caracteres",
           "typeRequired": "Selecciona un tipo de evento",
           "modeRequired": "Selecciona un modo de evento",
+          "addressRequired": "La dirección del evento es obligatoria",
+          "addressMin": "La dirección debe tener al menos 3 caracteres",
           "capacityMin": "La capacidad debe ser al menos 1",
           "capacityMax": "La capacidad no puede exceder 10000"
         }
