@@ -64,7 +64,6 @@ const EventConfigPage = () => {
             wifeName: EVENT_CREATE_DEFAULT_VALUES.WIFE_NAME,
             quote: EVENT_CREATE_DEFAULT_VALUES.QUOTE,
             partyDateTime: EVENT_CREATE_DEFAULT_VALUES.PARTY_DATETIME,
-            addressParty: EVENT_CREATE_DEFAULT_VALUES.ADDRESS_PARTY,
             weddingDateTime: EVENT_CREATE_DEFAULT_VALUES.WEDDING_DATETIME,
             addressWedding: EVENT_CREATE_DEFAULT_VALUES.ADDRESS_WEDDING,
             gallery: EVENT_CREATE_DEFAULT_VALUES.GALLERY,

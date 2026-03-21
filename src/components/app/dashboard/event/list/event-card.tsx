@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { Calendar, MapPin, Clock, Settings } from "lucide-react";
+import { Calendar, Clock, Settings, Users } from "lucide-react";
 import { Button } from "@/components/shadcn/ui/button";
 import { Card, CardContent } from "@/components/shadcn/ui/card";
 import { Skeleton } from "@/components/shadcn/ui/skeleton";
@@ -44,37 +44,30 @@ export const EventCard: React.FC<EventCardProps> = ({
     setIsImageLoaded(true);
   };
 
-  const truncateDescription = (text: string, maxLength: number = 120) => {
-    if (text.length <= maxLength) return text;
-    return text.substring(0, maxLength) + "...";
-  };
+  const statusLabel = event.status
+    ? event.status.replaceAll("_", " ").toUpperCase()
+    : "N/A";
 
   return (
     <Card
-      className="cursor-pointer transition-all hover:shadow-lg hover:scale-[1.02] overflow-hidden"
+      className="cursor-pointer transition-all hover:shadow-lg hover:scale-[1.02] overflow-hidden gap-0"
       onClick={handleClick}
     >
-      <div className="relative h-48 w-full overflow-hidden">
-        {event.bannerPhoto ? (
-          <>
-            {!isImageLoaded && (
-              <Skeleton className="absolute inset-0 w-full h-full" />
-            )}
-            <Image
-              src={event.bannerPhoto}
-              alt={event.title}
-              fill
-              className={cn(
-                "object-cover transition-opacity duration-300",
-                isImageLoaded ? "opacity-100" : "opacity-0"
-              )}
-              sizes="(max-width: 768px) 100vw, 50vw"
-              onLoad={handleImageLoad}
-            />
-          </>
-        ) : (
-          <div className="w-full h-full bg-linear-to-br from-blue-400 to-purple-500" />
+      <div className="relative w-full overflow-hidden aspect-square md:aspect-17/6">
+        {!isImageLoaded && (
+          <Skeleton className="absolute inset-0 w-full h-full" />
         )}
+        <Image
+          src={event.bannerPhoto || ""}
+          alt={event.title}
+          fill
+          className={cn(
+            "object-cover transition-opacity duration-300",
+            isImageLoaded ? "opacity-100" : "opacity-0"
+          )}
+          sizes="(max-width: 768px) 100vw, 50vw"
+          onLoad={handleImageLoad}
+        />
         <div className="absolute top-3 left-3 z-10">
           <span
             className={cn(
@@ -95,11 +88,12 @@ export const EventCard: React.FC<EventCardProps> = ({
               </h3>
               <p className="text-sm text-gray-500">{formatDate(event.date)}</p>
             </div>
+            <div className="shrink-0">
+              <span className="px-2 py-1 text-xs font-medium rounded-md bg-gray-100 text-gray-700">
+                {statusLabel}
+              </span>
+            </div>
           </div>
-
-          <p className="text-sm text-gray-600 line-clamp-2">
-            {truncateDescription(event.description)}
-          </p>
 
           <div className="space-y-2 pt-2 border-t">
             <div className="flex items-center gap-2 text-sm text-gray-600">
@@ -111,8 +105,10 @@ export const EventCard: React.FC<EventCardProps> = ({
               <span>{event.time}</span>
             </div>
             <div className="flex items-center gap-2 text-sm text-gray-600">
-              <MapPin className="h-4 w-4 text-gray-400" />
-              <span className="line-clamp-1">{event.location}</span>
+              <Users className="h-4 w-4 text-gray-400" />
+              <span className="line-clamp-1">
+                Capacidad: {event.capacity ?? 0}
+              </span>
             </div>
 
             <Button

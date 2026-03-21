@@ -2,7 +2,7 @@
 
 import { FC } from "react";
 import { useTranslations } from "next-intl";
-import { Calendar, MapPin } from "lucide-react";
+import { Calendar } from "lucide-react";
 import {
   Card,
   CardHeader,
@@ -13,7 +13,6 @@ import {
 import { FormFieldWithIcon } from "@/components/common";
 import { DateLocationCardProps } from "@/interfaces";
 import { INPUT_TYPES } from "@/constants";
-import { EventConfigFormValues } from "@/schema";
 
 export const DateLocationCardConfig: FC<DateLocationCardProps> = ({ form }) => {
   const t = useTranslations("event.config.dateLocation");
@@ -30,14 +29,6 @@ export const DateLocationCardConfig: FC<DateLocationCardProps> = ({ form }) => {
           label={t("partyDateTime")}
           icon={<Calendar className="h-4 w-4" />}
           type={INPUT_TYPES.DATETIME_LOCAL}
-        />
-
-        <FormFieldWithIcon
-          form={form}
-          name="addressParty"
-          label={t("addressParty")}
-          icon={<MapPin className="h-4 w-4" />}
-          placeholder={t("addressPartyPlaceholder")}
         />
       </CardContent>
     </Card>

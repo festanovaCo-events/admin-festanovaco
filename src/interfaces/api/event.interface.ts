@@ -67,8 +67,7 @@ export interface EventConfigRequest {
   WifeName: string;
   PartyDate: string;
   WeddingDate: string;
-  AddressParty: string;
-  AddressWedding: string;
+  Address: string;
   Quote: string;
 }
 

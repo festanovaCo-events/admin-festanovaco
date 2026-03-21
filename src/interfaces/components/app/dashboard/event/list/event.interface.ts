@@ -6,6 +6,8 @@ export interface Event {
   date: string;
   time: string;
   location: string;
+  status?: string;
+  capacity?: number;
   bannerPhoto?: string;
   createdAt: string;
   ceremonyDate?: string;

@@ -64,7 +64,6 @@ export const createEventConfigFormSchema = (
         .max(500, t("quoteMax")),
 
       partyDateTime: z.string().min(1, t("partyDateTimeRequired")),
-      addressParty: z.string().min(3, t("addressPartyRequired")),
 
       weddingDateTime: z.string().optional(),
       addressWedding: z.string().optional(),

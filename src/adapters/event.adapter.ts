@@ -9,6 +9,19 @@ import type {
 import type { CreateEventFormValues, EventConfigFormValues } from '@/schema';
 import { EVENT_TYPE_VALUES } from '@/constants';
 
+const EVENT_FALLBACK_IMAGE_BY_TYPE: Record<string, string> = {
+  wedding:
+    'https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1400&q=80',
+  birthday:
+    'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=1400&q=80',
+  anniversary:
+    'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1400&q=80',
+  graduation:
+    'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1400&q=80',
+  corporate:
+    'https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=1400&q=80',
+};
+
 function mapEventTypeToAPI(formEventType: string): EventType {
   const typeMap: Record<string, EventType> = {
     [EVENT_TYPE_VALUES.WEDDING]: 'wedding',
@@ -69,6 +82,14 @@ export function mapEventDataToEvent(eventData: EventData): Event {
     }
   }
 
+  const hasNoAssets =
+    !eventData.assets ||
+    (Array.isArray(eventData.assets) && eventData.assets.length === 0);
+
+  if (hasNoAssets) {
+    bannerPhoto = EVENT_FALLBACK_IMAGE_BY_TYPE[eventType] || EVENT_FALLBACK_IMAGE_BY_TYPE.wedding;
+  }
+
   return {
     id: eventData.id,
     title: eventData.title,
@@ -78,6 +99,8 @@ export function mapEventDataToEvent(eventData: EventData): Event {
     time,
     location: '',
     bannerPhoto,
+    status: eventData.status,
+    capacity: eventData.capacity,
     createdAt: eventData.created_at,
   };
 }
@@ -98,8 +121,7 @@ export function formatEventConfigData(
       WifeName: formData.wifeName || '',
       PartyDate: partyDate,
       WeddingDate: weddingDate,
-      AddressParty: formData.addressParty || '',
-      AddressWedding: formData.addressWedding || '',
+      Address: formData.addressWedding || '',
       Quote: formData.quote || '',
     };
   }
@@ -114,8 +136,7 @@ export function formatEventConfigData(
     WifeName: '',
     PartyDate: partyDate,
     WeddingDate: weddingDate,
-    AddressParty: formData.location || '',
-    AddressWedding: formData.ceremonyLocation || formData.location || '',
+    Address: formData.ceremonyLocation || formData.location || '',
     Quote: ('description' in formData ? formData.description : '') || '',
   };
 }
