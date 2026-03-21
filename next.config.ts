@@ -2,19 +2,25 @@ import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
-  
   images: {
+    unoptimized: process.env.NODE_ENV !== "production",
     remotePatterns: [
       {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
-      // Agregar aquí otros dominios de imágenes si es necesario
-      // Por ejemplo, si las imágenes se almacenan en otro servicio:
-      // {
-      //   protocol: "https",
-      //   hostname: "tu-dominio.com",
-      // },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "4566",
+        pathname: "/**",
+      },
+      {
+        protocol: "http",
+        hostname: "127.0.0.1",
+        port: "4566",
+        pathname: "/**",
+      },
     ],
   },
 };

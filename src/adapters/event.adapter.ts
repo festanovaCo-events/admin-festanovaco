@@ -3,7 +3,6 @@ import type {
   EventType,
   EventData,
   Event,
-  AssetData,
   EventConfigRequest,
 } from '@/interfaces';
 import type { CreateEventFormValues, EventConfigFormValues } from '@/schema';
@@ -66,21 +65,30 @@ export function formatCreateEventData(
 
 export function mapEventDataToEvent(eventData: EventData): Event {
   const startDate = new Date(eventData.starts_at);
-  const date = startDate.toISOString().split('T')[0];
-  const hours = String(startDate.getUTCHours()).padStart(2, '0');
-  const minutes = String(startDate.getUTCMinutes()).padStart(2, '0');
+  const safeDate = Number.isNaN(startDate.getTime()) ? new Date() : startDate;
+  const date = safeDate.toISOString().split('T')[0];
+  const hours = String(safeDate.getUTCHours()).padStart(2, '0');
+  const minutes = String(safeDate.getUTCMinutes()).padStart(2, '0');
   const time = `${hours}:${minutes}`;
 
   const eventType = eventData.type.toLowerCase();
-  let bannerPhoto: string | undefined = undefined;
-  if (eventData.assets && Array.isArray(eventData.assets)) {
-    const bannerAsset = (eventData.assets as AssetData[]).find(
-      (asset) => asset.kind === 'banner'
-    );
-    if (bannerAsset && bannerAsset.url) {
-      bannerPhoto = bannerAsset.url;
-    }
-  }
+  const assets = Array.isArray(eventData.assets) ? eventData.assets : [];
+  const sortedAssets = [...assets].sort((a, b) => a.position - b.position);
+  const normalizeKind = (kind: string) => kind.toLowerCase();
+
+  const getFirstAssetUrl = (kind: string): string | undefined => {
+    const normalizedKind = kind.toLowerCase();
+    return sortedAssets.find((asset) => normalizeKind(asset.kind) === normalizedKind)?.url;
+  };
+
+  const getAssetUrls = (kind: string): string[] => {
+    const normalizedKind = kind.toLowerCase();
+    return sortedAssets
+      .filter((asset) => normalizeKind(asset.kind) === normalizedKind)
+      .map((asset) => asset.url);
+  };
+
+  let bannerPhoto = getFirstAssetUrl('banner');
 
   const hasNoAssets =
     !eventData.assets ||
@@ -90,15 +98,30 @@ export function mapEventDataToEvent(eventData: EventData): Event {
     bannerPhoto = EVENT_FALLBACK_IMAGE_BY_TYPE[eventType] || EVENT_FALLBACK_IMAGE_BY_TYPE.wedding;
   }
 
+  const gallery = getAssetUrls('carousel_image');
+  const musicUrl = getFirstAssetUrl('audio');
+
+  const bannerUrls = getAssetUrls('banner');
+  const footerPhoto =
+    bannerUrls.length > 1
+      ? bannerUrls[bannerUrls.length - 1]
+      : undefined;
+
+  const description = eventData.config?.metadata?.quote?.trim() || '';
+  const location = eventData.address || eventData.config?.metadata?.addressParty || '';
+
   return {
     id: eventData.id,
     title: eventData.title,
-    description: '',
+    description,
     eventType,
     date,
     time,
-    location: '',
+    location,
     bannerPhoto,
+    gallery,
+    musicUrl,
+    footerPhoto,
     status: eventData.status,
     capacity: eventData.capacity,
     createdAt: eventData.created_at,
@@ -121,7 +144,7 @@ export function formatEventConfigData(
       WifeName: formData.wifeName || '',
       PartyDate: partyDate,
       WeddingDate: weddingDate,
-      Address: formData.addressWedding || '',
+      AddressParty: formData.addressWedding || '',
       Quote: formData.quote || '',
     };
   }
@@ -136,7 +159,7 @@ export function formatEventConfigData(
     WifeName: '',
     PartyDate: partyDate,
     WeddingDate: weddingDate,
-    Address: formData.ceremonyLocation || formData.location || '',
+    AddressParty: formData.ceremonyLocation || formData.location || '',
     Quote: ('description' in formData ? formData.description : '') || '',
   };
 }

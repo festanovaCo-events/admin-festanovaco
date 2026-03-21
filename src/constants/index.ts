@@ -9,3 +9,4 @@ export * from './guest-list-mocks';
 export * from './feature-flags';
 export * from './event';
 export * from './time';
+export * from './music-preview';

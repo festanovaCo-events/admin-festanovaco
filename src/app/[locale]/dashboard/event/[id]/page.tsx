@@ -23,7 +23,7 @@ import { getEventTypeColor } from "@/lib/utils";
 import Image from "next/image";
 import { getEventById } from "@/services/event";
 import type { Event } from "@/interfaces";
-import { useAsyncRequest, useEventDateFormatter } from "@/hooks";
+import { useAsyncRequest, useEventDateFormatter, useMusicPreview } from "@/hooks";
 import { EventDetailSkeleton, EventDetailError } from "@/components/app/dashboard/event/detail";
 import { EVENT_TYPES_ES } from "@/constants";
 
@@ -40,6 +40,7 @@ export default function EventDetailPage() {
   });
 
   const formatEventDate = useEventDateFormatter("long");
+  const { musicUrl, youtubeEmbedUrl, showAudioPreview } = useMusicPreview(event?.musicUrl);
 
   useEffect(() => {
     execute(async () => {
@@ -191,15 +192,24 @@ export default function EventDetailPage() {
                       {t("music.title")}
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <a
-                      href={event.musicUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-800 underline break-all"
-                    >
-                      {event.musicUrl}
-                    </a>
+                  <CardContent className="space-y-3">
+                    {youtubeEmbedUrl && (
+                      <iframe
+                        src={youtubeEmbedUrl}
+                        title="YouTube player"
+                        className="w-full aspect-video rounded-md border"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        allowFullScreen
+                      />
+                    )}
+
+                    {showAudioPreview && (
+                      <audio controls className="w-full">
+                        <source src={musicUrl} />
+                        Tu navegador no soporta el elemento de audio.
+                      </audio>
+                    )}
                   </CardContent>
                 </Card>
               )}
