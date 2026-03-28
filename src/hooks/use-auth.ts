@@ -1,5 +1,4 @@
 import { useAuthStore } from '@/stores/auth';
-import type { Account } from '@/interfaces/api/auth.interface';
 
 export function useAuth() {
   const user = useAuthStore((state) => state.user);

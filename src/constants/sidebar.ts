@@ -31,11 +31,6 @@ export const NAV_SECTIONS: NavSection[] = [
         href: "/dashboard/file-manager",
         icon: FileSpreadsheet,
       },
-      {
-        title: "Guest List",
-        href: "/dashboard/guest-list",
-        icon: Users,
-      },
     ],
   },
 ];

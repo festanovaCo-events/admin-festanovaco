@@ -12,5 +12,7 @@ export const API_ROUTES = {
   },
   INVITATION: {
     UPLOAD: (eventId: string) => `/v1/invitation/${eventId}/upload`,
+    LIST: (eventId: string) => `/v1/invitation/${eventId}`,
+    INFO: (token: string) => `/v1/invitation/info/${token}`,
   },
 } as const;

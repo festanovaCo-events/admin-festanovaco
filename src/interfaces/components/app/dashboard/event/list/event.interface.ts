@@ -10,6 +10,7 @@ export interface Event {
   capacity?: number;
   bannerPhoto?: string;
   createdAt: string;
+  createdBy?: string;
   ceremonyDate?: string;
   ceremonyTime?: string;
   ceremonyLocation?: string;

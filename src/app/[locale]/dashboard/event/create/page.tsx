@@ -13,7 +13,7 @@ import { CreateEventForm } from "@/components/app/dashboard/event/create/create-
 import { useAsyncRequest, useAuth } from "@/hooks";
 import type { SimpleCreateEventFormValues } from "@/schema";
 import { createEvent } from "@/services/event";
-import type { CreateEventResponse, CreateEventRequest, EventType, EventMode } from "@/interfaces/api/event.interface";
+import type { CreateEventResponse, CreateEventRequest, EventType, EventMode } from "@/interfaces";
 import { TIME_VALUES } from "@/constants";
 
 const CreateEventPage = () => {
@@ -25,6 +25,7 @@ const CreateEventPage = () => {
     successMessage: t("success.created"),
     errorMessage: t("error.createFailed"),
     showToast: false,
+    initialLoading: false,
     onSuccess: () => {
       router.push("/dashboard/event/list");
     },

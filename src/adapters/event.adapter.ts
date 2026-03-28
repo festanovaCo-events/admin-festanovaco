@@ -56,6 +56,7 @@ export function formatCreateEventData(
     title: formData.title,
     type: mapEventTypeToAPI(formData.eventType),
     mode: (formData as any).mode || 'on_site',
+    address: (formData as any).address || (formData as any).location || '',
     isPublic: (formData as any).isPublic !== undefined ? (formData as any).isPublic : true,
     capacity: (formData as any).capacity || 100,
     startsAt,
@@ -125,6 +126,7 @@ export function mapEventDataToEvent(eventData: EventData): Event {
     status: eventData.status,
     capacity: eventData.capacity,
     createdAt: eventData.created_at,
+    createdBy: eventData.created_by,
   };
 }
 

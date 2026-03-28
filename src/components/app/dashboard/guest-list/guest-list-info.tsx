@@ -5,7 +5,6 @@ import { Badge } from "@/components/shadcn/ui/badge";
 import { formatDate, getEventTypeColor } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
-import { GuestList } from "@/interfaces";
 import type { GuestListInfoProps } from "@/interfaces/components/app/dashboard/guest-list";
 
 export const GuestListInfo: React.FC<GuestListInfoProps> = ({
@@ -34,7 +33,6 @@ export const GuestListInfo: React.FC<GuestListInfoProps> = ({
           <div>
             <p className="text-sm text-gray-500 mb-1">{t("createdBy")}</p>
             <p className="font-semibold text-gray-900">{guestList.owner}</p>
-            <p className="text-sm text-gray-600">{guestList.ownerEmail}</p>
           </div>
           <div>
             <p className="text-sm text-gray-500 mb-1">{t("createdAt")}</p>

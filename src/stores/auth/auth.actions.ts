@@ -1,4 +1,4 @@
-import type { LoginResponseData, RegisterResponseData } from '@/interfaces/api/auth.interface';
+import type { LoginResponseData, RegisterResponseData } from '@/interfaces';
 import type { AuthStore, AuthActions } from '@/interfaces/stores';
 
 type SetState<T> = {

@@ -15,6 +15,7 @@ export const GuestSearchAndFilters: React.FC<GuestSearchAndFiltersProps> = ({
   totalCount,
   confirmedCount,
   pendingCount,
+  declinedCount,
 }) => {
   const t = useTranslations("guestList.details");
 
@@ -55,6 +56,15 @@ export const GuestSearchAndFilters: React.FC<GuestSearchAndFiltersProps> = ({
           )}
         >
           {t("pending")} ({pendingCount})
+        </Button>
+        <Button
+          variant={statusFilter === "declined" ? "default" : "outline"}
+          onClick={() => onStatusFilterChange("declined")}
+          className={cn(
+            statusFilter === "declined" && "bg-red-600 text-white hover:bg-red-700"
+          )}
+        >
+          {t("table.declinedStatus")} ({declinedCount ?? 0})
         </Button>
       </div>
     </div>

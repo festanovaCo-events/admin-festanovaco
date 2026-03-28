@@ -15,9 +15,10 @@ export function useAsyncRequest<T>(
     errorMessage,
     onSuccess,
     onError,
+    initialLoading = true,
   } = options;
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(initialLoading);
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<T | null>(null);
 

@@ -52,6 +52,11 @@ export const EventCard: React.FC<EventCardProps> = ({
     router.push(`/${locale}/dashboard/file-manager/${event.id}`);
   };
 
+  const handleViewGuestsClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    router.push(`/${locale}/dashboard/guest-list/${event.id}`);
+  };
+
   const handleImageLoad = () => {
     setIsImageLoaded(true);
   };
@@ -118,6 +123,10 @@ export const EventCard: React.FC<EventCardProps> = ({
                   <DropdownMenuItem onClick={handleConfigClick}>
                     <Settings className="h-4 w-4 mr-2" />
                     {t("config")}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleViewGuestsClick}>
+                    <Users className="h-4 w-4 mr-2" />
+                    {tGuestList("viewGuests")}
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={handleUploadGuestsClick}>
                     <Upload className="h-4 w-4 mr-2" />

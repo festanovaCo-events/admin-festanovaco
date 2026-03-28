@@ -1,3 +1,5 @@
+import type { InvitationStatus } from "@/interfaces";
+
 export interface SubGuest {
   id: string;
   name: string;
@@ -11,9 +13,12 @@ export interface Guest {
   email: string;
   phone?: string;
   confirmed: boolean;
+  status?: InvitationStatus;
   confirmedAt?: string;
   numberOfSeats: number;
   subGuests?: SubGuest[];
+  invitationToken?: string;
+  availableSeats?: number;
 }
 
 export interface GuestList {
@@ -72,11 +77,12 @@ export interface GuestStatsCardsProps {
 export interface GuestSearchAndFiltersProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
-  statusFilter: "all" | "confirmed" | "pending";
-  onStatusFilterChange: (filter: "all" | "confirmed" | "pending") => void;
+  statusFilter: "all" | "confirmed" | "pending" | "declined";
+  onStatusFilterChange: (filter: "all" | "confirmed" | "pending" | "declined") => void;
   totalCount: number;
   confirmedCount: number;
   pendingCount: number;
+  declinedCount?: number;
 }
 
 export interface GuestPaginationProps {

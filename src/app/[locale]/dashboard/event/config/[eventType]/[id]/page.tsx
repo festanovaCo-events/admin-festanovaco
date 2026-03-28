@@ -23,7 +23,7 @@ import {
     uploadEventAsset,
 } from "@/services/event";
 import { formatEventConfigData } from "@/adapters/event.adapter";
-import type { EventConfigResponse } from "@/interfaces/api/event.interface";
+import type { EventConfigResponse } from "@/interfaces";
 import {
     PHOTO_UPLOAD_LIMITS,
     MUSIC_OPTION_VALUES,

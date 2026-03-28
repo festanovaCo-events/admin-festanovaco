@@ -1,22 +1,3 @@
-/**
- * Interfaces para las peticiones de autenticación
- */
-
-export interface LoginRequest {
-  email: string;
-  password: string;
-}
-
-export interface RegisterRequest {
-  name: string;
-  email: string;
-  password: string;
-}
-
-/**
- * Interfaces para las respuestas de la API
- */
-
 export interface Account {
   id: string;
   owner: null;
@@ -42,13 +23,5 @@ export interface User {
 }
 
 export type RegisterResponseData = User;
-
 export type LoginResponseData = User;
 
-export interface ApiResponse<T> {
-  success: boolean;
-  data: T;
-}
-
-export type RegisterResponse = ApiResponse<RegisterResponseData>;
-export type LoginResponse = ApiResponse<LoginResponseData>;

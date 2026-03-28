@@ -4,6 +4,7 @@ export interface UseAsyncRequestOptions {
   errorMessage?: string;
   onSuccess?: (data: unknown) => void;
   onError?: (error: string) => void;
+  initialLoading?: boolean;
 }
 
 export interface UseAsyncRequestReturn<T> {
