@@ -8,6 +8,8 @@ export interface ExcelFile {
 
 export interface FileUploadCardProps {
   onFileUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  isUploading: boolean;
+  eventId: string;
 }
 
 export interface FileItemProps {

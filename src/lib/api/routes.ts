@@ -10,4 +10,7 @@ export const API_ROUTES = {
     ASSETS: (eventId: string) => `/v1/event/${eventId}/assets`,
     CONFIG: (eventType: string, eventId: string) => `/v1/event-config/${eventType}/${eventId}`,
   },
+  INVITATION: {
+    UPLOAD: (eventId: string) => `/v1/invitation/${eventId}/upload`,
+  },
 } as const;

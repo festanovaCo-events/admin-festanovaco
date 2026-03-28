@@ -382,11 +382,18 @@
   "fileManager": {
     "title": "Gestor de Archivos Excel",
     "breadcrumb": "Panel > Gestor de Archivos",
+    "selectFromEventList": "Selecciona una tarjeta desde la lista de eventos para subir invitaciones con su ID de evento.",
+    "goToEventList": "Ir a lista de eventos",
     "upload": {
       "title": "Subir Archivos Excel",
       "label": "Click para subir",
       "description": "o arrastra y suelta",
-      "formats": "XLSX, XLS (MAX. 10MB)"
+      "formats": "XLSX, XLS (MAX. 10MB)",
+      "eventId": "Evento: {id}"
+    },
+    "uploadStatus": {
+      "success": "Invitaciones subidas correctamente",
+      "error": "No fue posible subir el archivo de invitaciones"
     },
     "files": {
       "title": "Archivos",
@@ -413,6 +420,11 @@
     },
     "noLists": "No hay listas de invitados disponibles",
     "noResultsFor": "No se encontraron resultados para",
+    "card": {
+      "createdBy": "Creado por",
+      "uploadGuests": "Subir invitados",
+      "viewGuests": "Ver invitados"
+    },
     "details": {
       "title": "Detalle de Lista de Invitados",
       "breadcrumb": "Panel > Listas de Invitados",

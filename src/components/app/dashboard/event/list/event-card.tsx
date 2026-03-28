@@ -3,10 +3,16 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { Calendar, Clock, Settings, Users } from "lucide-react";
+import { Calendar, Clock, MoreVertical, Settings, Upload, Users } from "lucide-react";
 import { Button } from "@/components/shadcn/ui/button";
 import { Card, CardContent } from "@/components/shadcn/ui/card";
 import { Skeleton } from "@/components/shadcn/ui/skeleton";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/shadcn/ui/dropdown-menu";
 import { cn, getEventTypeColor } from "@/lib/utils";
 import Image from "next/image";
 import { EventCardProps } from "@/interfaces";
@@ -20,6 +26,7 @@ export const EventCard: React.FC<EventCardProps> = ({
   const router = useRouter();
   const locale = useLocale();
   const t = useTranslations("common.actions");
+  const tGuestList = useTranslations("guestList.card");
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   const handleClick = () => {
@@ -38,6 +45,11 @@ export const EventCard: React.FC<EventCardProps> = ({
 
   const handleConfigMouseEnter = () => {
     router.prefetch(getConfigPath());
+  };
+
+  const handleUploadGuestsClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    router.push(`/${locale}/dashboard/file-manager/${event.id}`);
   };
 
   const handleImageLoad = () => {
@@ -88,10 +100,31 @@ export const EventCard: React.FC<EventCardProps> = ({
               </h3>
               <p className="text-sm text-gray-500">{formatDate(event.date)}</p>
             </div>
-            <div className="shrink-0">
+            <div className="shrink-0 flex items-center gap-2">
               <span className="px-2 py-1 text-xs font-medium rounded-md bg-gray-100 text-gray-700">
                 {statusLabel}
               </span>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <MoreVertical className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={handleConfigClick}>
+                    <Settings className="h-4 w-4 mr-2" />
+                    {t("config")}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleUploadGuestsClick}>
+                    <Upload className="h-4 w-4 mr-2" />
+                    {tGuestList("uploadGuests")}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
 
@@ -111,16 +144,6 @@ export const EventCard: React.FC<EventCardProps> = ({
               </span>
             </div>
 
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleConfigClick}
-              onMouseEnter={handleConfigMouseEnter}
-              className="w-fit cursor-pointer mt-2"
-            >
-              <Settings className="h-4 w-4 mr-2" />
-              {t("config")}
-            </Button>
           </div>
         </div>
       </CardContent>

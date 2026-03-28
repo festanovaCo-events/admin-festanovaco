@@ -382,11 +382,18 @@
   "fileManager": {
     "title": "Excel File Manager",
     "breadcrumb": "Dashboard > File Manager",
+    "selectFromEventList": "Select a card from event list to upload invitations with its event ID.",
+    "goToEventList": "Go to event list",
     "upload": {
       "title": "Upload Excel Files",
       "label": "Click to upload",
       "description": "or drag and drop",
-      "formats": "XLSX, XLS (MAX. 10MB)"
+      "formats": "XLSX, XLS (MAX. 10MB)",
+      "eventId": "Event: {id}"
+    },
+    "uploadStatus": {
+      "success": "Invitations uploaded successfully",
+      "error": "Could not upload invitation file"
     },
     "files": {
       "title": "Files",
@@ -413,6 +420,11 @@
     },
     "noLists": "No guest lists available",
     "noResultsFor": "No results found for",
+    "card": {
+      "createdBy": "Created by",
+      "uploadGuests": "Upload guests",
+      "viewGuests": "View guests"
+    },
     "details": {
       "title": "Guest List Detail",
       "breadcrumb": "Dashboard > Guest Lists",

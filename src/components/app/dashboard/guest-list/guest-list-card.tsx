@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Users, Calendar, CheckCircle2 } from "lucide-react";
 import { Card, CardContent } from "@/components/shadcn/ui/card";
 import { Button } from "@/components/shadcn/ui/button";
@@ -16,8 +16,9 @@ export const GuestListCard: React.FC<GuestListCardProps> = ({
 }) => {
   const router = useRouter();
   const locale = useLocale();
-  
-  const confirmationRate = guestList.totalGuests > 0 
+  const t = useTranslations("guestList.card");
+
+  const confirmationRate = guestList.totalGuests > 0
     ? Math.round((guestList.confirmedGuests / guestList.totalGuests) * 100)
     : 0;
 
@@ -46,7 +47,7 @@ export const GuestListCard: React.FC<GuestListCardProps> = ({
                 </Badge>
               </div>
               <p className="text-sm text-gray-500">
-                Creado por: {guestList.owner}
+                {t("createdBy")}: {guestList.owner}
               </p>
             </div>
           </div>
@@ -102,7 +103,7 @@ export const GuestListCard: React.FC<GuestListCardProps> = ({
               size="sm"
               onClick={handleShowMore}
             >
-              Ver invitados
+              {t("viewGuests")}
             </Button>
           </div>
         </div>

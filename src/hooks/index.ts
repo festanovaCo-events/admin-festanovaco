@@ -8,3 +8,4 @@ export * from "./use-pagination";
 export * from "./use-event-date-formatter";
 export * from "./use-auth";
 export * from "./use-music-preview";
+export * from "./use-invitation-upload";
