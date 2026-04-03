@@ -35,7 +35,7 @@ export const GuestSearchAndFilters: React.FC<GuestSearchAndFiltersProps> = ({
         <Button
           variant={statusFilter === "all" ? "default" : "outline"}
           onClick={() => onStatusFilterChange("all")}
-          className={cn(statusFilter === "all" && "bg-gray-900 text-white")}
+          className={cn("cursor-pointer", statusFilter === "all" && "bg-gray-900 text-white")}
         >
           {t("all")} ({totalCount})
         </Button>
@@ -43,6 +43,7 @@ export const GuestSearchAndFilters: React.FC<GuestSearchAndFiltersProps> = ({
           variant={statusFilter === "confirmed" ? "default" : "outline"}
           onClick={() => onStatusFilterChange("confirmed")}
           className={cn(
+            "cursor-pointer",
             statusFilter === "confirmed" && "bg-green-600 text-white hover:bg-green-700"
           )}
         >
@@ -52,6 +53,7 @@ export const GuestSearchAndFilters: React.FC<GuestSearchAndFiltersProps> = ({
           variant={statusFilter === "pending" ? "default" : "outline"}
           onClick={() => onStatusFilterChange("pending")}
           className={cn(
+            "cursor-pointer",
             statusFilter === "pending" && "bg-orange-600 text-white hover:bg-orange-700"
           )}
         >
@@ -61,6 +63,7 @@ export const GuestSearchAndFilters: React.FC<GuestSearchAndFiltersProps> = ({
           variant={statusFilter === "declined" ? "default" : "outline"}
           onClick={() => onStatusFilterChange("declined")}
           className={cn(
+            "cursor-pointer",
             statusFilter === "declined" && "bg-red-600 text-white hover:bg-red-700"
           )}
         >

@@ -39,6 +39,7 @@ const LoginPage = () => {
   });
 
   const { isLoading, execute } = useAsyncRequest<LoginResponse>({
+    initialLoading: false,
     successMessage: tSuccess("login"),
     onSuccess: () => {
       router.push("/dashboard");

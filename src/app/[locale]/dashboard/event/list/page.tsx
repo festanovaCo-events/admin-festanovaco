@@ -56,6 +56,9 @@ export default function EventListPage() {
               event={event}
               formatDate={formatEventDate}
               getEventTypeLabel={(type) => tTypes(type as any)}
+              onDeleted={(id) => {
+                setEvents((prev) => prev.filter((e) => e.id === id ? false : true));
+              }}
             />
           ))}
         </div>

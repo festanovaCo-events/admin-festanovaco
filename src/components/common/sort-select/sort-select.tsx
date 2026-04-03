@@ -16,11 +16,11 @@ export const SortSelect: React.FC<SortSelectProps> = ({
     options,
     placeholder,
     className,
-    triggerClassName = "w-[140px] gap-3",
+    triggerClassName = "w-auto min-w-[140px] gap-3",
 }) => {
     return (
         <Select value={value} onValueChange={onValueChange}>
-            <SelectTrigger className={triggerClassName}>
+            <SelectTrigger className={`${triggerClassName} cursor-pointer`}>
                 <div className="flex items-center gap-1">
                     <ArrowUpDown className="h-4 w-4 shrink-0" />
                     <SelectValue placeholder={placeholder} />
@@ -28,7 +28,7 @@ export const SortSelect: React.FC<SortSelectProps> = ({
             </SelectTrigger>
             <SelectContent>
                 {options.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
+                    <SelectItem key={option.value} value={option.value} className="cursor-pointer">
                         {option.label}
                     </SelectItem>
                 ))}

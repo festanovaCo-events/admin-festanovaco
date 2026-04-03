@@ -91,7 +91,7 @@ export const AppSidebar = () => {
           asChild
           tooltip={translatedTitle}
           isActive={isActive}
-          className="px-3 py-5 [&[data-active='true']]:bg-[rgba(0,167,111,18%)]"
+          className="px-3 py-5 cursor-pointer [&[data-active='true']]:bg-[rgba(0,167,111,18%)]"
         >
           <Link href={item.href ?? "#"}>
             {Icon && <Icon className={getItemClasses(isActive)} />}

@@ -61,8 +61,8 @@ export default function EventDetailPage() {
             <Button
               variant="ghost"
               size="icon"
+              className="shrink-0 cursor-pointer"
               onClick={() => router.back()}
-              className="shrink-0"
             >
               <ArrowLeft className="h-5 w-5" />
             </Button>

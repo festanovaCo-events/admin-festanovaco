@@ -31,6 +31,7 @@ export const DeleteConfirmationDialog: FC<DeleteConfirmationDialogProps> = ({
         <DialogFooter>
           <Button
             variant="outline"
+            className="cursor-pointer"
             onClick={() => {
               onOpenChange(false);
             }}
@@ -39,6 +40,7 @@ export const DeleteConfirmationDialog: FC<DeleteConfirmationDialogProps> = ({
           </Button>
           <Button
             variant="destructive"
+            className="cursor-pointer"
             onClick={() => {
               onConfirm();
               onOpenChange(false);

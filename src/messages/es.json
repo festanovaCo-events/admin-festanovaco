@@ -269,7 +269,10 @@
       },
       "noEvents": "No hay eventos disponibles",
       "noResultsFor": "No se encontraron resultados para",
-      "errorLoadingEvents": "Error al cargar los eventos. Por favor, intenta nuevamente."
+      "errorLoadingEvents": "Error al cargar los eventos. Por favor, intenta nuevamente.",
+      "deleteConfirm": "¿Estás seguro de que quieres eliminar este evento?",
+      "deleteSuccess": "Evento eliminado correctamente",
+      "deleteFailed": "No fue posible eliminar el evento"
     },
     "detail": {
       "title": "Detalle del Evento",

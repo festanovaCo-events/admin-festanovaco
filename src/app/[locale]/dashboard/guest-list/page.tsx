@@ -76,13 +76,13 @@ export default function GuestListPage() {
               setSortBy(value as "latest" | "oldest" | "name")
             }
           >
-            <SelectTrigger className="w-[140px]">
+            <SelectTrigger className="w-[140px] cursor-pointer">
               <SelectValue placeholder={t("sortBy")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="latest">{t("sortOptions.latest")}</SelectItem>
-              <SelectItem value="oldest">{t("sortOptions.oldest")}</SelectItem>
-              <SelectItem value="name">{t("sortOptions.name")}</SelectItem>
+              <SelectItem value="latest" className="cursor-pointer">{t("sortOptions.latest")}</SelectItem>
+              <SelectItem value="oldest" className="cursor-pointer">{t("sortOptions.oldest")}</SelectItem>
+              <SelectItem value="name" className="cursor-pointer">{t("sortOptions.name")}</SelectItem>
             </SelectContent>
           </Select>
         </div>

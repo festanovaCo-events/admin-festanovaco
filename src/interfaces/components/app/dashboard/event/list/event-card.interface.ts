@@ -4,5 +4,6 @@ export interface EventCardProps {
   event: Event;
   formatDate: (date: string) => string;
   getEventTypeLabel: (type: string) => string;
+  onDeleted?: (id: string) => void;
 }
 

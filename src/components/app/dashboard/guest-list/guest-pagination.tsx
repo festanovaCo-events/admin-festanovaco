@@ -38,7 +38,7 @@ export const GuestPagination: React.FC<GuestPaginationProps> = ({
           size="sm"
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className="gap-1"
+          className="gap-1 cursor-pointer"
         >
           <ChevronLeft className="h-4 w-4" />
           {tCommon("previous")}
@@ -58,7 +58,7 @@ export const GuestPagination: React.FC<GuestPaginationProps> = ({
                   size="sm"
                   onClick={() => onPageChange(page)}
                   className={cn(
-                    "min-w-[40px]",
+                    "min-w-[40px] cursor-pointer",
                     currentPage === page && "bg-gray-900 text-white"
                   )}
                 >
@@ -81,7 +81,7 @@ export const GuestPagination: React.FC<GuestPaginationProps> = ({
           size="sm"
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="gap-1"
+          className="gap-1 cursor-pointer"
         >
           {tCommon("next")}
           <ChevronRight className="h-4 w-4" />

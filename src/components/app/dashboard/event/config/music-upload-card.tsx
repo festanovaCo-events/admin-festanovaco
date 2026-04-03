@@ -51,7 +51,7 @@ export const MusicUploadCard: FC<MusicUploadCardProps> = ({ form }) => {
               form.setValue(EVENT_CREATE_FIELD_NAMES.MUSIC_OPTION, MUSIC_OPTION_VALUES.URL);
               form.setValue(EVENT_CREATE_FIELD_NAMES.MUSIC_FILE, undefined);
             }}
-            className="flex-1"
+            className="flex-1 cursor-pointer"
           >
             {t("urlOption")}
           </Button>
@@ -62,7 +62,7 @@ export const MusicUploadCard: FC<MusicUploadCardProps> = ({ form }) => {
               form.setValue(EVENT_CREATE_FIELD_NAMES.MUSIC_OPTION, MUSIC_OPTION_VALUES.FILE);
               form.setValue(EVENT_CREATE_FIELD_NAMES.MUSIC_URL, "");
             }}
-            className="flex-1"
+            className="flex-1 cursor-pointer"
           >
             {t("fileOption")}
           </Button>

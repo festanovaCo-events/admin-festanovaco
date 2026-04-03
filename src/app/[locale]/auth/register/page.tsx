@@ -42,6 +42,7 @@ const RegisterPage = () => {
   });
 
   const { isLoading, execute } = useAsyncRequest<RegisterResponse>({
+    initialLoading: false,
     successMessage: tSuccess("register"),
     onSuccess: () => {
       router.push("/auth/login");

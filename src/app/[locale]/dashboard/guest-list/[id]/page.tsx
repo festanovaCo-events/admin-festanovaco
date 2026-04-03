@@ -64,6 +64,7 @@ export default function GuestListDetailPage() {
         <Button
           variant="ghost"
           size="icon"
+          className="cursor-pointer"
           onClick={() => router.back()}
         >
           <ArrowLeft className="h-5 w-5" />

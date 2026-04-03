@@ -27,7 +27,7 @@ export const EventConfigNotFound = ({ onBack }: EventConfigNotFoundProps) => {
                 <Button
                     onClick={handleBack}
                     variant="link"
-                    className="text-blue-600 hover:text-blue-800"
+                    className="text-blue-600 hover:text-blue-800 cursor-pointer"
                 >
                     {t("backToList")}
                 </Button>

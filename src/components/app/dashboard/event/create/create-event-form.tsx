@@ -197,11 +197,12 @@ export const CreateEventForm = ({ onSubmit, isLoading }: CreateEventFormProps) =
           <Button
             type="button"
             variant="outline"
+            className="cursor-pointer"
             onClick={() => router.back()}
           >
             {tCommon("cancel")}
           </Button>
-          <Button type="submit" disabled={isLoading}>
+          <Button type="submit" disabled={isLoading} className="cursor-pointer">
             {isLoading ? t("actions.creating") : t("actions.create")}
           </Button>
         </div>

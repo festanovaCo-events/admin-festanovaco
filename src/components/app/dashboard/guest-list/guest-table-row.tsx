@@ -74,7 +74,7 @@ export const GuestTableRow: React.FC<GuestTableRowProps> = ({
               variant="ghost"
               size="sm"
               onClick={handleToggle}
-              className="gap-1 text-xs"
+            className="gap-1 text-xs cursor-pointer"
             >
               <ChevronDown
                 className={cn(

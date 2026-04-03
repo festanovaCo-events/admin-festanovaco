@@ -19,7 +19,7 @@ export default function FileManagerPage() {
       </div>
       <div className="rounded-lg border border-dashed p-8 text-center space-y-4">
         <p className="text-sm text-muted-foreground">{t("selectFromEventList")}</p>
-        <Button onClick={() => router.push(`/${locale}/dashboard/event/list`)}>
+        <Button className="cursor-pointer" onClick={() => router.push(`/${locale}/dashboard/event/list`)}>
           {t("goToEventList")}
         </Button>
       </div>

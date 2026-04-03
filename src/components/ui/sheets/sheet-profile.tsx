@@ -76,7 +76,7 @@ export const SheetProfile: FC<ProfileDrawerProps> = ({ children }) => {
               <Button
                 variant="outline"
                 size="icon"
-                className="h-12 w-12 rounded-full border-2 border-dashed border-gray-300 bg-transparent"
+              className="h-12 w-12 rounded-full border-2 border-dashed border-gray-300 bg-transparent cursor-pointer"
               >
                 <Plus className="h-5 w-5 text-gray-400" />
               </Button>
@@ -160,7 +160,7 @@ export const SheetProfile: FC<ProfileDrawerProps> = ({ children }) => {
             <Button
               variant="outline"
               onClick={handleLogout}
-              className="w-full border-red-200 bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700"
+              className="w-full border-red-200 bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700 cursor-pointer"
             >
               {t("logout")}
             </Button>

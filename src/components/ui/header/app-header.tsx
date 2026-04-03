@@ -35,7 +35,7 @@ export const AppHeader = () => {
         <Button
           variant="ghost"
           size="sm"
-          className="hidden gap-2 text-gray-500 hover:text-gray-900 md:flex"
+          className="hidden gap-2 text-gray-500 hover:text-gray-900 md:flex cursor-pointer"
           onClick={() => setOpenSearch(true)}
         >
           <Search className="h-4 w-4" />
@@ -49,7 +49,7 @@ export const AppHeader = () => {
           onSelect={(option) => handleLanguageChange(option.value)}
           iconSize={30}
         >
-          <Button variant="ghost" size="icon" className="h-10 w-10">
+          <Button variant="ghost" size="icon" className="h-10 w-10 cursor-pointer">
             <Image
               src={currentLanguage.src}
               alt={currentLanguage.label}
@@ -61,12 +61,12 @@ export const AppHeader = () => {
           </Button>
         </IconDropdown>
 
-        <Button variant="ghost" size="icon" className="h-9 w-9">
+        <Button variant="ghost" size="icon" className="h-9 w-9 cursor-pointer">
           <Settings className="h-5 w-5 text-gray-500 animate-spin [animation-duration:3s]" />
         </Button>
 
         <SheetProfile>
-          <Button variant="ghost" className="relative h-9 w-9 rounded-full p-0">
+          <Button variant="ghost" className="relative h-9 w-9 rounded-full p-0 cursor-pointer">
             <Avatar
               src="https://github.com/shadcn.png"
               alt="@shadcn"

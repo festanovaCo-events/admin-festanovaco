@@ -101,6 +101,7 @@ export const GuestListCard: React.FC<GuestListCardProps> = ({
             <Button
               variant="outline"
               size="sm"
+              className="cursor-pointer"
               onClick={handleShowMore}
             >
               {t("viewGuests")}

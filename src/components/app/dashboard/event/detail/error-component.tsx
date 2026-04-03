@@ -15,7 +15,7 @@ export const EventDetailError = ({ error }: EventDetailErrorProps) => {
       <p className="text-gray-500 text-lg mb-4">
         {error || t("notFound")}
       </p>
-      <Button onClick={() => router.back()}>{tCommon("back")}</Button>
+      <Button className="cursor-pointer" onClick={() => router.back()}>{tCommon("back")}</Button>
     </div>
   );
 };

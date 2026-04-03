@@ -12,4 +12,5 @@ export type ListEventsResponse = ApiResponse<ListEventsResponseData>;
 export type GetEventResponse = ApiResponse<GetEventResponseData>;
 export type UploadAssetResponse = ApiResponse<UploadAssetResponseData>;
 export type EventConfigResponse = ApiResponse<EventConfigResponseData>;
+export type DeleteEventResponse = ApiResponse<null>;
 

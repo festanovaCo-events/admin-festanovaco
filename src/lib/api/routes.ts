@@ -9,6 +9,7 @@ export const API_ROUTES = {
     GET_BY_ID: (eventId: string) => `/v1/event/${eventId}`,
     ASSETS: (eventId: string) => `/v1/event/${eventId}/assets`,
     CONFIG: (eventType: string, eventId: string) => `/v1/event-config/${eventType}/${eventId}`,
+    DELETE: (eventId: string) => `/v1/event/${eventId}`,
   },
   INVITATION: {
     UPLOAD: (eventId: string) => `/v1/invitation/${eventId}/upload`,

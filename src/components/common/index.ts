@@ -1,6 +1,7 @@
 export * from './avatar';
 export * from './breadcrumb';
 export * from './dropdowns';
+export * from './confirm-dialog';
 export * from './file-upload';
 export * from './form-fields';
 export * from './info-display';
