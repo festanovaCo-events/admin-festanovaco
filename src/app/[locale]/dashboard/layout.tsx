@@ -8,6 +8,7 @@ import {
 } from "@/components/shadcn/ui/sidebar";
 import { AppSidebar } from "@/components/ui/sidebar/app-sidebar";
 import { AppHeader } from "@/components/ui/header/app-header";
+import { StatusOverlay } from "@/components/common/status-overlay";
 
 export default function DashboardLayout({
   children,
@@ -26,7 +27,7 @@ export default function DashboardLayout({
             </div>
           </header>
           <main className="flex-1 overflow-y-auto bg-gray-50 p-6">
-            {children}
+            <StatusOverlay>{children}</StatusOverlay>
           </main>
         </SidebarInset>
       </div>

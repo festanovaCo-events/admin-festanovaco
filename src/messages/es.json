@@ -21,10 +21,28 @@
       "confirm": "Confirmar",
       "saving": "Guardando...",
       "creating": "Creando...",
-      "config": "Configurar"
+      "config": "Configurar",
+      "retry": "Reintentar"
     },
     "yes": "Sí",
-    "no": "No"
+    "no": "No",
+    "messages": {
+      "connectionError": "Error de conexión. Verifica tu red e intenta nuevamente."
+    },
+    "status": {
+      "forbidden": "Acceso prohibido",
+      "forbiddenDesc": "No tienes permiso para acceder a este recurso.",
+      "badRequest": "Solicitud inválida",
+      "badRequestDesc": "El servidor no pudo procesar tu solicitud por sintaxis inválida.",
+      "internalServerError": "Error interno del servidor",
+      "internalServerErrorDesc": "Estamos trabajando para resolverlo lo antes posible. Intenta más tarde.",
+      "notFound": "Página no encontrada",
+      "notFoundDesc": "La página que buscas no existe o fue movida.",
+      "noInternet": "Sin conexión a internet",
+      "noInternetDesc": "Asegúrate de tener conexión estable para continuar.",
+      "maintenance": "En mantenimiento",
+      "maintenanceDesc": "Estamos realizando mejoras. Por favor, vuelve en unos minutos."
+    }
   },
   "auth": {
     "welcome": {

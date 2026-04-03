@@ -21,10 +21,28 @@
       "confirm": "Confirm",
       "saving": "Saving...",
       "creating": "Creating...",
-      "config": "Configure"
+      "config": "Configure",
+      "retry": "Retry"
     },
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "messages": {
+      "connectionError": "Connection error. Check your network and try again."
+    },
+    "status": {
+      "forbidden": "Forbidden Access",
+      "forbiddenDesc": "You don't have permission to access this resource.",
+      "badRequest": "Bad request",
+      "badRequestDesc": "The server cannot process your request due to invalid syntax.",
+      "internalServerError": "Internal server error",
+      "internalServerErrorDesc": "We're working to fix the issue as soon as possible. Try again later.",
+      "notFound": "Page not found",
+      "notFoundDesc": "The page you are looking for doesn't exist or was moved.",
+      "noInternet": "No internet connection",
+      "noInternetDesc": "Please ensure you have a stable connection to continue.",
+      "maintenance": "Under maintenance",
+      "maintenanceDesc": "We are performing improvements. Please check back soon."
+    }
   },
   "auth": {
     "welcome": {
