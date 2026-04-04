@@ -117,9 +117,10 @@ export function useEventConfigSteps({
           fieldsToValidate = ["husbandName", "wifeName", "quote"];
           break;
         case EVENT_CREATE_STEP_IDS.STEP_2:
-          fieldsToValidate = ["partyDateTime"];
           if (eventType === EVENT_TYPES.WEDDING) {
-            fieldsToValidate.push("weddingDateTime", "addressWedding");
+            fieldsToValidate = ["weddingDateTime", "addressWedding"];
+          } else {
+            fieldsToValidate = ["partyDateTime"];
           }
           break;
         case EVENT_CREATE_STEP_IDS.STEP_3:

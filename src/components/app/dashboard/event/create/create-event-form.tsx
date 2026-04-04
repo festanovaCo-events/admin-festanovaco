@@ -32,6 +32,7 @@ import { Button } from "@/components/shadcn/ui/button";
 import { createSimpleEventFormSchema, type SimpleCreateEventFormValues } from "@/schema";
 import { EVENT_TYPES, EVENT_MODES } from "@/constants";
 import type { CreateEventFormProps } from "@/interfaces/components/app/dashboard/event/create/create-event-form.interface";
+import { toLocalInputValue } from "@/lib/utils";
 
 export const CreateEventForm = ({ onSubmit, isLoading }: CreateEventFormProps) => {
   const t = useTranslations("event.create");
@@ -49,8 +50,12 @@ export const CreateEventForm = ({ onSubmit, isLoading }: CreateEventFormProps) =
       address: "",
       isPublic: true,
       capacity: 150,
+      startAt: new Date(),
+      endAt: new Date(),
     },
   });
+
+  // Usa utilidad compartida toLocalInputValue
 
   return (
     <Form {...form}>
@@ -124,9 +129,50 @@ export const CreateEventForm = ({ onSubmit, isLoading }: CreateEventFormProps) =
                     <SelectContent>
                       <SelectItem value={EVENT_MODES.ON_SITE}>{t("simple.modes.onSite")}</SelectItem>
                       <SelectItem value={EVENT_MODES.ONLINE}>{t("simple.modes.online")}</SelectItem>
-                      <SelectItem value={EVENT_MODES.HYBRID}>{t("simple.modes.hybrid")}</SelectItem>
                     </SelectContent>
                   </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="startAt"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Fecha y hora de inicio</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="datetime-local"
+                      value={toLocalInputValue(field.value)}
+                      onChange={(e) => field.onChange(new Date(e.target.value))}
+                      onBlur={field.onBlur}
+                      name={field.name}
+                      ref={field.ref}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="endAt"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Fecha y hora de fin</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="datetime-local"
+                      value={toLocalInputValue(field.value)}
+                      onChange={(e) => field.onChange(new Date(e.target.value))}
+                      onBlur={field.onBlur}
+                      name={field.name}
+                      ref={field.ref}
+                    />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}

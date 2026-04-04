@@ -14,7 +14,7 @@ import { useAsyncRequest, useAuth } from "@/hooks";
 import type { SimpleCreateEventFormValues } from "@/schema";
 import { createEvent } from "@/services/event";
 import type { CreateEventResponse, CreateEventRequest, EventType, EventMode } from "@/interfaces";
-import { TIME_VALUES } from "@/constants";
+import { toIsoUtcNoMs } from "@/lib/utils";
 
 const CreateEventPage = () => {
   const t = useTranslations("event.create");
@@ -46,8 +46,8 @@ const CreateEventPage = () => {
         address: data.address,
         isPublic: data.isPublic,
         capacity: data.capacity,
-        startsAt: new Date().toISOString(),
-        endsAt: new Date(Date.now() + TIME_VALUES.EIGHT_HOURS_IN_MS).toISOString(),
+        startsAt: toIsoUtcNoMs(data.startAt),
+        endsAt: toIsoUtcNoMs(data.endAt),
       };
 
       return await createEvent(eventData);

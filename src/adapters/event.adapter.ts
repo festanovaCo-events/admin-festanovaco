@@ -21,55 +21,23 @@ const EVENT_FALLBACK_IMAGE_BY_TYPE: Record<string, string> = {
     'https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=1400&q=80',
 };
 
-function mapEventTypeToAPI(formEventType: string): EventType {
-  const typeMap: Record<string, EventType> = {
-    [EVENT_TYPE_VALUES.WEDDING]: 'wedding',
-    [EVENT_TYPE_VALUES.BIRTHDAY]: 'birthday',
-    [EVENT_TYPE_VALUES.ANNIVERSARY]: 'anniversary',
-    [EVENT_TYPE_VALUES.GRADUATION]: 'graduation',
-    [EVENT_TYPE_VALUES.CORPORATE]: 'corporate',
-  };
-
-  return typeMap[formEventType] || 'wedding';
-}
-
 function combineDateTime(date: string, time: string): string {
-  return `${date}T${time}:00Z`;
-}
-
-function calculateEndDate(startsAt: string): string {
-  const startDate = new Date(startsAt);
-  const endDate = new Date(startDate);
-  endDate.setHours(endDate.getHours() + 8); // 8 horas por defecto
-  return endDate.toISOString();
-}
-
-export function formatCreateEventData(
-  formData: CreateEventFormValues | (CreateEventFormValues & { mode?: string; isPublic?: boolean; capacity?: number }),
-  accountId: string
-): CreateEventRequest {
-  const startsAt = combineDateTime(formData.date, formData.time);
-  const endsAt = calculateEndDate(startsAt);
-
-  return {
-    accountId,
-    title: formData.title,
-    type: mapEventTypeToAPI(formData.eventType),
-    mode: (formData as any).mode || 'on_site',
-    address: (formData as any).address || (formData as any).location || '',
-    isPublic: (formData as any).isPublic !== undefined ? (formData as any).isPublic : true,
-    capacity: (formData as any).capacity || 100,
-    startsAt,
-    endsAt,
-  };
+  // Interpretar la fecha y hora como hora local del usuario y devolver ISO (UTC) del instante real
+  // Evitar sufijo 'Z' directo que fuerza UTC y provoca desfases visuales
+  const localDate = new Date(`${date}T${time}:00`);
+  return localDate.toISOString();
 }
 
 export function mapEventDataToEvent(eventData: EventData): Event {
   const startDate = new Date(eventData.starts_at);
   const safeDate = Number.isNaN(startDate.getTime()) ? new Date() : startDate;
-  const date = safeDate.toISOString().split('T')[0];
-  const hours = String(safeDate.getUTCHours()).padStart(2, '0');
-  const minutes = String(safeDate.getUTCMinutes()).padStart(2, '0');
+  // Usar componentes locales para evitar cambio de día por conversión UTC
+  const year = safeDate.getFullYear();
+  const month = String(safeDate.getMonth() + 1).padStart(2, '0');
+  const day = String(safeDate.getDate()).padStart(2, '0');
+  const date = `${year}-${month}-${day}`;
+  const hours = String(safeDate.getHours()).padStart(2, '0');
+  const minutes = String(safeDate.getMinutes()).padStart(2, '0');
   const time = `${hours}:${minutes}`;
 
   const eventType = eventData.type.toLowerCase();
@@ -109,12 +77,16 @@ export function mapEventDataToEvent(eventData: EventData): Event {
       : undefined;
 
   const description = eventData.config?.metadata?.quote?.trim() || '';
-  const location = eventData.address || eventData.config?.metadata?.addressParty || '';
+  const husbandName = eventData.config?.metadata?.husbandName?.trim();
+  const wifeName = eventData.config?.metadata?.wifeName?.trim();
+  const location = eventData.config?.metadata?.addressParty || '';
 
   return {
     id: eventData.id,
     title: eventData.title,
     description,
+    husbandName,
+    wifeName,
     eventType,
     date,
     time,

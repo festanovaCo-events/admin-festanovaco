@@ -30,7 +30,14 @@ export function formatDate(
     format?: "short" | "long";
   }
 ): string {
-  const date = new Date(dateString);
+  let date: Date;
+  const dateOnlyMatch = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateString);
+  if (dateOnlyMatch) {
+    const [, y, m, d] = dateOnlyMatch;
+    date = new Date(Number(y), Number(m) - 1, Number(d));
+  } else {
+    date = new Date(dateString);
+  }
   
   if (isNaN(date.getTime())) {
     return dateString;
@@ -65,4 +72,20 @@ export function formatFileSize(bytes: number): string {
   const i = Math.floor(Math.log(bytes) / Math.log(k));
   const value = Math.round((bytes / Math.pow(k, i)) * 100) / 100;
   return `${value} ${sizes[i]}`;
+}
+
+// Date/Time utilities
+export function toLocalInputValue(date: Date): string {
+  const pad = (num: number) => String(num).padStart(2, "0");
+  const year = date.getFullYear();
+  const month = pad(date.getMonth() + 1);
+  const day = pad(date.getDate());
+  const hours = pad(date.getHours());
+  const minutes = pad(date.getMinutes());
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+}
+
+export function toIsoUtcNoMs(d: Date): string {
+  const iso = new Date(d).toISOString();
+  return iso.replace(".000Z", "Z");
 }

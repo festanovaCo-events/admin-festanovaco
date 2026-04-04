@@ -80,6 +80,7 @@ const EventConfigPage = () => {
     }, [eventType, form]);
 
     const { isLoading, error, execute } = useAsyncRequest<EventConfigResponse>({
+        initialLoading: false,
         successMessage: t("success.configured"),
         errorMessage: t("error.configureFailed"),
         showToast: false,

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import {
@@ -9,6 +9,9 @@ import {
   Clock,
   MapPin,
   Music,
+  User,
+  Quote,
+  Eye,
   Image as ImageIcon,
 } from "lucide-react";
 import { Button } from "@/components/shadcn/ui/button";
@@ -18,6 +21,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/shadcn/ui/card";
+import { GalleryGrid } from "@/components/app/dashboard/event/detail/gallery-grid";
+import { PhotoPreviewDialog } from "@/components/app/dashboard/event/detail/photo-preview-dialog";
 import { InfoRow, AsyncStateLayout } from "@/components/common";
 import { getEventTypeColor } from "@/lib/utils";
 import Image from "next/image";
@@ -41,6 +46,8 @@ export default function EventDetailPage() {
 
   const formatEventDate = useEventDateFormatter("long");
   const { musicUrl, youtubeEmbedUrl, showAudioPreview } = useMusicPreview(event?.musicUrl);
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [previewSrc, setPreviewSrc] = useState<string | null>(null);
 
   useEffect(() => {
     execute(async () => {
@@ -162,22 +169,14 @@ export default function EventDetailPage() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                      {event.gallery.map((photo: string, index: number) => (
-                        <div
-                          key={index}
-                          className="relative aspect-square rounded-lg overflow-hidden"
-                        >
-                          <Image
-                            src={photo}
-                            alt={`${event.title} - Foto ${index + 1}`}
-                            fill
-                            className="object-cover"
-                            sizes="(max-width: 768px) 50vw, 33vw"
-                          />
-                        </div>
-                      ))}
-                    </div>
+                    <GalleryGrid
+                      photos={event.gallery}
+                      title={t("gallery.title")}
+                      onSelect={(src) => {
+                        setPreviewSrc(src);
+                        setIsPreviewOpen(true);
+                      }}
+                    />
                   </CardContent>
                 </Card>
               )}
@@ -214,6 +213,44 @@ export default function EventDetailPage() {
                 </Card>
               )}
 
+              {(event.husbandName || event.wifeName || event.description || event.location) && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle>{t("additional.title")}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    {event.husbandName && (
+                      <InfoRow
+                        icon={<User className="h-5 w-5" />}
+                        label={t("additional.husbandName")}
+                        value={event.husbandName}
+                      />
+                    )}
+                    {event.wifeName && (
+                      <InfoRow
+                        icon={<User className="h-5 w-5" />}
+                        label={t("additional.wifeName")}
+                        value={event.wifeName}
+                      />
+                    )}
+                    {event.description && (
+                      <InfoRow
+                        icon={<Quote className="h-5 w-5" />}
+                        label={t("additional.quote")}
+                        value={event.description}
+                      />
+                    )}
+                    {event.location && (
+                      <InfoRow
+                        icon={<MapPin className="h-5 w-5" />}
+                        label={t("additional.partyAddress")}
+                        value={event.location}
+                      />
+                    )}
+                  </CardContent>
+                </Card>
+              )}
+
               {event.footerPhoto && (
                 <Card>
                   <CardHeader>
@@ -236,6 +273,13 @@ export default function EventDetailPage() {
           </div>
         </div>
       )}
+
+      <PhotoPreviewDialog
+        open={isPreviewOpen}
+        onOpenChange={setIsPreviewOpen}
+        title={t("gallery.title")}
+        src={previewSrc}
+      />
     </AsyncStateLayout>
   );
 }

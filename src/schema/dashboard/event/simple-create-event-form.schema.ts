@@ -22,7 +22,6 @@ export const createSimpleEventFormSchema = (
     mode: z.enum([
       EVENT_MODES.ON_SITE,
       EVENT_MODES.ONLINE,
-      EVENT_MODES.HYBRID,
     ], {
       message: t("modeRequired"),
     }),
@@ -35,6 +34,8 @@ export const createSimpleEventFormSchema = (
       .number()
       .min(CAPACITY_LIMITS.MIN, t("capacityMin"))
       .max(CAPACITY_LIMITS.MAX, t("capacityMax")),
+    startAt: z.date().min(1, t("dateRequired")),
+    endAt: z.date().min(1, t("dateRequired")),
   });
 };
 

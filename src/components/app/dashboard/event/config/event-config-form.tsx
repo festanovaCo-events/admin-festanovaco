@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { Form } from "@/components/shadcn/ui/form";
 import { BasicInfoCardConfig } from "@/components/app/dashboard/event/config/basic-info-card-config";
 import { DateLocationCardConfig } from "@/components/app/dashboard/event/config/date-location-card-config";
-import { CeremonyDetailsCardConfig } from "@/components/app/dashboard/event/config/ceremony-details-card-config";
+import { PartyDetailsCardConfig } from "@/components/app/dashboard/event/config/party-details-card-config";
 import { MusicUploadCard } from "@/components/app/dashboard/event/config/music-upload-card";
 import { PhotoGalleryCard } from "@/components/app/dashboard/event/config/photo-gallery-card";
 import { StepActions } from "@/components/common";
@@ -58,9 +58,11 @@ export const EventConfigForm = ({
 
         {currentStep === EVENT_CREATE_STEP_IDS.STEP_2 && (
           <div className="space-y-6">
-            <DateLocationCardConfig form={form} />
+            {eventType !== EVENT_TYPES.WEDDING && (
+              <DateLocationCardConfig form={form} />
+            )}
             {eventType === EVENT_TYPES.WEDDING && (
-              <CeremonyDetailsCardConfig form={form} />
+              <PartyDetailsCardConfig form={form} />
             )}
           </div>
         )}

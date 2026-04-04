@@ -230,6 +230,7 @@
           "titleMax": "El título no puede exceder los 100 caracteres",
           "typeRequired": "Selecciona un tipo de evento",
           "modeRequired": "Selecciona un modo de evento",
+          "dateRequired": "Selecciona la fecha y la hora",
           "addressRequired": "La dirección del evento es obligatoria",
           "addressMin": "La dirección debe tener al menos 3 caracteres",
           "capacityMin": "La capacidad debe ser al menos 1",
@@ -296,6 +297,13 @@
       "title": "Detalle del Evento",
       "breadcrumb": "Panel > Evento > Lista > Detalle",
       "notFound": "Evento no encontrado",
+        "additional": {
+          "title": "Información Adicional",
+          "husbandName": "Nombre del Novio",
+          "wifeName": "Nombre de la Novia",
+          "quote": "Cita",
+          "partyAddress": "Dirección de la Fiesta"
+        },
       "eventDate": "Fecha del Evento",
       "eventTime": "Hora del Evento",
       "eventLocation": "Lugar del Evento",
@@ -341,6 +349,10 @@
         "partyDateTime": "Fecha y Hora de la Fiesta",
         "addressParty": "Dirección de la Fiesta",
         "addressPartyPlaceholder": "Ej: Salón Los Jardines, Av. Principal 123"
+      },
+      "party": {
+        "title": "Detalles de la Fiesta",
+        "description": "Información específica de la fiesta"
       },
       "ceremony": {
         "title": "Detalles de la Ceremonia",

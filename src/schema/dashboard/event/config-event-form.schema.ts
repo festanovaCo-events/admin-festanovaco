@@ -63,7 +63,7 @@ export const createEventConfigFormSchema = (
         .min(10, t("quoteMin"))
         .max(500, t("quoteMax")),
 
-      partyDateTime: z.string().min(1, t("partyDateTimeRequired")),
+      partyDateTime: z.string().optional(),
 
       weddingDateTime: z.string().optional(),
       addressWedding: z.string().optional(),
@@ -109,6 +109,15 @@ export const createEventConfigFormSchema = (
             });
           }
         });
+      } else {
+        // Para eventos que no son boda, partyDateTime es obligatorio
+        if (!data.partyDateTime || data.partyDateTime.trim() === "") {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: t("partyDateTimeRequired"),
+            path: ["partyDateTime"],
+          });
+        }
       }
     });
 };

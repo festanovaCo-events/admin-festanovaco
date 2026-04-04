@@ -2,6 +2,8 @@ export interface Event {
   id: string;
   title: string;
   description: string;
+  husbandName?: string;
+  wifeName?: string;
   eventType: string;
   date: string;
   time: string;

@@ -230,6 +230,7 @@
           "titleMax": "Title cannot exceed 100 characters",
           "typeRequired": "Select an event type",
           "modeRequired": "Select an event mode",
+          "dateRequired": "Select the date and time",
           "addressRequired": "Event address is required",
           "addressMin": "Address must be at least 3 characters",
           "capacityMin": "Capacity must be at least 1",
@@ -296,6 +297,13 @@
       "title": "Event Detail",
       "breadcrumb": "Dashboard > Event > List > Detail",
       "notFound": "Event not found",
+        "additional": {
+          "title": "Additional Information",
+          "husbandName": "Husband Name",
+          "wifeName": "Wife Name",
+          "quote": "Quote",
+          "partyAddress": "Party Address"
+        },
       "eventDate": "Event Date",
       "eventTime": "Event Time",
       "eventLocation": "Event Location",
@@ -341,6 +349,10 @@
         "partyDateTime": "Party Date and Time",
         "addressParty": "Party Address",
         "addressPartyPlaceholder": "E.g: The Garden Event Hall, Main Street 123"
+      },
+      "party": {
+        "title": "Party Details",
+        "description": "Specific information about the party"
       },
       "ceremony": {
         "title": "Ceremony Details",
