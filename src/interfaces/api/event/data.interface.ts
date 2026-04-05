@@ -1,4 +1,4 @@
-import type { AssetKindApi, EventModeApi } from './types.interface';
+import type { AssetKindApi, EventModeApi } from "./types.interface";
 
 export interface EventData {
   id: string;
@@ -37,22 +37,25 @@ export interface EventAssetData {
 export interface EventConfigData {
   id: string;
   eventId: string;
-  metadata: EventMetadataData;
+  metadata: EventMetadataData | null;
   createdAt: string;
   updatedAt: string;
   deletedAt: string | null;
 }
 
 export interface EventMetadataData {
-  quote?: string;
-  wifeName?: string;
-  husbandName?: string;
-  addressParty?: string;
+  quote: string;
+  wifeName: string;
+  husbandName: string;
+  addressParty: string;
+  startsAt: string;
+  endsAt: string;
 }
 
 export type CreateEventResponseData = EventData;
 export type ListEventsResponseData = EventData[];
 export type GetEventResponseData = EventData;
-export interface UploadAssetResponseData { asset: EventAssetData }
+export interface UploadAssetResponseData {
+  asset: EventAssetData;
+}
 export type EventConfigResponseData = string;
-

@@ -28,7 +28,7 @@ export const PartyDetailsCardConfig: FC<CeremonyDetailsCardProps> = ({ form }) =
             <CardContent className="space-y-4">
                 <FormFieldWithIcon
                     form={form}
-                    name="weddingDateTime"
+                    name="partyDateTime"
                     label={tDate("partyDateTime")}
                     icon={<Calendar className="h-4 w-4" />}
                     type={INPUT_TYPES.DATETIME_LOCAL}
@@ -36,7 +36,7 @@ export const PartyDetailsCardConfig: FC<CeremonyDetailsCardProps> = ({ form }) =
 
                 <FormFieldWithIcon
                     form={form}
-                    name="addressWedding"
+                    name="addressParty"
                     label={tDate("addressParty")}
                     icon={<MapPin className="h-4 w-4" />}
                     placeholder={tDate("addressPartyPlaceholder")}

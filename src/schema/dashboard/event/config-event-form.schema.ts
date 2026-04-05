@@ -1,6 +1,5 @@
 import { z } from "zod";
 import {
-  EVENT_TYPE_VALUES,
   FILE_SIZE_LIMITS,
   MUSIC_OPTION_VALUES,
   PHOTO_UPLOAD_LIMITS,
@@ -11,7 +10,7 @@ const MAX_IMAGE_SIZE = FILE_SIZE_LIMITS.IMAGE_MAX_MB * 1024 * 1024;
 const MAX_MUSIC_SIZE = FILE_SIZE_LIMITS.MUSIC_MAX_MB * 1024 * 1024;
 
 const createImageFileSchema = (
-  t: (key: string, params?: Record<string, any>) => string
+  t: (key: string, params?: Record<string, any>) => string,
 ) => {
   return z
     .custom<File>()
@@ -24,7 +23,7 @@ const createImageFileSchema = (
 };
 
 const createMusicFileSchema = (
-  t: (key: string, params?: Record<string, any>) => string
+  t: (key: string, params?: Record<string, any>) => string,
 ) => {
   return z
     .custom<File>()
@@ -38,7 +37,7 @@ const createMusicFileSchema = (
 
 export const createEventConfigFormSchema = (
   t: (key: string, params?: Record<string, any>) => string,
-  eventType: string
+  eventType: string,
 ) => {
   const imageFileSchema = createImageFileSchema(t);
   const musicFileSchema = createMusicFileSchema(t);
@@ -64,9 +63,7 @@ export const createEventConfigFormSchema = (
         .max(500, t("quoteMax")),
 
       partyDateTime: z.string().optional(),
-
-      weddingDateTime: z.string().optional(),
-      addressWedding: z.string().optional(),
+      addressParty: z.string().optional(),
 
       bannerPhoto: z
         .array(imageFileSchema)
@@ -89,13 +86,8 @@ export const createEventConfigFormSchema = (
       if (eventType === EVENT_TYPES.WEDDING) {
         const Validations = [
           {
-            field: "weddingDateTime",
-            value: data.weddingDateTime,
-            errorMessage: t("weddingDateTimeRequired"),
-          },
-          {
-            field: "addressWedding",
-            value: data.addressWedding,
+            field: "addressParty",
+            value: data.addressParty,
             errorMessage: t("addressWeddingRequired"),
           },
         ];

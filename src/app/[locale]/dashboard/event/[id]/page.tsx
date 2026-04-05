@@ -31,6 +31,7 @@ import type { Event } from "@/interfaces";
 import { useAsyncRequest, useEventDateFormatter, useMusicPreview } from "@/hooks";
 import { EventDetailSkeleton, EventDetailError } from "@/components/app/dashboard/event/detail";
 import { EVENT_TYPES_ES } from "@/constants";
+import { resolveEventBannerPhoto } from "@/lib/event-banner";
 
 export default function EventDetailPage() {
   const params = useParams();
@@ -45,7 +46,9 @@ export default function EventDetailPage() {
   });
 
   const formatEventDate = useEventDateFormatter("long");
-  const { musicUrl, youtubeEmbedUrl, showAudioPreview } = useMusicPreview(event?.musicUrl);
+  const { musicUrl, youtubeEmbedUrl, showAudioPreview } = useMusicPreview(
+    event?.assets?.musicUrl,
+  );
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [previewSrc, setPreviewSrc] = useState<string | null>(null);
 
@@ -79,17 +82,15 @@ export default function EventDetailPage() {
             </div>
           </div>
 
-          {event.bannerPhoto && (
-            <div className="relative h-64 w-full rounded-lg overflow-hidden">
-              <Image
-                src={event.bannerPhoto}
-                alt={event.title}
-                fill
-                className="object-cover"
-                sizes="100vw"
-              />
-            </div>
-          )}
+          <div className="relative h-64 w-full rounded-lg overflow-hidden">
+            <Image
+              src={resolveEventBannerPhoto(event.assets, event.eventType)}
+              alt={event.title}
+              fill
+              className="object-cover"
+              sizes="100vw"
+            />
+          </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2 space-y-6">
@@ -112,7 +113,7 @@ export default function EventDetailPage() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <p className="text-gray-700 leading-relaxed">
-                    {event.description}
+                    {event.additionalInformation?.description}
                   </p>
 
                   <div className="space-y-3 pt-4 border-t">
@@ -129,38 +130,14 @@ export default function EventDetailPage() {
                     <InfoRow
                       icon={<MapPin className="h-5 w-5" />}
                       label={t("eventLocation")}
-                      value={event.location}
+                      value={event.address}
                     />
                   </div>
                 </CardContent>
               </Card>
 
-              {event.eventType === EVENT_TYPES_ES.BODA && event.ceremonyDate && (
-                <Card>
-                  <CardHeader>
-                    <CardTitle>{t("ceremony.title")}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <InfoRow
-                      icon={<Calendar className="h-5 w-5" />}
-                      label={t("ceremony.date")}
-                      value={formatEventDate(event.ceremonyDate)}
-                    />
-                    <InfoRow
-                      icon={<Clock className="h-5 w-5" />}
-                      label={t("ceremony.time")}
-                      value={event.ceremonyTime || ""}
-                    />
-                    <InfoRow
-                      icon={<MapPin className="h-5 w-5" />}
-                      label={t("ceremony.location")}
-                      value={event.ceremonyLocation || ""}
-                    />
-                  </CardContent>
-                </Card>
-              )}
 
-              {event.gallery && event.gallery.length > 0 && (
+              {event.assets && event.assets.gallery.length > 0 && (
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
@@ -170,7 +147,7 @@ export default function EventDetailPage() {
                   </CardHeader>
                   <CardContent>
                     <GalleryGrid
-                      photos={event.gallery}
+                      photos={event.assets.gallery}
                       title={t("gallery.title")}
                       onSelect={(src) => {
                         setPreviewSrc(src);
@@ -183,7 +160,7 @@ export default function EventDetailPage() {
             </div>
 
             <div className="space-y-6">
-              {event.musicUrl && (
+              {event.assets && (
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
@@ -213,45 +190,45 @@ export default function EventDetailPage() {
                 </Card>
               )}
 
-              {(event.husbandName || event.wifeName || event.description || event.location) && (
+              {(event.additionalInformation && (
                 <Card>
                   <CardHeader>
                     <CardTitle>{t("additional.title")}</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    {event.husbandName && (
+                    {event.additionalInformation.husbandName && (
                       <InfoRow
                         icon={<User className="h-5 w-5" />}
                         label={t("additional.husbandName")}
-                        value={event.husbandName}
+                        value={event.additionalInformation.husbandName}
                       />
                     )}
-                    {event.wifeName && (
+                    {event.additionalInformation.wifeName && (
                       <InfoRow
                         icon={<User className="h-5 w-5" />}
                         label={t("additional.wifeName")}
-                        value={event.wifeName}
+                        value={event.additionalInformation.wifeName}
                       />
                     )}
-                    {event.description && (
+                    {event.additionalInformation.description && (
                       <InfoRow
                         icon={<Quote className="h-5 w-5" />}
                         label={t("additional.quote")}
-                        value={event.description}
+                        value={event.additionalInformation.description}
                       />
                     )}
-                    {event.location && (
+                    {event.additionalInformation.location && (
                       <InfoRow
                         icon={<MapPin className="h-5 w-5" />}
                         label={t("additional.partyAddress")}
-                        value={event.location}
+                        value={event.additionalInformation.location}
                       />
                     )}
                   </CardContent>
                 </Card>
-              )}
+              ))}
 
-              {event.footerPhoto && (
+              {event.assets && (
                 <Card>
                   <CardHeader>
                     <CardTitle>{t("footerPhoto.title")}</CardTitle>
@@ -259,7 +236,7 @@ export default function EventDetailPage() {
                   <CardContent>
                     <div className="relative h-48 w-full rounded-lg overflow-hidden">
                       <Image
-                        src={event.footerPhoto}
+                        src={event.assets.footerPhoto}
                         alt={`${event.title} - Pie de foto`}
                         fill
                         className="object-cover"

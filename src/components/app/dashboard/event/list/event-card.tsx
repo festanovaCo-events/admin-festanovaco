@@ -14,6 +14,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/shadcn/ui/dropdown-menu";
+import { resolveEventBannerPhoto } from "@/lib/event-banner";
 import { cn, getEventTypeColor } from "@/lib/utils";
 import Image from "next/image";
 import { EventCardProps } from "@/interfaces";
@@ -92,7 +93,7 @@ export const EventCard: React.FC<EventCardProps> = ({
             <Skeleton className="absolute inset-0 w-full h-full" />
           )}
           <Image
-            src={event.bannerPhoto || ""}
+            src={resolveEventBannerPhoto(event.assets, event.eventType)}
             alt={event.title}
             fill
             className={cn(

@@ -14,8 +14,10 @@ export const useEventFilter = () => {
       filtered = filtered.filter(
         (event) =>
           event.title.toLowerCase().includes(query) ||
-          event.description.toLowerCase().includes(query) ||
-          event.location.toLowerCase().includes(query)
+          event.additionalInformation.description
+            .toLowerCase()
+            .includes(query) ||
+          event.additionalInformation.location.toLowerCase().includes(query)
       );
     }
 

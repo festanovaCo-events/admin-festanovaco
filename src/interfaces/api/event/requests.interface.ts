@@ -1,4 +1,4 @@
-import type { AssetKind, EventMode, EventType } from './types.interface';
+import type { AssetKind, EventMode, EventType } from "./types.interface";
 
 export interface CreateEventRequest {
   accountId: string;
@@ -21,9 +21,8 @@ export interface UploadAssetRequest {
 export interface EventConfigRequest {
   HusbandName: string;
   WifeName: string;
-  PartyDate: string;
-  WeddingDate: string;
+  StartsAt: string;
+  EndsAt: string;
   AddressParty: string;
   Quote: string;
 }
-

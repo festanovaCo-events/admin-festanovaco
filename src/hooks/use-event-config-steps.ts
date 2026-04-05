@@ -118,7 +118,7 @@ export function useEventConfigSteps({
           break;
         case EVENT_CREATE_STEP_IDS.STEP_2:
           if (eventType === EVENT_TYPES.WEDDING) {
-            fieldsToValidate = ["weddingDateTime", "addressWedding"];
+            fieldsToValidate = ["partyDateTime", "addressParty"];
           } else {
             fieldsToValidate = ["partyDateTime"];
           }
