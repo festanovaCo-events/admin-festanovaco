@@ -6,6 +6,7 @@ import "./globals.css";
 import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { Toaster } from "@/components/shadcn/ui/sonner";
+import { OtelProvider } from "@/components/providers/OtelProvider";
 
 const nunito = Nunito({
   variable: "--font-nunito",
@@ -41,6 +42,7 @@ export default async function RootLayout({
         suppressHydrationWarning
       >
         <NextIntlClientProvider locale={locale} messages={messages}>
+          <OtelProvider />
           {children}
           <Toaster />
         </NextIntlClientProvider>

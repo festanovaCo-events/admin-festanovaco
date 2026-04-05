@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { SpanStatusCode } from "@opentelemetry/api";
 import {
   Breadcrumb,
   LoaderMessage,
@@ -15,6 +16,7 @@ import type { SimpleCreateEventFormValues } from "@/schema";
 import { createEvent } from "@/services/event";
 import type { CreateEventResponse, CreateEventRequest, EventType, EventMode } from "@/interfaces";
 import { toIsoUtcNoMs } from "@/lib/utils";
+import { context, getTracer, trace } from "@/lib/telemetry/otel";
 
 const CreateEventPage = () => {
   const t = useTranslations("event.create");
@@ -37,20 +39,42 @@ const CreateEventPage = () => {
       return;
     }
 
-    await execute(async () => {
-      const eventData: CreateEventRequest = {
-        accountId,
-        title: data.title,
-        type: data.type as EventType,
-        mode: data.mode as EventMode,
-        address: data.address,
-        isPublic: data.isPublic,
-        capacity: data.capacity,
-        startsAt: toIsoUtcNoMs(data.startAt),
-        endsAt: toIsoUtcNoMs(data.endAt),
-      };
+    const span = getTracer("event").startSpan("event.create.submit", {
+      attributes: {
+        "event.type": data.type,
+        "event.title": data.title,
+        "event.mode": data.mode,
+      },
+    });
 
-      return await createEvent(eventData);
+    await context.with(trace.setSpan(context.active(), span), async () => {
+      try {
+        await execute(async () => {
+          const eventData: CreateEventRequest = {
+            accountId,
+            title: data.title,
+            type: data.type as EventType,
+            mode: data.mode as EventMode,
+            address: data.address,
+            isPublic: data.isPublic,
+            capacity: data.capacity,
+            startsAt: toIsoUtcNoMs(data.startAt),
+            endsAt: toIsoUtcNoMs(data.endAt),
+          };
+
+          return await createEvent(eventData);
+        });
+
+        span.setStatus({ code: SpanStatusCode.OK });
+      } catch (err) {
+        span.setStatus({
+          code: SpanStatusCode.ERROR,
+          message: err instanceof Error ? err.message : String(err),
+        });
+        span.recordException(err instanceof Error ? err : new Error(String(err)));
+      } finally {
+        span.end();
+      }
     });
   };
 
