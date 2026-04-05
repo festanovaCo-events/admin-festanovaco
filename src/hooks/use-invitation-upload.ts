@@ -18,11 +18,13 @@ export function useInvitationUpload({
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [fileToDelete, setFileToDelete] = useState<string | null>(null);
 
-  const { isLoading: isUploading, execute: executeUpload } =
-    useAsyncRequest<UploadInvitationResponse[]>({
-      successMessage,
-      errorMessage,
-    });
+  const { isLoading: isUploading, execute: executeUpload } = useAsyncRequest<
+    UploadInvitationResponse[]
+  >({
+    initialLoading: false,
+    successMessage,
+    errorMessage,
+  });
 
   const handleFileUpload = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +43,7 @@ export function useInvitationUpload({
 
       executeUpload(async () => {
         const responses = await Promise.all(
-          validFiles.map((file) => uploadInvitationFile(eventId, file))
+          validFiles.map((file) => uploadInvitationFile(eventId, file)),
         );
 
         const uploadedAt = new Date().toISOString();
@@ -59,7 +61,7 @@ export function useInvitationUpload({
 
       e.target.value = "";
     },
-    [eventId, executeUpload]
+    [eventId, executeUpload],
   );
 
   const handleDeleteClick = useCallback((id: string) => {
