@@ -2,7 +2,7 @@ import { apiClient } from '@/lib/api';
 import { API_ROUTES } from '@/lib/api/routes';
 import { mapEventDataToEvent } from '@/adapters/event.adapter';
 import { FEATURE_FLAGS, TIMEOUTS } from '@/constants';
-import { MOCK_EVENTS, MOCK_EVENTS_DETAIL } from '@/constants/event-mocks';
+import { MOCK_EVENTS, MOCK_EVENTS_DETAIL } from '@/constants/mocks/event';
 import type {
   ListEventsResponse,
   GetEventResponse,

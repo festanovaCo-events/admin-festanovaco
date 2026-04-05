@@ -30,8 +30,8 @@ import { getEventById } from "@/services/event";
 import type { Event } from "@/interfaces";
 import { useAsyncRequest, useEventDateFormatter, useMusicPreview } from "@/hooks";
 import { EventDetailSkeleton, EventDetailError } from "@/components/app/dashboard/event/detail";
-import { EVENT_TYPES_ES } from "@/constants";
 import { resolveEventBannerPhoto } from "@/lib/event-banner";
+import { localDateAndTimeFromIsoString } from "@/lib/utils";
 
 export default function EventDetailPage() {
   const params = useParams();
@@ -190,7 +190,7 @@ export default function EventDetailPage() {
                 </Card>
               )}
 
-              {(event.additionalInformation && (
+              {event.additionalInformation && (
                 <Card>
                   <CardHeader>
                     <CardTitle>{t("additional.title")}</CardTitle>
@@ -224,9 +224,32 @@ export default function EventDetailPage() {
                         value={event.additionalInformation.location}
                       />
                     )}
+                    {(() => {
+                      const { date, time } = localDateAndTimeFromIsoString(
+                        event.additionalInformation.startsAt,
+                      );
+                      return (
+                        <>
+                          {date && (
+                            <InfoRow
+                              icon={<Calendar className="h-5 w-5" />}
+                              label={t("additional.partyDate")}
+                              value={formatEventDate(date)}
+                            />
+                          )}
+                          {time && (
+                            <InfoRow
+                              icon={<Clock className="h-5 w-5" />}
+                              label={t("additional.partyTime")}
+                              value={time}
+                            />
+                          )}
+                        </>
+                      );
+                    })()}
                   </CardContent>
                 </Card>
-              ))}
+              )}
 
               {event.assets && (
                 <Card>

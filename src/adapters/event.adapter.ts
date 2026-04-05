@@ -1,17 +1,11 @@
-import type { EventData, Event, EventConfigRequest } from "@/interfaces";
-import type { CreateEventFormValues, EventConfigFormValues } from "@/schema";
+import type { Event, EventConfigRequest, EventData } from "@/interfaces";
+import type { EventConfigFormValues } from "@/schema";
+import { localDateAndTimeFromDate } from "@/lib/utils";
 
 export function mapEventDataToEvent(eventData: EventData): Event {
   const startDate = new Date(eventData.starts_at);
   const safeDate = Number.isNaN(startDate.getTime()) ? new Date() : startDate;
-  // Usar componentes locales para evitar cambio de día por conversión UTC
-  const year = safeDate.getFullYear();
-  const month = String(safeDate.getMonth() + 1).padStart(2, "0");
-  const day = String(safeDate.getDate()).padStart(2, "0");
-  const date = `${year}-${month}-${day}`;
-  const hours = String(safeDate.getHours()).padStart(2, "0");
-  const minutes = String(safeDate.getMinutes()).padStart(2, "0");
-  const time = `${hours}:${minutes}`;
+  const { date, time } = localDateAndTimeFromDate(safeDate);
 
   const eventType = eventData.type.toLowerCase();
 
@@ -87,27 +81,8 @@ export function mapEventDataToEvent(eventData: EventData): Event {
 }
 
 export function formatEventConfigData(
-  formData: CreateEventFormValues | EventConfigFormValues,
+  formData: EventConfigFormValues,
 ): EventConfigRequest {
-  if (
-    !formData ||
-    !(
-      "husbandName" in formData &&
-      "wifeName" in formData &&
-      "quote" in formData &&
-      "partyDateTime" in formData &&
-      "addressParty" in formData
-    )
-  )
-    return {
-      HusbandName: "",
-      WifeName: "",
-      StartsAt: "",
-      EndsAt: "",
-      AddressParty: "",
-      Quote: "",
-    };
-
   const partyDate = formData.partyDateTime
     ? new Date(formData.partyDateTime).toISOString()
     : "";

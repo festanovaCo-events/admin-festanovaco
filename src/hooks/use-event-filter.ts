@@ -11,14 +11,16 @@ export const useEventFilter = () => {
 
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(
-        (event) =>
+      filtered = filtered.filter((event) => {
+        const info = event.additionalInformation;
+        const description = info?.description ?? "";
+        const location = info?.location ?? "";
+        return (
           event.title.toLowerCase().includes(query) ||
-          event.additionalInformation.description
-            .toLowerCase()
-            .includes(query) ||
-          event.additionalInformation.location.toLowerCase().includes(query)
-      );
+          description.toLowerCase().includes(query) ||
+          location.toLowerCase().includes(query)
+        );
+      });
     }
 
     const sorted = [...filtered].sort((a, b) => {

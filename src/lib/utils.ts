@@ -1,8 +1,8 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 const EVENT_TYPE_COLORS: Record<string, string> = {
@@ -28,7 +28,7 @@ export function formatDate(
     locale?: string;
     includeTime?: boolean;
     format?: "short" | "long";
-  }
+  },
 ): string {
   let date: Date;
   const dateOnlyMatch = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateString);
@@ -38,7 +38,7 @@ export function formatDate(
   } else {
     date = new Date(dateString);
   }
-  
+
   if (isNaN(date.getTime())) {
     return dateString;
   }
@@ -74,15 +74,34 @@ export function formatFileSize(bytes: number): string {
   return `${value} ${sizes[i]}`;
 }
 
-// Date/Time utilities
+// Date/Time utilities — componentes locales (mismo criterio que en event.adapter)
+const pad2 = (n: number) => String(n).padStart(2, "0");
+
+/** YYYY-MM-DD y HH:mm en calendario local a partir de un `Date` válido. */
+export function localDateAndTimeFromDate(date: Date): {
+  date: string;
+  time: string;
+} {
+  return {
+    date: `${date.getFullYear()}-${pad2(date.getMonth() + 1)}-${pad2(date.getDate())}`,
+    time: `${pad2(date.getHours())}:${pad2(date.getMinutes())}`,
+  };
+}
+
+/** Igual que arriba, desde un ISO string; vacío si falta o es inválido. */
+export function localDateAndTimeFromIsoString(iso: string): {
+  date: string;
+  time: string;
+} {
+  if (!iso?.trim()) return { date: "", time: "" };
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return { date: "", time: "" };
+  return localDateAndTimeFromDate(d);
+}
+
 export function toLocalInputValue(date: Date): string {
-  const pad = (num: number) => String(num).padStart(2, "0");
-  const year = date.getFullYear();
-  const month = pad(date.getMonth() + 1);
-  const day = pad(date.getDate());
-  const hours = pad(date.getHours());
-  const minutes = pad(date.getMinutes());
-  return `${year}-${month}-${day}T${hours}:${minutes}`;
+  const { date: ymd, time: hm } = localDateAndTimeFromDate(date);
+  return `${ymd}T${hm}`;
 }
 
 export function toIsoUtcNoMs(d: Date): string {

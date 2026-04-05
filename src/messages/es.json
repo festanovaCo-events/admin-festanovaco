@@ -302,7 +302,9 @@
           "husbandName": "Nombre del Novio",
           "wifeName": "Nombre de la Novia",
           "quote": "Cita",
-          "partyAddress": "Dirección de la Fiesta"
+          "partyAddress": "Dirección de la Fiesta",
+          "partyDate": "Fecha de la Fiesta",
+          "partyTime": "Hora de la Fiesta"
         },
       "eventDate": "Fecha del Evento",
       "eventTime": "Hora del Evento",
@@ -453,6 +455,7 @@
     },
     "noLists": "No hay listas de invitados disponibles",
     "noResultsFor": "No se encontraron resultados para",
+    "errorLoadingLists": "No se pudieron cargar las listas de invitados",
     "card": {
       "createdBy": "Creado por",
       "uploadGuests": "Subir invitados",

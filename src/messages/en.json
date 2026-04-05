@@ -302,7 +302,9 @@
           "husbandName": "Husband Name",
           "wifeName": "Wife Name",
           "quote": "Quote",
-          "partyAddress": "Party Address"
+          "partyAddress": "Party Address",
+          "partyDate": "Party Date",
+          "partyTime": "Party Time"
         },
       "eventDate": "Event Date",
       "eventTime": "Event Time",
@@ -453,6 +455,7 @@
     },
     "noLists": "No guest lists available",
     "noResultsFor": "No results found for",
+    "errorLoadingLists": "Could not load guest lists",
     "card": {
       "createdBy": "Created by",
       "uploadGuests": "Upload guests",

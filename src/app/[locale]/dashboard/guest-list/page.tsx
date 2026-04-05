@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { useTranslations } from "next-intl";
 import { Search } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useMemo, useState } from "react";
+import { GuestListCard } from "@/components/app/dashboard/guest-list";
 import { Input } from "@/components/shadcn/ui/input";
 import {
   Select,
@@ -11,8 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/shadcn/ui/select";
-import { GuestListCard } from "@/components/app/dashboard/guest-list";
-import { MOCK_GUEST_LISTS } from "@/constants/guest-list-mocks";
+import { MOCK_GUEST_LISTS } from "@/constants/mocks/guest-list";
 import { useEventDateFormatter } from "@/hooks";
 
 export default function GuestListPage() {
@@ -33,7 +33,7 @@ export default function GuestListPage() {
         (list) =>
           list.name.toLowerCase().includes(query) ||
           list.owner.toLowerCase().includes(query) ||
-          list.ownerEmail.toLowerCase().includes(query)
+          list.ownerEmail.toLowerCase().includes(query),
       );
     }
 
@@ -80,9 +80,15 @@ export default function GuestListPage() {
               <SelectValue placeholder={t("sortBy")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="latest" className="cursor-pointer">{t("sortOptions.latest")}</SelectItem>
-              <SelectItem value="oldest" className="cursor-pointer">{t("sortOptions.oldest")}</SelectItem>
-              <SelectItem value="name" className="cursor-pointer">{t("sortOptions.name")}</SelectItem>
+              <SelectItem value="latest" className="cursor-pointer">
+                {t("sortOptions.latest")}
+              </SelectItem>
+              <SelectItem value="oldest" className="cursor-pointer">
+                {t("sortOptions.oldest")}
+              </SelectItem>
+              <SelectItem value="name" className="cursor-pointer">
+                {t("sortOptions.name")}
+              </SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -125,4 +131,3 @@ export default function GuestListPage() {
     </div>
   );
 }
-
