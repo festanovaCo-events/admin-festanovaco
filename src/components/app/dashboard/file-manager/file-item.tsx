@@ -20,7 +20,7 @@ export const FileItem: FC<FileItemProps> = ({
   formatFileSize,
 }) => {
   const t = useTranslations("fileManager.files");
-  const tCommon = useTranslations("common");
+  const tCommon = useTranslations("common.actions");
 
   return (
     <div className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition-colors">
@@ -48,6 +48,7 @@ export const FileItem: FC<FileItemProps> = ({
         <Button
           variant="ghost"
           size="icon"
+          className="cursor-pointer"
           onClick={() => onDownload(file)}
           title={t("download")}
         >
@@ -55,14 +56,14 @@ export const FileItem: FC<FileItemProps> = ({
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon">
+            <Button variant="ghost" size="icon" className="cursor-pointer">
               <MoreVertical className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem
               onClick={() => onDelete(file.id)}
-              className="text-destructive"
+              className="text-destructive cursor-pointer"
             >
               <Trash2 className="h-4 w-4 mr-2" />
               {tCommon("delete")}

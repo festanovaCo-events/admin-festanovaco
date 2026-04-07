@@ -14,7 +14,7 @@ export const StepActions: FC<StepActionsProps> = ({
   onPrevious,
   onCancel,
 }) => {
-  const t = useTranslations("event.create.actions");
+  const t = useTranslations("common.actions");
   const isFirstStep = currentStep === 1;
   const isLastStep = currentStep === totalSteps;
 
@@ -23,6 +23,7 @@ export const StepActions: FC<StepActionsProps> = ({
       <Button
         type="button"
         variant="outline"
+        className="cursor-pointer"
         onClick={onPrevious}
         disabled={isFirstStep || isLoading}
       >
@@ -33,6 +34,7 @@ export const StepActions: FC<StepActionsProps> = ({
         <Button
           type="button"
           variant="outline"
+           className="cursor-pointer"
           onClick={onCancel}
           disabled={isLoading}
         >
@@ -42,9 +44,9 @@ export const StepActions: FC<StepActionsProps> = ({
         {!isLastStep ? (
           <Button
             type="button"
+            className="min-w-[150px] cursor-pointer"
             onClick={onNext}
             disabled={isLoading}
-            className="min-w-[150px]"
           >
             {isLoading ? (
               <>
@@ -56,7 +58,7 @@ export const StepActions: FC<StepActionsProps> = ({
             )}
           </Button>
         ) : (
-          <Button type="submit" disabled={isLoading} className="min-w-[150px]">
+          <Button type="submit" disabled={isLoading} className="min-w-[150px] cursor-pointer">
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />

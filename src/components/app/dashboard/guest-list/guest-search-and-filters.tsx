@@ -5,16 +5,7 @@ import { Input } from "@/components/shadcn/ui/input";
 import { Button } from "@/components/shadcn/ui/button";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
-
-interface GuestSearchAndFiltersProps {
-  searchQuery: string;
-  onSearchChange: (query: string) => void;
-  statusFilter: "all" | "confirmed" | "pending";
-  onStatusFilterChange: (filter: "all" | "confirmed" | "pending") => void;
-  totalCount: number;
-  confirmedCount: number;
-  pendingCount: number;
-}
+import type { GuestSearchAndFiltersProps } from "@/interfaces/components/app/dashboard/guest-list";
 
 export const GuestSearchAndFilters: React.FC<GuestSearchAndFiltersProps> = ({
   searchQuery,
@@ -24,6 +15,7 @@ export const GuestSearchAndFilters: React.FC<GuestSearchAndFiltersProps> = ({
   totalCount,
   confirmedCount,
   pendingCount,
+  declinedCount,
 }) => {
   const t = useTranslations("guestList.details");
 
@@ -43,7 +35,7 @@ export const GuestSearchAndFilters: React.FC<GuestSearchAndFiltersProps> = ({
         <Button
           variant={statusFilter === "all" ? "default" : "outline"}
           onClick={() => onStatusFilterChange("all")}
-          className={cn(statusFilter === "all" && "bg-gray-900 text-white")}
+          className={cn("cursor-pointer", statusFilter === "all" && "bg-gray-900 text-white")}
         >
           {t("all")} ({totalCount})
         </Button>
@@ -51,6 +43,7 @@ export const GuestSearchAndFilters: React.FC<GuestSearchAndFiltersProps> = ({
           variant={statusFilter === "confirmed" ? "default" : "outline"}
           onClick={() => onStatusFilterChange("confirmed")}
           className={cn(
+            "cursor-pointer",
             statusFilter === "confirmed" && "bg-green-600 text-white hover:bg-green-700"
           )}
         >
@@ -60,10 +53,21 @@ export const GuestSearchAndFilters: React.FC<GuestSearchAndFiltersProps> = ({
           variant={statusFilter === "pending" ? "default" : "outline"}
           onClick={() => onStatusFilterChange("pending")}
           className={cn(
+            "cursor-pointer",
             statusFilter === "pending" && "bg-orange-600 text-white hover:bg-orange-700"
           )}
         >
           {t("pending")} ({pendingCount})
+        </Button>
+        <Button
+          variant={statusFilter === "declined" ? "default" : "outline"}
+          onClick={() => onStatusFilterChange("declined")}
+          className={cn(
+            "cursor-pointer",
+            statusFilter === "declined" && "bg-red-600 text-white hover:bg-red-700"
+          )}
+        >
+          {t("table.declinedStatus")} ({declinedCount ?? 0})
         </Button>
       </div>
     </div>

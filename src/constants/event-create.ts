@@ -1,8 +1,3 @@
-/**
- * Constants for Event Create functionality
- * Centralizes all magic strings, numbers, and static data
- */
-
 export const MUSIC_OPTION_VALUES = {
   URL: "url",
   FILE: "file",
@@ -90,15 +85,13 @@ export const EVENT_CREATE_TIMEOUTS = {
 } as const;
 
 export const EVENT_CREATE_DEFAULT_VALUES = {
-  TITLE: "",
-  DESCRIPTION: "",
-  EVENT_TYPE: undefined,
-  DATE: "",
-  TIME: "",
-  LOCATION: "",
-  CEREMONY_DATE: "",
-  CEREMONY_TIME: "",
-  CEREMONY_LOCATION: "",
+  HUSBAND_NAME: "",
+  WIFE_NAME: "",
+  QUOTE: "",
+  PARTY_DATETIME: "",
+  ADDRESS_PARTY: "",
+  WEDDING_DATETIME: "",
+  ADDRESS_WEDDING: "",
   GALLERY: [] as File[],
   BANNER_PHOTO: [] as File[],
   FOOTER_PHOTO: [] as File[],
@@ -110,6 +103,7 @@ export const EVENT_CREATE_DEFAULT_VALUES = {
 export const INPUT_TYPES = {
   DATE: "date",
   TIME: "time",
+  DATETIME_LOCAL: "datetime-local",
   URL: "url",
   FILE: "file",
   TEXT: "text",

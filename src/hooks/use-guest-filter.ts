@@ -1,11 +1,6 @@
 import { useMemo } from "react";
-import { Guest } from "@/interfaces";
-
-interface UseGuestFilterProps {
-  guests: Guest[];
-  searchQuery: string;
-  statusFilter: "all" | "confirmed" | "pending";
-}
+import type { UseGuestFilterProps } from "@/interfaces/hooks";
+import type { Guest, InvitationStatus } from "@/interfaces";
 
 export const useGuestFilter = ({
   guests,
@@ -15,11 +10,21 @@ export const useGuestFilter = ({
   const filteredGuests = useMemo(() => {
     let filtered = guests;
 
-    if (statusFilter === "confirmed") {
-      filtered = filtered.filter((g) => g.confirmed);
-    } else if (statusFilter === "pending") {
-      filtered = filtered.filter((g) => !g.confirmed);
-    }
+    const getDerivedStatus = (g: Guest): InvitationStatus =>
+      g.status === "ACCEPTED" || g.status === "DECLINED" || g.status === "PENDING"
+        ? g.status
+        : g.confirmed
+        ? "ACCEPTED"
+        : "PENDING";
+
+    const predicateMap: Record<UseGuestFilterProps["statusFilter"], (g: Guest) => boolean> = {
+      all: () => true,
+      confirmed: (g) => getDerivedStatus(g) === "ACCEPTED",
+      pending: (g) => getDerivedStatus(g) === "PENDING",
+      declined: (g) => getDerivedStatus(g) === "DECLINED",
+    };
+
+    filtered = filtered.filter(predicateMap[statusFilter]);
 
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();

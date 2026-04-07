@@ -4,10 +4,7 @@ import {
   FILE_SIZE_LIMITS,
   type MusicOptionValue,
 } from "@/constants";
-
-interface UseMusicUploadProps {
-  maxMusicSizeMB?: number;
-}
+import type { UseMusicUploadProps } from "@/interfaces/hooks";
 
 export const useMusicUpload = ({
   maxMusicSizeMB = FILE_SIZE_LIMITS.MUSIC_MAX_MB,

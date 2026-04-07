@@ -1,4 +1,4 @@
-export const EVENT_TYPES = [
+export const EVENT_TYPE_OPTIONS = [
   { value: "boda", label: "Boda" },
   { value: "cumpleanos", label: "Cumpleaños" },
   { value: "aniversario", label: "Aniversario" },

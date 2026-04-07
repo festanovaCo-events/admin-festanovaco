@@ -6,6 +6,7 @@ import "./globals.css";
 import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { Toaster } from "@/components/shadcn/ui/sonner";
+import { OtelProvider } from "@/components/providers/OtelProvider";
 
 const nunito = Nunito({
   variable: "--font-nunito",
@@ -33,11 +34,15 @@ export default async function RootLayout({
     notFound();
   }
   const messages = await getMessages({ locale });
-  console.log("Messages loaded for locale:", locale);
+
   return (
     <html lang={locale}>
-      <body className={`${nunito.variable} font-sans antialiased`}>
+      <body
+        className={`${nunito.variable} font-sans antialiased`}
+        suppressHydrationWarning
+      >
         <NextIntlClientProvider locale={locale} messages={messages}>
+          <OtelProvider />
           {children}
           <Toaster />
         </NextIntlClientProvider>

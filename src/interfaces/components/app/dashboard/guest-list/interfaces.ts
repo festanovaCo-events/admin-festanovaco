@@ -1,3 +1,5 @@
+import type { InvitationStatus } from "@/interfaces";
+
 export interface SubGuest {
   id: string;
   name: string;
@@ -11,9 +13,12 @@ export interface Guest {
   email: string;
   phone?: string;
   confirmed: boolean;
+  status?: InvitationStatus;
   confirmedAt?: string;
   numberOfSeats: number;
   subGuests?: SubGuest[];
+  invitationToken?: string;
+  availableSeats?: number;
 }
 
 export interface GuestList {
@@ -41,3 +46,56 @@ export interface GuestDetailModalProps {
   formatDate: (date: string) => string;
 }
 
+export interface GuestTableProps {
+  guests: Guest[];
+  expandedGuests: Set<string>;
+  onToggleGuestExpansion: (guestId: string) => void;
+  searchQuery?: string;
+}
+
+export interface SubGuestsRowProps {
+  subGuests: SubGuest[];
+}
+
+export interface SubGuestCardProps {
+  subGuest: SubGuest;
+}
+
+export interface GuestTableRowProps {
+  guest: Guest;
+  index: number;
+  isExpanded: boolean;
+  onToggleExpand: () => void;
+}
+
+export interface GuestStatsCardsProps {
+  totalGuests: number;
+  confirmedCount: number;
+  pendingCount: number;
+}
+
+export interface GuestSearchAndFiltersProps {
+  searchQuery: string;
+  onSearchChange: (query: string) => void;
+  statusFilter: "all" | "confirmed" | "pending" | "declined";
+  onStatusFilterChange: (filter: "all" | "confirmed" | "pending" | "declined") => void;
+  totalCount: number;
+  confirmedCount: number;
+  pendingCount: number;
+  declinedCount?: number;
+}
+
+export interface GuestPaginationProps {
+  currentPage: number;
+  totalPages: number;
+  totalItems: number;
+  itemsPerPage: number;
+  startIndex: number;
+  endIndex: number;
+  onPageChange: (page: number) => void;
+}
+
+export interface GuestListInfoProps {
+  guestList: GuestList;
+  getEventTypeLabel: (type: string) => string;
+}

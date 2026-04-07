@@ -18,7 +18,8 @@ import {
 } from "@/components/shadcn/ui/form";
 import { AuthLayout } from "@/components/layouts";
 import { createRegisterSchema, type RegisterFormValues } from "@/schema";
-import { register, formatRegisterData, type RegisterResponse } from "@/services/auth.service";
+import { register, type RegisterResponse } from "@/services/auth";
+import { formatRegisterData } from "@/adapters/auth.adapter";
 import { useRouter } from "@/i18n/routing";
 import { useAsyncRequest } from "@/hooks";
 
@@ -41,9 +42,10 @@ const RegisterPage = () => {
   });
 
   const { isLoading, execute } = useAsyncRequest<RegisterResponse>({
+    initialLoading: false,
     successMessage: tSuccess("register"),
     onSuccess: () => {
-      router.push("/dashboard");
+      router.push("/auth/login");
     },
   });
 

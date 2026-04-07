@@ -4,16 +4,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/shadcn/ui/button";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
-
-interface GuestPaginationProps {
-  currentPage: number;
-  totalPages: number;
-  totalItems: number;
-  itemsPerPage: number;
-  startIndex: number;
-  endIndex: number;
-  onPageChange: (page: number) => void;
-}
+import type { GuestPaginationProps } from "@/interfaces/components/app/dashboard/guest-list";
 
 export const GuestPagination: React.FC<GuestPaginationProps> = ({
   currentPage,
@@ -25,7 +16,7 @@ export const GuestPagination: React.FC<GuestPaginationProps> = ({
   onPageChange,
 }) => {
   const t = useTranslations("guestList.details");
-  const tCommon = useTranslations("common");
+  const tCommon = useTranslations("common.actions");
 
   if (totalItems <= itemsPerPage) {
     return (
@@ -47,7 +38,7 @@ export const GuestPagination: React.FC<GuestPaginationProps> = ({
           size="sm"
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className="gap-1"
+          className="gap-1 cursor-pointer"
         >
           <ChevronLeft className="h-4 w-4" />
           {tCommon("previous")}
@@ -67,7 +58,7 @@ export const GuestPagination: React.FC<GuestPaginationProps> = ({
                   size="sm"
                   onClick={() => onPageChange(page)}
                   className={cn(
-                    "min-w-[40px]",
+                    "min-w-[40px] cursor-pointer",
                     currentPage === page && "bg-gray-900 text-white"
                   )}
                 >
@@ -90,7 +81,7 @@ export const GuestPagination: React.FC<GuestPaginationProps> = ({
           size="sm"
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="gap-1"
+          className="gap-1 cursor-pointer"
         >
           {tCommon("next")}
           <ChevronRight className="h-4 w-4" />

@@ -3,13 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Guest } from "@/interfaces";
 import { GuestTableRow } from "./guest-table-row";
-
-interface GuestTableProps {
-  guests: Guest[];
-  expandedGuests: Set<string>;
-  onToggleGuestExpansion: (guestId: string) => void;
-  searchQuery?: string;
-}
+import type { GuestTableProps } from "@/interfaces/components/app/dashboard/guest-list";
 
 export const GuestTable: React.FC<GuestTableProps> = ({
   guests,
@@ -37,14 +31,8 @@ export const GuestTable: React.FC<GuestTableProps> = ({
             <th className="text-center py-4 px-6 font-semibold text-gray-900 text-sm">
               {tTable("status")}
             </th>
-            <th className="text-left py-4 px-6 font-semibold text-gray-900 text-sm">
-              {tTable("confirmationDate")}
-            </th>
             <th className="text-center py-4 px-6 font-semibold text-gray-900 text-sm">
-              {tTable("numberOfSeats")}
-            </th>
-            <th className="text-center py-4 px-6 font-semibold text-gray-900 text-sm">
-              {tTable("subGuests")}
+              {tTable("showMoreDetails")}
             </th>
           </tr>
         </thead>
@@ -61,7 +49,7 @@ export const GuestTable: React.FC<GuestTableProps> = ({
             ))
           ) : (
             <tr>
-              <td colSpan={7} className="py-12 text-center text-gray-500">
+              <td colSpan={5} className="py-12 text-center text-gray-500">
                 <div className="flex flex-col items-center gap-2">
                   <p className="text-base font-medium">{t("noGuests")}</p>
                   {searchQuery && (

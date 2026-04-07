@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { useTranslations } from "next-intl";
 import { Search } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useMemo, useState } from "react";
+import { GuestListCard } from "@/components/app/dashboard/guest-list";
 import { Input } from "@/components/shadcn/ui/input";
 import {
   Select,
@@ -11,9 +12,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/shadcn/ui/select";
-import { GuestListCard } from "@/components/app/dashboard/guest-list";
-import { formatDate } from "@/lib/utils";
-import { MOCK_GUEST_LISTS } from "@/constants/guest-list-mocks";
+import { MOCK_GUEST_LISTS } from "@/constants/mocks/guest-list";
+import { useEventDateFormatter } from "@/hooks";
 
 export default function GuestListPage() {
   const t = useTranslations("guestList");
@@ -21,6 +21,8 @@ export default function GuestListPage() {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<"latest" | "oldest" | "name">("latest");
+
+  const formatListDate = useEventDateFormatter("short");
 
   const filteredAndSortedLists = useMemo(() => {
     let filtered = MOCK_GUEST_LISTS;
@@ -31,7 +33,7 @@ export default function GuestListPage() {
         (list) =>
           list.name.toLowerCase().includes(query) ||
           list.owner.toLowerCase().includes(query) ||
-          list.ownerEmail.toLowerCase().includes(query)
+          list.ownerEmail.toLowerCase().includes(query),
       );
     }
 
@@ -55,10 +57,6 @@ export default function GuestListPage() {
     return sorted;
   }, [searchQuery, sortBy]);
 
-  const formatListDate = (dateString: string) => {
-    return formatDate(dateString, { locale: "es-ES", format: "short" });
-  };
-
   const getEventTypeLabel = (type: string) => {
     return tTypes(type as any);
   };
@@ -78,13 +76,19 @@ export default function GuestListPage() {
               setSortBy(value as "latest" | "oldest" | "name")
             }
           >
-            <SelectTrigger className="w-[140px]">
+            <SelectTrigger className="w-[140px] cursor-pointer">
               <SelectValue placeholder={t("sortBy")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="latest">{t("sortOptions.latest")}</SelectItem>
-              <SelectItem value="oldest">{t("sortOptions.oldest")}</SelectItem>
-              <SelectItem value="name">{t("sortOptions.name")}</SelectItem>
+              <SelectItem value="latest" className="cursor-pointer">
+                {t("sortOptions.latest")}
+              </SelectItem>
+              <SelectItem value="oldest" className="cursor-pointer">
+                {t("sortOptions.oldest")}
+              </SelectItem>
+              <SelectItem value="name" className="cursor-pointer">
+                {t("sortOptions.name")}
+              </SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -127,4 +131,3 @@ export default function GuestListPage() {
     </div>
   );
 }
-
