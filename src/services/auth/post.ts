@@ -1,5 +1,7 @@
 import { apiClient } from '@/lib/api';
 import { API_ROUTES } from '@/lib/api/routes';
+import { FEATURE_FLAGS, TIMEOUTS } from '@/constants';
+import { MOCK_LOGIN_RESPONSE } from '@/constants/mocks/auth';
 import { setAuthToken } from '@/lib/utils/cookies';
 import { useAuthStore } from '@/stores/auth';
 import type {
@@ -11,8 +13,8 @@ import type {
 
 /**
  * Servicio de autenticación - Métodos POST
- * Maneja las operaciones de login y registro
- * Solo contiene llamados al API
+ * Maneja las operaciones de login y registro.
+ * El login puede usar mock si {@link FEATURE_FLAGS.USE_MOCK_LOGIN} está activo.
  */
 
 /**
@@ -25,6 +27,25 @@ export async function login(
   data: LoginRequest
 ): Promise<LoginResponse> {
   try {
+    if (FEATURE_FLAGS.USE_MOCK_LOGIN) {
+      await new Promise((resolve) => setTimeout(resolve, TIMEOUTS.MOCK_DELAY));
+
+      const payload: LoginResponse = {
+        ...MOCK_LOGIN_RESPONSE,
+        data: {
+          ...MOCK_LOGIN_RESPONSE.data,
+          email: data.email.trim() || MOCK_LOGIN_RESPONSE.data.email,
+        },
+      };
+
+      if (payload.success && payload.data.token) {
+        setAuthToken(payload.data.token);
+        useAuthStore.getState().setUser(payload.data);
+      }
+
+      return payload;
+    }
+
     const response = await apiClient.post<LoginResponse>(
       API_ROUTES.AUTH.LOGIN,
       data

@@ -22,4 +22,9 @@ export const FEATURE_FLAGS = {
    */
   USE_MOCK_LIST_INVITATIONS:
     process.env.NEXT_PUBLIC_USE_MOCK_LIST_INVITATIONS === "true",
+
+  /**
+   * Si está en true, el login no llama al API y usa datos mock (útil sin backend)
+   */
+  USE_MOCK_LOGIN: process.env.NEXT_PUBLIC_USE_MOCK_LOGIN === "true",
 } as const;
