@@ -10,6 +10,11 @@ const nextConfig: NextConfig = {
         hostname: "images.unsplash.com",
       },
       {
+        protocol: "https",
+        hostname: "aws.dylanbatar.lat",
+        pathname: "/**",
+      },
+      {
         protocol: "http",
         hostname: "localhost",
         port: "4566",
