@@ -8,12 +8,16 @@ export const API_ROUTES = {
     LIST: `/v1/event`,
     GET_BY_ID: (eventId: string) => `/v1/event/${eventId}`,
     ASSETS: (eventId: string) => `/v1/event/${eventId}/assets`,
-    CONFIG: (eventType: string, eventId: string) => `/v1/event-config/${eventType}/${eventId}`,
+    CONFIG: (eventType: string, eventId: string) =>
+      `/v1/event-config/${eventType}/${eventId}`,
     DELETE: (eventId: string) => `/v1/event/${eventId}`,
   },
   INVITATION: {
     UPLOAD: (eventId: string) => `/v1/invitation/${eventId}/upload`,
     LIST: (eventId: string) => `/v1/invitation/${eventId}`,
     INFO: (token: string) => `/v1/invitation/info/${token}`,
+  },
+  TELEMETRY: {
+    TRACES: `/v1/traces`,
   },
 } as const;
