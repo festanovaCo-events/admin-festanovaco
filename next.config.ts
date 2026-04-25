@@ -15,6 +15,12 @@ const nextConfig: NextConfig = {
         pathname: "/**",
       },
       {
+        protocol: "https",
+        hostname:
+          "wedding-api-prod-event-assets-861450637146.s3.us-east-1.amazonaws.com",
+        pathname: "/**",
+      },
+      {
         protocol: "http",
         hostname: "localhost",
         port: "4566",
