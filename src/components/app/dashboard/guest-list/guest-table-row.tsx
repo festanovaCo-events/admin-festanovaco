@@ -1,18 +1,26 @@
 "use client";
 
-import { Fragment } from "react";
-import { ChevronDown, Users, CheckCircle2, CalendarClock } from "lucide-react";
-import { Button } from "@/components/shadcn/ui/button";
-import { Badge } from "@/components/shadcn/ui/badge";
-import { formatDate } from "@/lib/utils";
-import { cn } from "@/lib/utils";
+import {
+  CalendarClock,
+  CheckCircle2,
+  ChevronDown,
+  Copy,
+  Link,
+  Users,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Guest } from "@/interfaces";
-import { SubGuestsRow } from "./sub-guests-row";
-import type { GuestTableRowProps } from "@/interfaces/components/app/dashboard/guest-list";
-import { getInvitationInfoByToken } from "@/services/invitation";
-import { useAsyncRequest } from "@/hooks";
+import { Fragment } from "react";
+import { toast } from "sonner";
 import { mapInvitationInfoToAugment } from "@/adapters/invitation-info.adapter";
+import { Badge } from "@/components/shadcn/ui/badge";
+import { Button } from "@/components/shadcn/ui/button";
+import { useAsyncRequest } from "@/hooks";
+import type { GuestTableRowProps } from "@/interfaces/components/app/dashboard/guest-list";
+import { cn, formatDate } from "@/lib/utils";
+import { getInvitationInfoByToken } from "@/services/invitation";
+import { SubGuestsRow } from "./sub-guests-row";
+
+type InvitationDetailAugment = ReturnType<typeof mapInvitationInfoToAugment>;
 
 export const GuestTableRow: React.FC<GuestTableRowProps> = ({
   guest,
@@ -21,16 +29,31 @@ export const GuestTableRow: React.FC<GuestTableRowProps> = ({
   onToggleExpand,
 }) => {
   const tTable = useTranslations("guestList.details.table");
-  const { isLoading, data, execute } = useAsyncRequest<any>({ showToast: false });
+  const { data, execute } = useAsyncRequest<InvitationDetailAugment>({
+    showToast: false,
+  });
 
   const handleToggle = async () => {
-    if (!isExpanded && guest.invitationToken && !data) {
+    const invitationToken = guest.invitationToken;
+
+    if (!isExpanded && invitationToken && !data) {
       await execute(async () => {
-        const info = await getInvitationInfoByToken(guest.invitationToken!);
+        const info = await getInvitationInfoByToken(invitationToken);
         return mapInvitationInfoToAugment(info);
       });
     }
     onToggleExpand();
+  };
+
+  const handleCopyInvitationUrl = async () => {
+    if (!guest.invitation_url) return;
+
+    try {
+      await navigator.clipboard.writeText(guest.invitation_url);
+      toast.success(tTable("invitationUrlCopied"));
+    } catch {
+      toast.error(tTable("invitationUrlCopyError"));
+    }
   };
 
   return (
@@ -38,7 +61,7 @@ export const GuestTableRow: React.FC<GuestTableRowProps> = ({
       <tr
         className={cn(
           "hover:bg-gray-50 transition-colors",
-          index % 2 === 0 ? "bg-white" : "bg-gray-50/50"
+          index % 2 === 0 ? "bg-white" : "bg-gray-50/50",
         )}
       >
         <td className="py-4 px-6">
@@ -58,7 +81,7 @@ export const GuestTableRow: React.FC<GuestTableRowProps> = ({
                 ? "bg-green-100 text-green-800 border border-green-200"
                 : guest.status === "DECLINED"
                   ? "bg-red-100 text-red-800 border border-red-200"
-                  : "bg-orange-100 text-orange-800 border border-orange-200"
+                  : "bg-orange-100 text-orange-800 border border-orange-200",
             )}
           >
             {guest.status === "ACCEPTED"
@@ -74,12 +97,12 @@ export const GuestTableRow: React.FC<GuestTableRowProps> = ({
               variant="ghost"
               size="sm"
               onClick={handleToggle}
-            className="gap-1 text-xs cursor-pointer"
+              className="gap-1 text-xs cursor-pointer"
             >
               <ChevronDown
                 className={cn(
                   "h-4 w-4 transition-transform",
-                  isExpanded && "rotate-180"
+                  isExpanded && "rotate-180",
                 )}
               />
               {isExpanded ? tTable("hideDetails") : tTable("showMoreDetails")}
@@ -93,7 +116,7 @@ export const GuestTableRow: React.FC<GuestTableRowProps> = ({
         <tr className="bg-gray-50/60">
           <td colSpan={5} className="px-6 py-5">
             <div className="rounded-lg border bg-white shadow-sm p-5">
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                 <div className="flex items-start gap-3 rounded-md border bg-gray-50 p-4">
                   <CheckCircle2 className="h-5 w-5 text-emerald-600 mt-0.5" />
                   <div>
@@ -102,7 +125,9 @@ export const GuestTableRow: React.FC<GuestTableRowProps> = ({
                     </p>
                     <p className="text-base font-semibold text-gray-900">
                       {data?.numberOfSeats ?? "N/A"}{" "}
-                      <span className="text-gray-400">/ {data?.totalSeats ?? "N/A"}</span>
+                      <span className="text-gray-400">
+                        / {data?.totalSeats ?? "N/A"}
+                      </span>
                     </p>
                   </div>
                 </div>
@@ -140,11 +165,36 @@ export const GuestTableRow: React.FC<GuestTableRowProps> = ({
                     <p className="text-base font-semibold text-gray-900">
                       {data?.confirmedAt
                         ? formatDate(data.confirmedAt, {
-                          locale: "es-ES",
-                          format: "short",
-                        })
+                            locale: "es-ES",
+                            format: "short",
+                          })
                         : "N/A"}
                     </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 rounded-md border bg-gray-50 p-4">
+                  <Link className="h-5 w-5 text-violet-600 mt-0.5" />
+                  <div>
+                    <p className="text-xs uppercase tracking-wide text-gray-500">
+                      {tTable("invitationUrl")}
+                    </p>
+                    {guest.invitation_url ? (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={handleCopyInvitationUrl}
+                        className="mt-2 h-8 gap-2 text-xs"
+                      >
+                        <Copy className="h-3.5 w-3.5" />
+                        {tTable("copyInvitationUrl")}
+                      </Button>
+                    ) : (
+                      <p className="text-base font-semibold text-gray-900">
+                        N/A
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -167,4 +217,3 @@ export const GuestTableRow: React.FC<GuestTableRowProps> = ({
     </Fragment>
   );
 };
-
