@@ -18,6 +18,7 @@ export interface Guest {
   numberOfSeats: number;
   subGuests?: SubGuest[];
   invitationToken?: string;
+  invitation_url?: string | null;
   availableSeats?: number;
 }
 
@@ -78,7 +79,9 @@ export interface GuestSearchAndFiltersProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
   statusFilter: "all" | "confirmed" | "pending" | "declined";
-  onStatusFilterChange: (filter: "all" | "confirmed" | "pending" | "declined") => void;
+  onStatusFilterChange: (
+    filter: "all" | "confirmed" | "pending" | "declined",
+  ) => void;
   totalCount: number;
   confirmedCount: number;
   pendingCount: number;
