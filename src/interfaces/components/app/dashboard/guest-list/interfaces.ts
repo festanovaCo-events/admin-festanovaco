@@ -86,6 +86,8 @@ export interface GuestSearchAndFiltersProps {
   confirmedCount: number;
   pendingCount: number;
   declinedCount?: number;
+  guests: Guest[];
+  listName?: string;
 }
 
 export interface GuestPaginationProps {

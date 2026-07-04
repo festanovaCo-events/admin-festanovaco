@@ -474,6 +474,7 @@
       "pending": "Pending",
       "searchPlaceholder": "Search guests by name, email or phone...",
       "all": "All",
+      "downloadCsv": "Download CSV",
       "table": {
         "name": "Name",
         "email": "Email",

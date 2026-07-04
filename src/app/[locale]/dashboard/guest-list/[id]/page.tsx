@@ -125,6 +125,8 @@ export default function GuestListDetailPage() {
               confirmedCount={confirmedCount}
               pendingCount={pendingCount}
               declinedCount={declinedCount}
+              guests={guestList?.guests ?? []}
+              listName={guestList?.name}
             />
           </AsyncStateLayout>
 
