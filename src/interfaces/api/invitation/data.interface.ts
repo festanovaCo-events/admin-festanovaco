@@ -16,6 +16,8 @@ export interface InvitationItemData {
   invitation_url?: string | null;
   accept_url?: string | null;
   status: InvitationStatus;
+  total_seats?: number;
+  seats?: number;
 }
 
 export interface InvitationGuestItemData {
