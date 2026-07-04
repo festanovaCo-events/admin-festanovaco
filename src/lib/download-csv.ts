@@ -44,7 +44,7 @@ export function downloadGuestsCsv(
 ): void {
   const rows = guests.map((guest) => [
     guest.name,
-    guest.numberOfSeats > 0 ? guest.numberOfSeats : "",
+    guest.numberOfSeats,
     guest.invitation_url ?? "",
   ]);
 

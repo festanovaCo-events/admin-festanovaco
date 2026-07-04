@@ -1,6 +1,6 @@
 "use client";
 
-import { Download, Search } from "lucide-react";
+import { Download, Loader2, Search } from "lucide-react";
 import { Input } from "@/components/shadcn/ui/input";
 import { Button } from "@/components/shadcn/ui/button";
 import { cn } from "@/lib/utils";
@@ -8,7 +8,10 @@ import {
   buildGuestListCsvFilename,
   downloadGuestsCsv,
 } from "@/lib/download-csv";
+import { useAsyncRequest } from "@/hooks";
+import { enrichGuestsWithTotalSeats } from "@/services/invitation/get";
 import { useTranslations } from "next-intl";
+import type { Guest } from "@/interfaces/components/app/dashboard/guest-list";
 import type { GuestSearchAndFiltersProps } from "@/interfaces/components/app/dashboard/guest-list";
 
 export const GuestSearchAndFilters: React.FC<GuestSearchAndFiltersProps> = ({
@@ -24,17 +27,28 @@ export const GuestSearchAndFilters: React.FC<GuestSearchAndFiltersProps> = ({
   listName,
 }) => {
   const t = useTranslations("guestList.details");
+  const { isLoading: isExporting, execute: executeExport } =
+    useAsyncRequest<Guest[]>({
+      showToast: true,
+      successMessage: t("downloadCsvSuccess"),
+      errorMessage: t("downloadCsvError"),
+      initialLoading: false,
+    });
 
   const handleDownloadCsv = () => {
-    downloadGuestsCsv(
-      guests,
-      buildGuestListCsvFilename(listName ?? "invitados"),
-      {
-        name: t("table.name"),
-        seats: t("table.numberOfSeats"),
-        invitationUrl: t("table.invitationUrl"),
-      },
-    );
+    executeExport(async () => {
+      const guestsWithSeats = await enrichGuestsWithTotalSeats(guests);
+      downloadGuestsCsv(
+        guestsWithSeats,
+        buildGuestListCsvFilename(listName ?? "invitados"),
+        {
+          name: t("table.name"),
+          seats: t("table.numberOfSeats"),
+          invitationUrl: t("table.invitationUrl"),
+        },
+      );
+      return guestsWithSeats;
+    });
   };
 
   return (
@@ -53,11 +67,15 @@ export const GuestSearchAndFilters: React.FC<GuestSearchAndFiltersProps> = ({
         <Button
           variant="outline"
           onClick={handleDownloadCsv}
-          disabled={guests.length === 0}
+          disabled={guests.length === 0 || isExporting}
           className="cursor-pointer gap-2 shrink-0"
         >
-          <Download className="h-4 w-4" />
-          {t("downloadCsv")}
+          {isExporting ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <Download className="h-4 w-4" />
+          )}
+          {isExporting ? t("downloadCsvLoading") : t("downloadCsv")}
         </Button>
       </div>
       <div className="flex flex-wrap gap-2">

@@ -58,3 +58,32 @@ export async function getInvitationInfoByToken(
     throw error;
   }
 }
+
+const SEATS_FETCH_CHUNK_SIZE = 10;
+
+async function fetchGuestTotalSeats(guest: Guest): Promise<Guest> {
+  if (!guest.invitationToken) return guest;
+
+  if (guest.numberOfSeats > 0) return guest;
+
+  try {
+    const info = await getInvitationInfoByToken(guest.invitationToken);
+    return { ...guest, numberOfSeats: info.total_seats };
+  } catch {
+    return guest;
+  }
+}
+
+export async function enrichGuestsWithTotalSeats(
+  guests: Guest[],
+): Promise<Guest[]> {
+  const enriched: Guest[] = [];
+
+  for (let i = 0; i < guests.length; i += SEATS_FETCH_CHUNK_SIZE) {
+    const chunk = guests.slice(i, i + SEATS_FETCH_CHUNK_SIZE);
+    const chunkResults = await Promise.all(chunk.map(fetchGuestTotalSeats));
+    enriched.push(...chunkResults);
+  }
+
+  return enriched;
+}
