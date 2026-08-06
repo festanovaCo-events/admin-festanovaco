@@ -1,8 +1,13 @@
 "use client";
 
-import { Download, Search } from "lucide-react";
+import { Download, Loader2, Search } from "lucide-react";
 import { useTranslations } from "next-intl";
-import type { GuestSearchAndFiltersProps } from "@/interfaces/components/app/dashboard/guest-list/interfaces";
+import type {
+  Guest,
+  GuestSearchAndFiltersProps,
+} from "@/interfaces/components/app/dashboard/guest-list/interfaces";
+import { enrichGuestsWithTotalSeats } from "@/shared/data/invitation/get";
+import { useAsyncRequest } from "@/shared/hooks/use-async-request";
 import {
   buildGuestListCsvFilename,
   downloadGuestsCsv,
@@ -24,17 +29,29 @@ export const GuestSearchAndFilters: React.FC<GuestSearchAndFiltersProps> = ({
   listName,
 }) => {
   const t = useTranslations("guestList.details");
+  const { isLoading: isExporting, execute: executeExport } = useAsyncRequest<
+    Guest[]
+  >({
+    showToast: true,
+    successMessage: t("downloadCsvSuccess"),
+    errorMessage: t("downloadCsvError"),
+    initialLoading: false,
+  });
 
   const handleDownloadCsv = () => {
-    downloadGuestsCsv(
-      guests,
-      buildGuestListCsvFilename(listName ?? "invitados"),
-      {
-        name: t("table.name"),
-        seats: t("table.numberOfSeats"),
-        invitationUrl: t("table.invitationUrl"),
-      },
-    );
+    executeExport(async () => {
+      const guestsWithSeats = await enrichGuestsWithTotalSeats(guests);
+      downloadGuestsCsv(
+        guestsWithSeats,
+        buildGuestListCsvFilename(listName ?? "invitados"),
+        {
+          name: t("table.name"),
+          seats: t("table.numberOfSeats"),
+          invitationUrl: t("table.invitationUrl"),
+        },
+      );
+      return guestsWithSeats;
+    });
   };
 
   return (
@@ -53,11 +70,15 @@ export const GuestSearchAndFilters: React.FC<GuestSearchAndFiltersProps> = ({
         <Button
           variant="outline"
           onClick={handleDownloadCsv}
-          disabled={guests.length === 0}
+          disabled={guests.length === 0 || isExporting}
           className="cursor-pointer gap-2 shrink-0"
         >
-          <Download className="h-4 w-4" />
-          {t("downloadCsv")}
+          {isExporting ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <Download className="h-4 w-4" />
+          )}
+          {isExporting ? t("downloadCsvLoading") : t("downloadCsv")}
         </Button>
       </div>
       <div className="flex flex-wrap gap-2">
@@ -77,7 +98,7 @@ export const GuestSearchAndFilters: React.FC<GuestSearchAndFiltersProps> = ({
           className={cn(
             "cursor-pointer",
             statusFilter === "confirmed" &&
-            "bg-green-600 text-white hover:bg-green-700",
+              "bg-green-600 text-white hover:bg-green-700",
           )}
         >
           {t("confirmed")} ({confirmedCount})
@@ -88,7 +109,7 @@ export const GuestSearchAndFilters: React.FC<GuestSearchAndFiltersProps> = ({
           className={cn(
             "cursor-pointer",
             statusFilter === "pending" &&
-            "bg-orange-600 text-white hover:bg-orange-700",
+              "bg-orange-600 text-white hover:bg-orange-700",
           )}
         >
           {t("pending")} ({pendingCount})
@@ -99,7 +120,7 @@ export const GuestSearchAndFilters: React.FC<GuestSearchAndFiltersProps> = ({
           className={cn(
             "cursor-pointer",
             statusFilter === "declined" &&
-            "bg-red-600 text-white hover:bg-red-700",
+              "bg-red-600 text-white hover:bg-red-700",
           )}
         >
           {t("table.declinedStatus")} ({declinedCount ?? 0})

@@ -476,6 +476,9 @@
       "searchPlaceholder": "Buscar invitados por nombre, email o teléfono...",
       "all": "Todos",
       "downloadCsv": "Descargar CSV",
+      "downloadCsvLoading": "Generando CSV...",
+      "downloadCsvSuccess": "CSV descargado correctamente",
+      "downloadCsvError": "No se pudo generar el CSV",
       "table": {
         "name": "Nombre",
         "email": "Email",
