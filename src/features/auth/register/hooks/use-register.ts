@@ -1,33 +1,64 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import type { RegisterResponse } from "@/interfaces/api/auth/responses.interface";
+import { register } from "@/shared/data/auth/post";
+import { useAsyncRequest } from "@/shared/hooks/use-async-request";
 import { useRouter } from "@/shared/i18n/routing";
-import { useRegisterEffect } from "./effect/use-register-effect";
-import { useRegisterHandler } from "./handler/use-register-handler";
-import { useRegisterState } from "./state/use-register-state";
+import { formatRegisterData } from "./format-register-data";
+import {
+  createRegisterSchema,
+  type RegisterFormValues,
+} from "./validations/register.schema";
 
 export function useRegister() {
   const router = useRouter();
+  const tValidation = useTranslations("auth.validation");
+  const tSuccess = useTranslations("auth.success");
+  const [showPassword, setShowPassword] = useState(false);
 
-  const state = useRegisterState({
+  const form = useForm<RegisterFormValues>({
+    resolver: zodResolver(createRegisterSchema(tValidation)),
+    mode: "onChange",
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+    },
+  });
+
+  const { isLoading, execute } = useAsyncRequest<RegisterResponse>({
+    initialLoading: false,
+    successMessage: tSuccess("register"),
     onSuccess: () => {
       router.push("/auth/login");
     },
   });
 
-  const handler = useRegisterHandler({
-    showPassword: state.showPassword,
-    setShowPassword: state.setShowPassword,
-    execute: state.execute,
-  });
+  const onTogglePassword = () => {
+    setShowPassword((prev) => !prev);
+  };
 
-  useRegisterEffect();
+  const onSubmit = async (data: RegisterFormValues) => {
+    const registerData = formatRegisterData(
+      data.firstName,
+      data.lastName,
+      data.email,
+      data.password,
+    );
+    await execute(() => register(registerData));
+  };
 
   return {
-    form: state.form,
-    showPassword: state.showPassword,
-    isLoading: state.isLoading,
-    onTogglePassword: handler.onTogglePassword,
-    onSubmit: handler.onSubmit,
+    form,
+    showPassword,
+    isLoading,
+    onTogglePassword,
+    onSubmit,
   };
 }
 

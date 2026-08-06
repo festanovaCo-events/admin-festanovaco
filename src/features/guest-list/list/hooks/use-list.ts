@@ -1,28 +1,58 @@
 "use client";
 
-import { useMemo } from "react";
-import { useListEffect } from "./effect/use-list-effect";
-import { useListHandler } from "./handler/use-list-handler";
-import { useListState } from "./state/use-list-state";
+import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
+import { useEffect, useMemo, useState } from "react";
+import type { GuestList } from "@/interfaces/components/app/dashboard/guest-list/interfaces";
+import { useEventDateFormatter } from "@/shared/hooks/use-event-date-formatter";
+import { getGuestLists } from "./data/list";
+
+export type SortOption = "latest" | "oldest" | "name";
 
 export function useGuestList() {
-  const state = useListState();
+  const router = useRouter();
+  const locale = useLocale();
 
-  const handler = useListHandler({
-    setSearchQuery: state.setSearchQuery,
-    setSortBy: state.setSortBy,
-  });
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState<SortOption>("latest");
+  const [guestLists, setGuestLists] = useState<GuestList[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  useListEffect({
-    setGuestLists: state.setGuestLists,
-    setIsLoading: state.setIsLoading,
-  });
+  const formatListDate = useEventDateFormatter("short");
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function load() {
+      setIsLoading(true);
+      try {
+        const lists = await getGuestLists();
+        if (!cancelled) {
+          setGuestLists(lists);
+        }
+      } catch {
+        if (!cancelled) {
+          setGuestLists([]);
+        }
+      } finally {
+        if (!cancelled) {
+          setIsLoading(false);
+        }
+      }
+    }
+
+    void load();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const filteredAndSortedLists = useMemo(() => {
-    let filtered = state.guestLists;
+    let filtered = guestLists;
 
-    if (state.searchQuery.trim()) {
-      const query = state.searchQuery.toLowerCase();
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
       filtered = filtered.filter(
         (list) =>
           list.name.toLowerCase().includes(query) ||
@@ -32,7 +62,7 @@ export function useGuestList() {
     }
 
     const sorted = [...filtered].sort((a, b) => {
-      switch (state.sortBy) {
+      switch (sortBy) {
         case "latest":
           return (
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
@@ -43,23 +73,37 @@ export function useGuestList() {
           );
         case "name":
           return a.name.localeCompare(b.name);
-        default:
-          return 0;
+        default: {
+          const _exhaustive: never = sortBy;
+          return _exhaustive;
+        }
       }
     });
 
     return sorted;
-  }, [state.guestLists, state.searchQuery, state.sortBy]);
+  }, [guestLists, searchQuery, sortBy]);
+
+  const onSearchChange = (value: string) => {
+    setSearchQuery(value);
+  };
+
+  const onSortChange = (value: SortOption) => {
+    setSortBy(value);
+  };
+
+  const onViewGuests = (guestListId: string) => {
+    router.push(`/${locale}/dashboard/guest-list/${guestListId}`);
+  };
 
   return {
-    searchQuery: state.searchQuery,
-    onSearchChange: handler.onSearchChange,
-    sortBy: state.sortBy,
-    onSortChange: handler.onSortChange,
-    onViewGuests: handler.onViewGuests,
-    formatListDate: state.formatListDate,
+    searchQuery,
+    onSearchChange,
+    sortBy,
+    onSortChange,
+    onViewGuests,
+    formatListDate,
     guestLists: filteredAndSortedLists,
-    isLoading: state.isLoading,
+    isLoading,
   };
 }
 

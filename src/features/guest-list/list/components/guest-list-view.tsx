@@ -11,8 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/ui/shadcn/ui/select";
-import type { SortOption } from "../hooks/state/use-list-state";
-import type { UseGuestListReturn } from "../hooks/use-list";
+import type { SortOption, UseGuestListReturn } from "../hooks/use-list";
 import { GuestListCard } from "./guest-list-card";
 
 export type GuestListViewProps = UseGuestListReturn;

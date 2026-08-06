@@ -1,8 +1,8 @@
-export interface UseAsyncRequestOptions {
+export interface UseAsyncRequestOptions<T = unknown> {
   showToast?: boolean;
   successMessage?: string;
   errorMessage?: string;
-  onSuccess?: (data: unknown) => void;
+  onSuccess?: (data: T) => void;
   onError?: (error: string) => void;
   initialLoading?: boolean;
 }
@@ -11,6 +11,6 @@ export interface UseAsyncRequestReturn<T> {
   isLoading: boolean;
   error: string | null;
   data: T | null;
-  execute: (requestFn: () => Promise<T>) => Promise<void>;
+  execute: (requestFn: () => Promise<T>) => Promise<T | null>;
   reset: () => void;
 }
