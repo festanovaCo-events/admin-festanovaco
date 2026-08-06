@@ -10,7 +10,10 @@ import { EVENT_MODES } from "@/constants/event/event-modes";
 import { EVENT_TYPES } from "@/constants/event/event-types";
 import type { CreateEventRequest } from "@/interfaces/api/event/create/create-event-requests.interface";
 import type { CreateEventResponse } from "@/interfaces/api/event/responses.interface";
-import type { EventMode, EventType } from "@/interfaces/api/event/types.interface";
+import type {
+  EventMode,
+  EventType,
+} from "@/interfaces/api/event/types.interface";
 import { createEvent } from "@/shared/data/event/post";
 import { useAsyncRequest } from "@/shared/hooks/use-async-request";
 import { useAuth } from "@/shared/hooks/use-auth";

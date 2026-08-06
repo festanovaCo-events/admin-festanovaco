@@ -1,7 +1,10 @@
 import type { AxiosError } from "axios";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
-import type { UseAsyncRequestOptions, UseAsyncRequestReturn } from "@/interfaces/hooks/use-async-request.interface";
+import type {
+  UseAsyncRequestOptions,
+  UseAsyncRequestReturn,
+} from "@/interfaces/hooks/use-async-request.interface";
 
 export function useAsyncRequest<T>(
   options: UseAsyncRequestOptions<T> = {},

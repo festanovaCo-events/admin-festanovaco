@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useState, type ChangeEvent } from "react";
+import { type ChangeEvent, useState } from "react";
 import type { UploadInvitationResponse } from "@/interfaces/api/invitation/responses.interface";
 import type { ExcelFile } from "@/interfaces/components/app/dashboard/file-manager/interfaces";
 import { uploadInvitationFile } from "@/shared/data/invitation/post";
