@@ -1,10 +1,13 @@
 import type { AxiosError } from "axios";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
-import type { UseAsyncRequestOptions, UseAsyncRequestReturn } from "@/interfaces/hooks/use-async-request.interface";
+import type {
+  UseAsyncRequestOptions,
+  UseAsyncRequestReturn,
+} from "@/interfaces/hooks/use-async-request.interface";
 
 export function useAsyncRequest<T>(
-  options: UseAsyncRequestOptions = {},
+  options: UseAsyncRequestOptions<T> = {},
 ): UseAsyncRequestReturn<T> {
   const {
     showToast = true,
@@ -50,6 +53,8 @@ export function useAsyncRequest<T>(
         if (onSuccess) {
           onSuccess(result);
         }
+
+        return result;
       } catch (err: unknown) {
         const errorMsg = extractErrorMessage(err);
         setError(errorMsg);
@@ -62,6 +67,8 @@ export function useAsyncRequest<T>(
         if (onError) {
           onError(errorMsg);
         }
+
+        return null;
       } finally {
         setIsLoading(false);
       }

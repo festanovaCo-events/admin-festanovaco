@@ -1,32 +1,61 @@
 "use client";
 
-import { useDetailEffect } from "./effect/use-detail-effect";
-import { useDetailHandler } from "./handler/use-detail-handler";
-import { useDetailState } from "./state/use-detail-state";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import type { Event } from "@/interfaces/components/app/dashboard/event/list/event.interface";
+import { getEventById } from "@/shared/data/event/get";
+import { useAsyncRequest } from "@/shared/hooks/use-async-request";
+import { useEventDateFormatter } from "@/shared/hooks/use-event-date-formatter";
+import { useMusicPreview } from "./use-music-preview";
 
 export function useEventDetail() {
-  const state = useDetailState();
+  const router = useRouter();
+  const params = useParams();
+  const eventId = params.id as string;
 
-  const handler = useDetailHandler({
-    setIsPreviewOpen: state.setIsPreviewOpen,
-    setPreviewSrc: state.setPreviewSrc,
+  const {
+    isLoading,
+    error,
+    data: event,
+    execute,
+  } = useAsyncRequest<Event | null>({
+    showToast: false,
   });
 
-  useDetailEffect({ eventId: state.eventId, execute: state.execute });
+  const formatEventDate = useEventDateFormatter("long");
+  const { musicUrl, youtubeEmbedUrl, showAudioPreview } = useMusicPreview(
+    event?.assets?.musicUrl,
+  );
+
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [previewSrc, setPreviewSrc] = useState<string | null>(null);
+
+  useEffect(() => {
+    void execute(async () => await getEventById(eventId));
+  }, [execute, eventId]);
+
+  const onBack = () => {
+    router.back();
+  };
+
+  const onSelectPhoto = (src: string) => {
+    setPreviewSrc(src);
+    setIsPreviewOpen(true);
+  };
 
   return {
-    isLoading: state.isLoading,
-    error: state.error,
-    event: state.event,
-    formatEventDate: state.formatEventDate,
-    musicUrl: state.musicUrl,
-    youtubeEmbedUrl: state.youtubeEmbedUrl,
-    showAudioPreview: state.showAudioPreview,
-    isPreviewOpen: state.isPreviewOpen,
-    previewSrc: state.previewSrc,
-    onPreviewOpenChange: state.setIsPreviewOpen,
-    onBack: handler.onBack,
-    onSelectPhoto: handler.onSelectPhoto,
+    isLoading,
+    error,
+    event,
+    formatEventDate,
+    musicUrl,
+    youtubeEmbedUrl,
+    showAudioPreview,
+    isPreviewOpen,
+    previewSrc,
+    onPreviewOpenChange: setIsPreviewOpen,
+    onBack,
+    onSelectPhoto,
   };
 }
 
