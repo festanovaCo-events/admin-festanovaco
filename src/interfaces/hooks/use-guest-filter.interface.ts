@@ -1,4 +1,4 @@
-import type { Guest } from "@/interfaces";
+import type { Guest } from "@/interfaces/components/app/dashboard/guest-list/interfaces";
 
 export interface UseGuestFilterProps {
   guests: Guest[];

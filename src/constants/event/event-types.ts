@@ -27,5 +27,8 @@ export const EVENT_TYPE_MAP: Record<string, string> = {
   [EVENT_TYPES.CORPORATE]: EVENT_TYPES.CORPORATE,
 } as const;
 
-export type EventType = typeof EVENT_TYPES[keyof typeof EVENT_TYPES];
-export type EventTypeEs = typeof EVENT_TYPES_ES[keyof typeof EVENT_TYPES_ES];
+export type EventType = (typeof EVENT_TYPES)[keyof typeof EVENT_TYPES];
+export type EventTypeEs = (typeof EVENT_TYPES_ES)[keyof typeof EVENT_TYPES_ES];
+
+/** Claves de `messages.*.event.types` (en + es). */
+export type EventTypesMessageKey = EventType | EventTypeEs;

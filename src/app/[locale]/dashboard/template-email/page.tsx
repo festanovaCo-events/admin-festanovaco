@@ -1,18 +1,18 @@
-import { Metadata } from 'next';
-import { EmailTemplateEditor } from '@/components/app/dashboard/template-email';
-import { DEFAULT_WEDDING_TEMPLATE_HTML, DEFAULT_WEDDING_DATA } from '@/constants/template/email';
+import type { Metadata } from "next";
+import { DEFAULT_WEDDING_DATA, DEFAULT_WEDDING_TEMPLATE_HTML } from "@/constants/template/email/default";
+import TemplateEmailClient from "@/features/template-email/editor/components/template-email-client";
 
 export const metadata: Metadata = {
-    title: 'Editor de plantilla de email',
+  title: "Editor de plantilla de email",
 };
 
-const defaultTemplate = DEFAULT_WEDDING_TEMPLATE_HTML;
-
 export default function Page() {
-    return (
-        <div style={{ padding: 16 }}>
-            <EmailTemplateEditor initialHtml={defaultTemplate} initialData={DEFAULT_WEDDING_DATA} />
-        </div>
-    );
+  return (
+    <div style={{ padding: 16 }}>
+      <TemplateEmailClient
+        initialHtml={DEFAULT_WEDDING_TEMPLATE_HTML}
+        initialData={DEFAULT_WEDDING_DATA}
+      />
+    </div>
+  );
 }
-

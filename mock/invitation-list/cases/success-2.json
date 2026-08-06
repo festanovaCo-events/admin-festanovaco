@@ -1,0 +1,85 @@
+{
+  "success": true,
+  "data": [
+    {
+      "id": "inv-2-1",
+      "name": "Ana Martinez",
+      "email": "ana@example.com",
+      "invitation_url": "https://festanova.example/invite?token=token-2-1",
+      "accept_url": "https://festanova.example/accept?token=token-2-1",
+      "status": "ACCEPTED",
+      "total_seats": 2,
+      "seats": 2
+    },
+    {
+      "id": "inv-2-2",
+      "name": "Carlos Rodriguez",
+      "email": "carlos@example.com",
+      "invitation_url": "https://festanova.example/invite?token=token-2-2",
+      "accept_url": "https://festanova.example/accept?token=token-2-2",
+      "status": "PENDING",
+      "total_seats": 2,
+      "seats": 2
+    },
+    {
+      "id": "inv-2-3",
+      "name": "Laura Sanchez",
+      "email": "laura@example.com",
+      "invitation_url": "https://festanova.example/invite?token=token-2-3",
+      "accept_url": "https://festanova.example/accept?token=token-2-3",
+      "status": "DECLINED",
+      "total_seats": 2,
+      "seats": 2
+    },
+    {
+      "id": "inv-2-4",
+      "name": "Pedro Lopez",
+      "email": "pedro@example.com",
+      "invitation_url": "https://festanova.example/invite?token=token-2-4",
+      "accept_url": "https://festanova.example/accept?token=token-2-4",
+      "status": "ACCEPTED",
+      "total_seats": 2,
+      "seats": 2
+    },
+    {
+      "id": "inv-2-5",
+      "name": "Sofia Hernandez",
+      "email": "sofia@example.com",
+      "invitation_url": "https://festanova.example/invite?token=token-2-5",
+      "accept_url": "https://festanova.example/accept?token=token-2-5",
+      "status": "PENDING",
+      "total_seats": 2,
+      "seats": 2
+    },
+    {
+      "id": "inv-2-6",
+      "name": "Miguel Torres",
+      "email": "miguel@example.com",
+      "invitation_url": "https://festanova.example/invite?token=token-2-6",
+      "accept_url": "https://festanova.example/accept?token=token-2-6",
+      "status": "ACCEPTED",
+      "total_seats": 2,
+      "seats": 2
+    },
+    {
+      "id": "inv-2-7",
+      "name": "Elena Vega",
+      "email": "elena@example.com",
+      "invitation_url": "https://festanova.example/invite?token=token-2-7",
+      "accept_url": "https://festanova.example/accept?token=token-2-7",
+      "status": "PENDING",
+      "total_seats": 2,
+      "seats": 2
+    },
+    {
+      "id": "inv-2-8",
+      "name": "Diego Morales",
+      "email": "diego@example.com",
+      "invitation_url": "https://festanova.example/invite?token=token-2-8",
+      "accept_url": "https://festanova.example/accept?token=token-2-8",
+      "status": "DECLINED",
+      "total_seats": 2,
+      "seats": 2
+    }
+  ]
+}

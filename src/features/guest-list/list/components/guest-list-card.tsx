@@ -1,0 +1,111 @@
+"use client";
+
+import { Calendar, CheckCircle2, Users } from "lucide-react";
+import { useTranslations } from "next-intl";
+import type { GuestListCardProps } from "@/interfaces/components/app/dashboard/guest-list/interfaces";
+import { cn, getEventTypeColor } from "@/shared/lib/utils";
+import { Badge } from "@/shared/ui/shadcn/ui/badge";
+import { Button } from "@/shared/ui/shadcn/ui/button";
+import { Card, CardContent } from "@/shared/ui/shadcn/ui/card";
+
+export const GuestListCard: React.FC<GuestListCardProps> = ({
+  guestList,
+  formatDate,
+  getEventTypeLabel,
+  onViewGuests,
+}) => {
+  const t = useTranslations("guestList.card");
+
+  const confirmationRate =
+    guestList.totalGuests > 0
+      ? Math.round((guestList.confirmedGuests / guestList.totalGuests) * 100)
+      : 0;
+
+  return (
+    <Card className="transition-all hover:shadow-lg">
+      <CardContent className="p-6">
+        <div className="space-y-4">
+          {/* Header */}
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-2">
+                <h3 className="text-lg font-semibold text-gray-900">
+                  {guestList.name}
+                </h3>
+                <Badge
+                  className={cn(
+                    "text-xs font-medium",
+                    getEventTypeColor(guestList.eventType),
+                  )}
+                >
+                  {getEventTypeLabel(guestList.eventType)}
+                </Badge>
+              </div>
+              <p className="text-sm text-gray-500">
+                {t("createdBy")}: {guestList.owner}
+              </p>
+            </div>
+          </div>
+
+          {/* Stats */}
+          <div className="grid grid-cols-2 gap-4 pt-4 border-t">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-blue-50 rounded-lg">
+                <Users className="h-5 w-5 text-blue-600" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">Total</p>
+                <p className="text-lg font-semibold text-gray-900">
+                  {guestList.totalGuests}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-green-50 rounded-lg">
+                <CheckCircle2 className="h-5 w-5 text-green-600" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">Confirmados</p>
+                <p className="text-lg font-semibold text-gray-900">
+                  {guestList.confirmedGuests}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Confirmation Rate */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-gray-600">Tasa de confirmación</span>
+              <span className="font-medium text-gray-900">
+                {confirmationRate}%
+              </span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-2">
+              <div
+                className="bg-green-500 h-2 rounded-full transition-all"
+                style={{ width: `${confirmationRate}%` }}
+              />
+            </div>
+          </div>
+
+          {/* Date and Action */}
+          <div className="flex items-center justify-between pt-4 border-t">
+            <div className="flex items-center gap-2 text-sm text-gray-500">
+              <Calendar className="h-4 w-4" />
+              <span>{formatDate(guestList.createdAt)}</span>
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              className="cursor-pointer"
+              onClick={() => onViewGuests(guestList.id)}
+            >
+              {t("viewGuests")}
+            </Button>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};

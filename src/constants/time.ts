@@ -4,7 +4,6 @@ export const TIME_VALUES = {
 } as const;
 
 export const TIMEOUTS = {
-  MOCK_DELAY: 500,
   AXIOS_DEFAULT: 10000,
 } as const;
 

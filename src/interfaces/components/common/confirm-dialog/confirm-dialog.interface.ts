@@ -1,4 +1,4 @@
-import type { ButtonProps } from "@/components/shadcn/ui/button";
+import type { ButtonProps } from "@/shared/ui/shadcn/ui/button";
 
 export interface ConfirmDialogProps {
   open: boolean;
