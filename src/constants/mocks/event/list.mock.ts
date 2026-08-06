@@ -1,4 +1,4 @@
-import type { Event } from "@/interfaces";
+import type { Event } from "@/interfaces/components/app/dashboard/event/list/event.interface";
 
 /**
  * Eventos para el listado del dashboard (tarjetas).

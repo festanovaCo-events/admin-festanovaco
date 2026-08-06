@@ -1,6 +1,11 @@
-import React from "react";
+"use client";
+
+import { AnalyticsDashboardView } from "@/features/analytics/dashboard/components/analytics-dashboard-view";
+import { useDashboard } from "@/features/analytics/dashboard/hooks/use-dashboard";
 
 const AnalyticsPage = () => {
-  return <div>AnalyticsPage</div>;
+  const props = useDashboard();
+  return <AnalyticsDashboardView {...props} />;
 };
+
 export default AnalyticsPage;

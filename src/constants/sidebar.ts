@@ -1,4 +1,4 @@
-import { NavSection } from "@/interfaces";
+import { NavSection } from "@/interfaces/components/ui/sidebar/app-sidebar.interface";
 import { CalendarPlus, CircleGauge, MailPlus, TrendingUp, FileSpreadsheet, Users } from "lucide-react";
 
 export const NAV_SECTIONS: NavSection[] = [

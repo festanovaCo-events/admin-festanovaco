@@ -1,4 +1,4 @@
-import type { GuestList } from "@/interfaces";
+import type { GuestList } from "@/interfaces/components/app/dashboard/guest-list/interfaces";
 
 /** Metadatos de cada lista (grid de invitados); sin arreglo `guests`. */
 export type GuestListListingMock = Omit<GuestList, "guests">;

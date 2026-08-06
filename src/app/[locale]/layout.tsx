@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { getMessages } from "next-intl/server";
-import { hasLocale, NextIntlClientProvider, useMessages } from "next-intl";
 import { Nunito } from "next/font/google";
+import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 import "./globals.css";
-import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
-import { Toaster } from "@/components/shadcn/ui/sonner";
-import { OtelProvider } from "@/components/providers/OtelProvider";
+import { routing } from "@/shared/i18n/routing";
+import { OtelProvider } from "@/shared/ui/providers/OtelProvider";
+import { Toaster } from "@/shared/ui/shadcn/ui/sonner";
 
 const nunito = Nunito({
   variable: "--font-nunito",

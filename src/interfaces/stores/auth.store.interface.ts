@@ -1,4 +1,4 @@
-import type { LoginResponseData, RegisterResponseData } from '@/interfaces';
+import type { LoginResponseData, RegisterResponseData } from "@/interfaces/api/auth/data.interface";
 
 export type StoredUser = Omit<LoginResponseData, 'password' | 'token'> | Omit<RegisterResponseData, 'password' | 'token'>;
 

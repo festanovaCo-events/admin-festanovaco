@@ -1,0 +1,23 @@
+---
+description: Prohíbe barrels (index.ts/tsx de reexport) — imports siempre a archivo concreto
+alwaysApply: true
+---
+
+# Sin barrels
+
+No crear ni restaurar archivos `index.ts` / `index.tsx` cuyo único rol sea reexportar (`export * from`, `export { X } from`).
+
+## Imports
+
+- Importar siempre el **archivo concreto**:
+  - ✅ `from "@/shared/hooks/use-auth"`
+  - ✅ `from "@/features/event/list/components/event-list-view"`
+  - ✅ `from "@/shared/data/event/get"`
+- ❌ `from "@/shared/hooks"`
+- ❌ `from "@/features/event/list"`
+- ❌ `from "@/constants"` / `from "@/interfaces"`
+- ❌ `from ".../index"`
+
+## Excepciones
+
+Ninguna para barrels de reexport. Si un módulo necesita un entrypoint con lógica propia (p. ej. store Zustand), usar un nombre explícito (`auth.store.ts`), no `index.ts`.

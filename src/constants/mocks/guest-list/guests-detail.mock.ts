@@ -1,4 +1,4 @@
-import type { Guest } from "@/interfaces";
+import type { Guest } from "@/interfaces/components/app/dashboard/guest-list/interfaces";
 import { generateGuests } from "./generate-guests";
 
 /**

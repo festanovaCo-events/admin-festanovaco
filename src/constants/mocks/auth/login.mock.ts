@@ -1,4 +1,4 @@
-import type { LoginResponse } from "@/interfaces";
+import type { LoginResponse } from "@/interfaces/api/auth/responses.interface";
 
 /**
  * Respuesta mock de POST /v1/auth/login (misma forma que {@link LoginResponse}).

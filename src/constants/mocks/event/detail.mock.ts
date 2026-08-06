@@ -1,4 +1,4 @@
-import type { Event } from "@/interfaces";
+import type { Event } from "@/interfaces/components/app/dashboard/event/list/event.interface";
 
 /**
  * Detalle por id (misma forma que devuelve getEventById con mocks).

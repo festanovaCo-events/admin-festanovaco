@@ -1,4 +1,4 @@
-import type { InvitationStatus } from "@/interfaces";
+import type { InvitationStatus } from "@/interfaces/api/common/global.interface";
 
 export interface SubGuest {
   id: string;
@@ -38,6 +38,7 @@ export interface GuestListCardProps {
   guestList: GuestList;
   formatDate: (date: string) => string;
   getEventTypeLabel: (type: string) => string;
+  onViewGuests: (guestListId: string) => void;
 }
 
 export interface GuestDetailModalProps {
@@ -50,7 +51,10 @@ export interface GuestDetailModalProps {
 export interface GuestTableProps {
   guests: Guest[];
   expandedGuests: Set<string>;
-  onToggleGuestExpansion: (guestId: string) => void;
+  expandedGuestData: Record<string, InvitationDetailAugment>;
+  loadingGuestIds: Set<string>;
+  onToggleGuestExpansion: (guest: Guest) => void;
+  onCopyInvitationUrl: (url: string | null | undefined) => void;
   searchQuery?: string;
 }
 
@@ -62,11 +66,23 @@ export interface SubGuestCardProps {
   subGuest: SubGuest;
 }
 
+export interface InvitationDetailAugment {
+  confirmedAt?: string;
+  numberOfSeats: number;
+  availableSeats: number;
+  subGuests: SubGuest[];
+  totalSeats: number;
+  usedSeats: number;
+}
+
 export interface GuestTableRowProps {
   guest: Guest;
   index: number;
   isExpanded: boolean;
+  isLoading: boolean;
+  data?: InvitationDetailAugment;
   onToggleExpand: () => void;
+  onCopyInvitationUrl: (url: string | null | undefined) => void;
 }
 
 export interface GuestStatsCardsProps {

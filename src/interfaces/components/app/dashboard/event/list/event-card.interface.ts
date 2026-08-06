@@ -4,6 +4,11 @@ export interface EventCardProps {
   event: Event;
   formatDate: (date: string) => string;
   getEventTypeLabel: (type: string) => string;
-  onDeleted?: (id: string) => void;
+  onView: () => void;
+  onConfig: () => void;
+  onConfigPrefetch: () => void;
+  onUploadGuests: () => void;
+  onViewGuests: () => void;
+  onDelete: () => void | Promise<void>;
 }
 

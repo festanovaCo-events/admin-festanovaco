@@ -1,14 +1,14 @@
 "use client";
 
 import type React from "react";
+import { StatusOverlay } from "@/shared/ui/common/status-overlay/status-overlay";
 import {
-  SidebarProvider,
   SidebarInset,
+  SidebarProvider,
   SidebarTrigger,
-} from "@/components/shadcn/ui/sidebar";
-import { AppSidebar } from "@/components/ui/sidebar/app-sidebar";
-import { AppHeader } from "@/components/ui/header/app-header";
-import { StatusOverlay } from "@/components/common/status-overlay";
+} from "@/shared/ui/shadcn/ui/sidebar";
+import { AppHeader } from "@/shared/ui/shell/header/app-header";
+import { AppSidebar } from "@/shared/ui/shell/sidebar/app-sidebar";
 
 export default function DashboardLayout({
   children,

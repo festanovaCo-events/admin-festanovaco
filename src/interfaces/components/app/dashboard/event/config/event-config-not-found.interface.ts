@@ -1,3 +1,3 @@
 export interface EventConfigNotFoundProps {
-  onBack?: () => void;
+  onBack: () => void;
 }
