@@ -101,10 +101,7 @@ export function useGuestListDetail() {
     (g) => g.status === "DECLINED",
   ).length;
 
-  const isBootstrapping =
-    typeof event === "undefined" || typeof guests === "undefined";
-  const isLoadingCombined =
-    isLoadingEvent || isLoadingGuests || isBootstrapping;
+  const isLoadingCombined = isLoadingEvent || isLoadingGuests;
 
   const onBack = () => {
     router.back();
