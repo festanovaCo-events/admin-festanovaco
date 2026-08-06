@@ -1,7 +1,7 @@
 # Design: colapso de hooks (piloto) + contrato tipado de `useAsyncRequest`
 
 **Fecha:** 2026-08-06  
-**Estado:** aprobado en conversación (opción A + alcance C); actualizado con auditoría cross-feature y alineación SOLID  
+**Estado:** aprobado; alcance ampliado a **todas** las features (oleadas 0–3 en este trabajo)  
 **Repo:** admin-festanovaco
 
 ## Problema
@@ -53,35 +53,39 @@ Tras auditoría de todas las features, el patrón **queda deprecado** como está
 | guest-list/detail | **PARTIAL** | Collapse 4-vías; keep lógica expand/paginación como módulo interno |
 | event/config | **PARTIAL** | **Keep** steps, uploads, `data/config.ts`; collapse effect/handler glue. Revisar `use-music-upload` huérfano |
 
-### Oleadas de migración (post-piloto)
+### Oleadas de migración (este trabajo)
+
+Todas las oleadas se implementan en este trabajo (un PR o commits secuenciales en la misma rama).
 
 | Oleada | Features | Acción |
 |--------|----------|--------|
-| **0 (este PR)** | login, event/list + contrato `useAsyncRequest` | COLLAPSE + LSP en `execute` |
+| **0** | login, event/list + contrato `useAsyncRequest` | COLLAPSE + LSP en `execute` |
 | **1** | register, forgot-password, create, event/detail, file-manager/*, analytics | COLLAPSE |
 | **2** | guest-list/list, template-email/editor | PARTIAL (conservar data útil) |
-| **3** | event/config, guest-list/detail | PARTIAL con más cuidado |
+| **3** | event/config, guest-list/detail | PARTIAL (steps/uploads/expand) |
 
-Las oleadas 1–3 **no** entran en el alcance de implementación de este PR; quedan documentadas para PRs siguientes.
+## Objetivos
 
-## Objetivos (PR actual)
-
-- Piloto de colapso en **login** y **event list** (plantilla SOLID para el resto).
+- Colapsar el patrón 4-carpetas en **todas** las features listadas (COLLAPSE o PARTIAL según tabla).
 - Contrato honesto de `execute`: `Promise<T | null>` y `onSuccess(data: T)`.
-- Preservar UX (toasts, redirects) y API pública hacia las views (`UseLoginReturn`, `UseEventListReturn`).
-- Documentar deprecación del patrón 4-carpetas y criterios SOLID de extracción.
+- Preservar UX (toasts, redirects) y API pública hacia las views de cada feature.
+- Aplicar criterios SOLID de extracción: keep solo módulos con razón de cambio propia.
 
-## No objetivos (fuera de alcance de este PR)
+## No objetivos (fuera de alcance)
 
-- Ejecutar oleadas 1–3 (register, config, create, guest-list, file-manager, etc.).
 - Registry por `EventType` / desacoplar dominio wedding.
 - Separar side effects de auth en `shared/data/auth/post.ts`.
 - Migrar páginas a RSC / server fetch.
 - Cambiar el look & feel de las vistas.
+- Implementar API real de forgot-password (solo colapsar el stub actual).
 
-## Arquitectura (piloto)
+## Arquitectura
 
-### Login (`src/features/auth/login/hooks/`)
+Plantilla COLLAPSE (features simples): un `use-*.ts` (+ `validations/*.schema.ts` si existe) + imports a `@/shared/data/...`. Sin carpetas `state` / `handler` / `effect` / `data` passthrough.
+
+Plantilla PARTIAL: igual, pero conservar módulos con SRP real (ver tabla de veredictos).
+
+### Login (`src/features/auth/login/hooks/`) — oleada 0
 
 **Queda**
 
@@ -104,7 +108,7 @@ Las oleadas 1–3 **no** entran en el alcance de implementación de este PR; que
 
 - Misma forma de retorno hacia la view: `form`, `showPassword`, `isLoading`, `onTogglePassword`, `onSubmit`.
 
-### Event list (`src/features/event/list/hooks/`)
+### Event list (`src/features/event/list/hooks/`) — oleada 0
 
 **Queda**
 
@@ -165,6 +169,34 @@ Firma del hook: `useAsyncRequest<T>(options: UseAsyncRequestOptions<T> = {})`.
 
 Alineación SOLID: **LSP** (sustitución honesta del resultado), **ISP** (`onSuccess` tipado con `T`, no `unknown`).
 
+### Oleada 1 — COLLAPSE completo
+
+| Feature | Hook resultante | Keep aparte | Eliminar |
+|---------|-----------------|-------------|----------|
+| auth/register | `use-register.ts` | `validations/`, `format-register-data.ts` (o inline) | state/handler/effect/data passthrough |
+| auth/forgot-password | `use-forgot-password.ts` | `validations/` | state/handler/effect/data |
+| event/create | `use-create.ts` | `validations/` | state/handler/effect/data; OTEL dentro del hook; span OK solo si `result !== null` |
+| event/detail | `use-detail.ts` | opcional `use-music-preview.ts` | state/handler/effect/data |
+| file-manager/list | `use-list.ts` | — | handler/effect stubs |
+| file-manager/detail | `use-detail.ts` | — | state/handler/effect/data |
+| analytics/dashboard | `use-dashboard.ts` o inline en view | — | state/handler/effect |
+
+### Oleada 2 — PARTIAL
+
+| Feature | Hook resultante | Keep | Eliminar |
+|---------|-----------------|------|----------|
+| guest-list/list | `use-list.ts` | `data/list.ts` (agregación) | state/handler/effect |
+| template-email/editor | `use-editor.ts` | `data/templates.ts` | state/handler/effect; unificar pick de categoría |
+
+### Oleada 3 — PARTIAL
+
+| Feature | Hook resultante | Keep | Eliminar |
+|---------|-----------------|------|----------|
+| event/config | `use-config.ts` | `use-config-steps`, `use-image-upload`, `data/config.ts`; borrar o cablear `use-music-upload` huérfano | effect stub; handler glue absorbido en `use-config` |
+| guest-list/detail | `use-detail.ts` | helper/módulo expand+paginación si supera legibilidad | state/handler/effect/data passthrough |
+
+API pública de cada view: **sin cambios de contrato** (mismos campos expuestos).
+
 ## Flujo de datos
 
 ### Delete (event list)
@@ -199,11 +231,12 @@ Otros callers (`config`, `detail` effect, register) que no dependen del retorno 
 
 ## Criterios de hecho
 
-- [ ] Carpetas state/handler/effect/data eliminadas en login y event list (piloto).
-- [ ] Sin barrels nuevos; imports a archivos concretos (`@/shared/data/...`).
-- [ ] `execute` retorna `T | null`; `onSuccess` tipado con `T`.
-- [ ] Delete no actualiza UI en fallo.
+- [ ] Oleada 0: login + event list colapsados; `execute` → `T | null`; delete no muta UI en fallo.
+- [ ] Oleada 1: register, forgot-password, create, event/detail, file-manager/*, analytics colapsados.
+- [ ] Oleada 2: guest-list/list y template-email/editor en PARTIAL (data útil conservada).
+- [ ] Oleada 3: event/config y guest-list/detail en PARTIAL; sin effect/handler glue; music-upload resuelto (cablear o borrar).
+- [ ] Sin carpetas ceremoniales state/handler/effect ni data passthrough restantes en features migradas.
+- [ ] Sin barrels nuevos; imports a archivos concretos (`@/shared/data/...` o data de dominio real).
 - [ ] Create no marca span OK en fallo de `execute`.
-- [ ] API pública de views de login y event list sin cambios de contrato.
-- [ ] Spec documenta deprecación del patrón 4-carpetas, criterios SOLID de extracción y oleadas 1–3.
+- [ ] API pública de views sin cambios de contrato.
 - [ ] Typecheck en verde.
