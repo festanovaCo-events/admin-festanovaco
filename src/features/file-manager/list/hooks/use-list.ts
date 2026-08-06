@@ -1,15 +1,18 @@
 "use client";
 
-import { useListEffect } from "./effect/use-list-effect";
-import { useListHandler } from "./handler/use-list-handler";
+import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
 
 export function useFileManagerList() {
-  const handler = useListHandler();
+  const router = useRouter();
+  const locale = useLocale();
 
-  useListEffect();
+  const onGoToEventList = () => {
+    router.push(`/${locale}/dashboard/event/list`);
+  };
 
   return {
-    onGoToEventList: handler.onGoToEventList,
+    onGoToEventList,
   };
 }
 
