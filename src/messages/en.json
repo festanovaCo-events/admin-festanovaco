@@ -455,6 +455,7 @@
     },
     "noLists": "No guest lists available",
     "noResultsFor": "No results found for",
+    "loading": "Loading guest lists...",
     "errorLoadingLists": "Could not load guest lists",
     "card": {
       "createdBy": "Created by",

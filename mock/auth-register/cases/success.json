@@ -1,0 +1,15 @@
+{
+  "success": true,
+  "data": {
+    "id": "user-mock-2",
+    "name": "Nuevo Usuario",
+    "email": "nuevo@ejemplo.com",
+    "isActive": true,
+    "password": "",
+    "createdAt": "2026-01-02T00:00:00.000Z",
+    "updatedAt": "2026-01-02T00:00:00.000Z",
+    "deletedAt": "",
+    "token": "mock-jwt-token-register",
+    "accounts": []
+  }
+}

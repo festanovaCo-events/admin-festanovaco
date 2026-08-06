@@ -1,0 +1,1090 @@
+{
+  "uuid": "e0980771-f0fd-4ede-a139-2258d3a5380b",
+  "lastMigration": 33,
+  "name": "Festanova Admin API Mock",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "localhost",
+  "folders": [
+    {
+      "uuid": "5ae573eb-7b8b-4338-8113-f5b489a55078",
+      "name": "auth-login",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "a8bd2f00-a4ad-4b44-b49e-7df83cd2ef79"
+        }
+      ]
+    },
+    {
+      "uuid": "68c5342d-0820-461e-bcb1-abb97d0ee357",
+      "name": "auth-register",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "272590ad-1b05-42fd-b90f-3820a33a0182"
+        }
+      ]
+    },
+    {
+      "uuid": "f0ab724c-91f0-407e-8d36-9685dc5cac40",
+      "name": "event-list",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "a8a96c6c-bed3-4576-a80c-c6f4e2a4b3c0"
+        }
+      ]
+    },
+    {
+      "uuid": "e3ab3ba0-5dc8-4eb7-bf6d-c79405b57ad3",
+      "name": "event-get-by-id",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "f3a4f5f8-0069-4139-a711-1c2baac80bf2"
+        }
+      ]
+    },
+    {
+      "uuid": "4258363d-5a7f-4e99-8933-692b280863bf",
+      "name": "event-create",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "d12fec02-431f-4b92-9e1d-739e8a54bb21"
+        }
+      ]
+    },
+    {
+      "uuid": "361d8521-a5a4-4b47-bfa4-9bc9b87cfcc1",
+      "name": "event-delete",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "33948fb4-3562-4802-8dcd-499b58f0823d"
+        }
+      ]
+    },
+    {
+      "uuid": "ec06f75a-61f9-4c2d-8da7-06fb88726078",
+      "name": "event-assets",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "9398d6fc-9407-47ec-8d1d-be16a197ebc2"
+        }
+      ]
+    },
+    {
+      "uuid": "bf806222-bdb1-4a4d-b915-7051235d9658",
+      "name": "event-config",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "ce1658af-5e28-48c7-917e-1dfc292471ca"
+        }
+      ]
+    },
+    {
+      "uuid": "78bf1049-3d8f-42e7-a8b1-0f6e11622920",
+      "name": "invitation-list",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "04fe1974-cacc-44e8-b97b-08a29359d28c"
+        }
+      ]
+    },
+    {
+      "uuid": "40a140b2-8c0e-4d6f-a05d-5fd68f5f05ed",
+      "name": "invitation-upload",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "01536e00-74da-49f8-92da-4c7097292d32"
+        }
+      ]
+    },
+    {
+      "uuid": "b916bc33-c4ac-4a37-8f6f-6ec915c46ea0",
+      "name": "invitation-info",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "523be51b-80c3-4921-a05a-032915f495e8"
+        }
+      ]
+    },
+    {
+      "uuid": "0c2c2d01-a15e-4723-841f-4ebc42d7874d",
+      "name": "telemetry-traces",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "ec838b31-24d0-49d0-9414-2b4ddcc816e1"
+        }
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "uuid": "a8bd2f00-a4ad-4b44-b49e-7df83cd2ef79",
+      "type": "http",
+      "documentation": "Login",
+      "method": "post",
+      "endpoint": "v1/auth/login",
+      "responses": [
+        {
+          "uuid": "e4c7112c-2151-40e3-ac11-9b3a6489054e",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "./auth-login/cases/success.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "185343d3-29d9-4808-9e6a-b07221ffffc8",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "error-401",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "./auth-login/cases/error-401.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "password",
+              "value": "wrong",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "272590ad-1b05-42fd-b90f-3820a33a0182",
+      "type": "http",
+      "documentation": "Register",
+      "method": "post",
+      "endpoint": "v1/user/create",
+      "responses": [
+        {
+          "uuid": "b2716853-2a76-4cf0-827d-ca98923cd89b",
+          "body": "",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "./auth-register/cases/success.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "9ee59fc9-47a1-4d67-8458-cc2aa036e6fc",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "error-400",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "./auth-register/cases/error-400.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "a8a96c6c-bed3-4576-a80c-c6f4e2a4b3c0",
+      "type": "http",
+      "documentation": "List events",
+      "method": "get",
+      "endpoint": "v1/event",
+      "responses": [
+        {
+          "uuid": "c6e3652b-7fbf-4591-91b3-3bc5ea5dc24e",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "./event-list/cases/success.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "d01f4218-0bf4-4150-8b95-42caf4763f4c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "error-401",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "./event-list/cases/error-401.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "f3a4f5f8-0069-4139-a711-1c2baac80bf2",
+      "type": "http",
+      "documentation": "Get event by id",
+      "method": "get",
+      "endpoint": "v1/event/:eventId",
+      "responses": [
+        {
+          "uuid": "1a68c625-b4e7-4002-83fa-478adda341c2",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "success-1",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "./event-get-by-id/cases/success-1.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "eventId",
+              "value": "1",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "2593d783-dc75-4309-b654-26cee2c1374b",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "success-2",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "./event-get-by-id/cases/success-2.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "eventId",
+              "value": "2",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "38368b1d-299b-4380-ad11-e300640a0ebd",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "success-3",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "./event-get-by-id/cases/success-3.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "eventId",
+              "value": "3",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "79cb995b-ebcb-42b8-95c7-dc2a6d2bd124",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "error-404",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "./event-get-by-id/cases/error-404.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "d12fec02-431f-4b92-9e1d-739e8a54bb21",
+      "type": "http",
+      "documentation": "Create event",
+      "method": "post",
+      "endpoint": "v1/event/create",
+      "responses": [
+        {
+          "uuid": "7745a8b5-8d51-4f13-b393-742e2f9a7e47",
+          "body": "",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "./event-create/cases/success.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "788b705a-6442-42d7-959e-dc419d2b9d1c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "error-400",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "./event-create/cases/error-400.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "33948fb4-3562-4802-8dcd-499b58f0823d",
+      "type": "http",
+      "documentation": "Delete event",
+      "method": "delete",
+      "endpoint": "v1/event/:eventId",
+      "responses": [
+        {
+          "uuid": "ccdf3bae-5d84-4e6a-b42f-e5648561b51c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "./event-delete/cases/success.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "19f00959-6e49-4dac-a74d-5a3ad92cb166",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "error-404",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "./event-delete/cases/error-404.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "9398d6fc-9407-47ec-8d1d-be16a197ebc2",
+      "type": "http",
+      "documentation": "Upload event asset",
+      "method": "post",
+      "endpoint": "v1/event/:eventId/assets",
+      "responses": [
+        {
+          "uuid": "72537734-0fd1-4a78-b914-3ef3923ece9a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "./event-assets/cases/success.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "61c99ff2-655c-4d40-bece-e157cadfb44f",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "error-400",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "./event-assets/cases/error-400.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "ce1658af-5e28-48c7-917e-1dfc292471ca",
+      "type": "http",
+      "documentation": "Configure event",
+      "method": "post",
+      "endpoint": "v1/event-config/:eventType/:eventId",
+      "responses": [
+        {
+          "uuid": "1aa7f6e1-e67f-4f82-b142-29a69c657138",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "./event-config/cases/success.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "d91aed1e-67b7-44e1-bb4f-0cbd27af27e2",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "error-400",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "./event-config/cases/error-400.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "04fe1974-cacc-44e8-b97b-08a29359d28c",
+      "type": "http",
+      "documentation": "List invitations by event",
+      "method": "get",
+      "endpoint": "v1/invitation/:eventId",
+      "responses": [
+        {
+          "uuid": "13b6251c-2999-4be2-8124-e120ae21339a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "success-1",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "./invitation-list/cases/success-1.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "eventId",
+              "value": "1",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "c3c652f2-8b03-48cf-9126-98bc7fd17ae8",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "success-2",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "./invitation-list/cases/success-2.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "eventId",
+              "value": "2",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "3c759d26-9eae-41e9-949a-21fcbe15ba4a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "success-3",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "./invitation-list/cases/success-3.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "eventId",
+              "value": "3",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "0b6c9f38-193c-432a-bdb7-0c07c250cd51",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "error-404",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "./invitation-list/cases/error-404.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "01536e00-74da-49f8-92da-4c7097292d32",
+      "type": "http",
+      "documentation": "Upload invitations CSV",
+      "method": "post",
+      "endpoint": "v1/invitation/:eventId/upload",
+      "responses": [
+        {
+          "uuid": "b029bff8-ac33-454c-8c8a-5c330b8b4c29",
+          "body": "",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "./invitation-upload/cases/success.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "68386f0e-14cf-47d3-9cea-2396ee66892a",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "error-400",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "./invitation-upload/cases/error-400.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "523be51b-80c3-4921-a05a-032915f495e8",
+      "type": "http",
+      "documentation": "Invitation info by token",
+      "method": "get",
+      "endpoint": "v1/invitation/info/:token",
+      "responses": [
+        {
+          "uuid": "1afc4732-8172-4625-8972-7039dc3c0c66",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "./invitation-info/cases/success.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "e913bbdc-64a5-4c2e-9fbe-e77cd89a06a6",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "error-404",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "./invitation-info/cases/error-404.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "ec838b31-24d0-49d0-9414-2b4ddcc816e1",
+      "type": "http",
+      "documentation": "Telemetry traces",
+      "method": "post",
+      "endpoint": "v1/traces",
+      "responses": [
+        {
+          "uuid": "6f7c5bb0-0c11-47e8-b30f-48ab63ee425e",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "success",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "./telemetry-traces/cases/success.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "c9122536-cc78-45ee-933b-8e9337e8434c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "error-400",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "FILE",
+          "filePath": "./telemetry-traces/cases/error-400.json",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "folder",
+      "uuid": "5ae573eb-7b8b-4338-8113-f5b489a55078"
+    },
+    {
+      "type": "folder",
+      "uuid": "68c5342d-0820-461e-bcb1-abb97d0ee357"
+    },
+    {
+      "type": "folder",
+      "uuid": "f0ab724c-91f0-407e-8d36-9685dc5cac40"
+    },
+    {
+      "type": "folder",
+      "uuid": "e3ab3ba0-5dc8-4eb7-bf6d-c79405b57ad3"
+    },
+    {
+      "type": "folder",
+      "uuid": "4258363d-5a7f-4e99-8933-692b280863bf"
+    },
+    {
+      "type": "folder",
+      "uuid": "361d8521-a5a4-4b47-bfa4-9bc9b87cfcc1"
+    },
+    {
+      "type": "folder",
+      "uuid": "ec06f75a-61f9-4c2d-8da7-06fb88726078"
+    },
+    {
+      "type": "folder",
+      "uuid": "bf806222-bdb1-4a4d-b915-7051235d9658"
+    },
+    {
+      "type": "folder",
+      "uuid": "78bf1049-3d8f-42e7-a8b1-0f6e11622920"
+    },
+    {
+      "type": "folder",
+      "uuid": "40a140b2-8c0e-4d6f-a05d-5fd68f5f05ed"
+    },
+    {
+      "type": "folder",
+      "uuid": "b916bc33-c4ac-4a37-8f6f-6ec915c46ea0"
+    },
+    {
+      "type": "folder",
+      "uuid": "0c2c2d01-a15e-4723-841f-4ebc42d7874d"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [],
+  "proxyResHeaders": [],
+  "data": [],
+  "callbacks": []
+}

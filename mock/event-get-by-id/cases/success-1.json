@@ -1,0 +1,94 @@
+{
+  "success": true,
+  "data": {
+    "id": "1",
+    "account_id": "account-mock-1",
+    "account": null,
+    "address": "Salon de Eventos El Jardin, Calle Principal 123",
+    "capacity": 150,
+    "created_at": "2026-12-01T15:00:00.000Z",
+    "created_by": "Maria Gonzalez",
+    "deleted_at": null,
+    "ends_at": "2026-12-18T04:00:00.000Z",
+    "is_public": true,
+    "mode": "presential",
+    "starts_at": "2026-12-17T18:00:00.000Z",
+    "status": "published",
+    "template_id": null,
+    "title": "Boda de Maria y Juan",
+    "type": "boda",
+    "updated_at": "2026-12-01T15:00:00.000Z",
+    "assets": [
+      {
+        "id": "a-1-banner",
+        "event_id": "1",
+        "kind": "banner",
+        "url": "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800",
+        "position": 0,
+        "provider": "mock",
+        "created_at": "2026-01-01T00:00:00.000Z",
+        "updated_at": "2026-01-01T00:00:00.000Z",
+        "deleted_at": null
+      },
+      {
+        "id": "a-1-g0",
+        "event_id": "1",
+        "kind": "carousel_image",
+        "url": "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=400",
+        "position": 1,
+        "provider": "mock",
+        "created_at": "2026-01-01T00:00:00.000Z",
+        "updated_at": "2026-01-01T00:00:00.000Z",
+        "deleted_at": null
+      },
+      {
+        "id": "a-1-g1",
+        "event_id": "1",
+        "kind": "carousel_image",
+        "url": "https://images.unsplash.com/photo-1519741497674-611481863552?w=400",
+        "position": 2,
+        "provider": "mock",
+        "created_at": "2026-01-01T00:00:00.000Z",
+        "updated_at": "2026-01-01T00:00:00.000Z",
+        "deleted_at": null
+      },
+      {
+        "id": "a-1-g2",
+        "event_id": "1",
+        "kind": "carousel_image",
+        "url": "https://images.unsplash.com/photo-1511578314322-379afb476865?w=400",
+        "position": 3,
+        "provider": "mock",
+        "created_at": "2026-01-01T00:00:00.000Z",
+        "updated_at": "2026-01-01T00:00:00.000Z",
+        "deleted_at": null
+      },
+      {
+        "id": "a-1-audio",
+        "event_id": "1",
+        "kind": "audio",
+        "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        "position": 99,
+        "provider": "mock",
+        "created_at": "2026-01-01T00:00:00.000Z",
+        "updated_at": "2026-01-01T00:00:00.000Z",
+        "deleted_at": null
+      }
+    ],
+    "config": {
+      "id": "cfg-1",
+      "eventId": "1",
+      "metadata": {
+        "quote": "Una celebracion especial para unir nuestras vidas en matrimonio.",
+        "wifeName": "Maria Gonzalez",
+        "husbandName": "Juan Perez",
+        "addressParty": "Salon de Eventos El Jardin, Calle Principal 123",
+        "startsAt": "2026-12-17T18:00:00.000Z",
+        "endsAt": "2026-12-18T04:00:00.000Z"
+      },
+      "createdAt": "2026-12-01T15:00:00.000Z",
+      "updatedAt": "2026-12-01T15:00:00.000Z",
+      "deletedAt": null
+    }
+  }
+}

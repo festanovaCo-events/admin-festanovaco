@@ -1,0 +1,11 @@
+{
+  "success": true,
+  "data": {
+    "id": "upload-1",
+    "event_id": "1",
+    "file_name": "guests.csv",
+    "url": "https://example.com/uploads/guests.csv",
+    "created_at": "2026-08-06T10:00:00.000Z",
+    "updated_at": "2026-08-06T10:00:00.000Z"
+  }
+}

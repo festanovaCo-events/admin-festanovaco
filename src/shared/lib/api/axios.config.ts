@@ -5,7 +5,13 @@ import { getAuthToken, removeAuthToken } from "@/shared/lib/utils/cookies";
 import { useAuthStore } from "@/shared/stores/auth/auth.store";
 import { useStatusOverlayStore } from "@/shared/stores/status-overlay/status-overlay.store";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "");
+
+if (!API_BASE) {
+  throw new Error(
+    "Falta NEXT_PUBLIC_API_BASE_URL. Copia .env.local.example a .env y apunta a Mockoon (http://localhost:3000).",
+  );
+}
 
 export const apiClient = axios.create({
   baseURL: API_BASE,

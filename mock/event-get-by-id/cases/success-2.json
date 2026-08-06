@@ -1,0 +1,83 @@
+{
+  "success": true,
+  "data": {
+    "id": "2",
+    "account_id": "account-mock-1",
+    "account": null,
+    "address": "Restaurante La Terraza, Avenida Central 456",
+    "capacity": 80,
+    "created_at": "2026-11-25T12:00:00.000Z",
+    "created_by": "Roberto Martinez",
+    "deleted_at": null,
+    "ends_at": "2026-12-21T03:00:00.000Z",
+    "is_public": true,
+    "mode": "presential",
+    "starts_at": "2026-12-20T20:00:00.000Z",
+    "status": "published",
+    "template_id": null,
+    "title": "Cumpleanos de Ana - 30 anos",
+    "type": "cumpleanos",
+    "updated_at": "2026-11-25T12:00:00.000Z",
+    "assets": [
+      {
+        "id": "a-2-banner",
+        "event_id": "2",
+        "kind": "banner",
+        "url": "https://images.unsplash.com/photo-1511578314322-379afb476865?w=800",
+        "position": 0,
+        "provider": "mock",
+        "created_at": "2026-01-01T00:00:00.000Z",
+        "updated_at": "2026-01-01T00:00:00.000Z",
+        "deleted_at": null
+      },
+      {
+        "id": "a-2-g0",
+        "event_id": "2",
+        "kind": "carousel_image",
+        "url": "https://images.unsplash.com/photo-1511578314322-379afb476865?w=400",
+        "position": 1,
+        "provider": "mock",
+        "created_at": "2026-01-01T00:00:00.000Z",
+        "updated_at": "2026-01-01T00:00:00.000Z",
+        "deleted_at": null
+      },
+      {
+        "id": "a-2-g1",
+        "event_id": "2",
+        "kind": "carousel_image",
+        "url": "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=400",
+        "position": 2,
+        "provider": "mock",
+        "created_at": "2026-01-01T00:00:00.000Z",
+        "updated_at": "2026-01-01T00:00:00.000Z",
+        "deleted_at": null
+      },
+      {
+        "id": "a-2-audio",
+        "event_id": "2",
+        "kind": "audio",
+        "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        "position": 99,
+        "provider": "mock",
+        "created_at": "2026-01-01T00:00:00.000Z",
+        "updated_at": "2026-01-01T00:00:00.000Z",
+        "deleted_at": null
+      }
+    ],
+    "config": {
+      "id": "cfg-2",
+      "eventId": "2",
+      "metadata": {
+        "quote": "Celebracion de cumpleanos numero 30.",
+        "wifeName": "",
+        "husbandName": "",
+        "addressParty": "Restaurante La Terraza, Avenida Central 456",
+        "startsAt": "2026-12-20T20:00:00.000Z",
+        "endsAt": "2026-12-21T03:00:00.000Z"
+      },
+      "createdAt": "2026-11-25T12:00:00.000Z",
+      "updatedAt": "2026-11-25T12:00:00.000Z",
+      "deletedAt": null
+    }
+  }
+}

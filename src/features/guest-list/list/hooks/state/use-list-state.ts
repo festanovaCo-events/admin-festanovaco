@@ -1,17 +1,18 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
+import type { GuestList } from "@/interfaces/components/app/dashboard/guest-list/interfaces";
 import { useEventDateFormatter } from "@/shared/hooks/use-event-date-formatter";
-import { getGuestLists } from "../data/list";
 
 export type SortOption = "latest" | "oldest" | "name";
 
 export function useListState() {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<SortOption>("latest");
+  const [guestLists, setGuestLists] = useState<GuestList[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const formatListDate = useEventDateFormatter("short");
-  const guestLists = useMemo(() => getGuestLists(), []);
 
   return {
     searchQuery,
@@ -20,6 +21,9 @@ export function useListState() {
     setSortBy,
     formatListDate,
     guestLists,
+    setGuestLists,
+    isLoading,
+    setIsLoading,
   };
 }
 

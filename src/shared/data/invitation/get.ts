@@ -1,8 +1,8 @@
-import { FEATURE_FLAGS } from "@/constants/feature-flags";
-import { TIMEOUTS } from "@/constants/time";
-import { MOCK_GUESTS_BY_LIST_ID } from "@/constants/mocks/guest-list/guests-detail.mock";
-import type { GetInvitationInfoResponse, ListInvitationsResponse } from "@/interfaces/api/invitation/responses.interface";
 import type { InvitationInfoData } from "@/interfaces/api/invitation/data.interface";
+import type {
+  GetInvitationInfoResponse,
+  ListInvitationsResponse,
+} from "@/interfaces/api/invitation/responses.interface";
 import type { Guest } from "@/interfaces/components/app/dashboard/guest-list/interfaces";
 import { mapInvitationItemToGuest } from "@/shared/data/invitation/invitation.adapter";
 import { apiClient } from "@/shared/lib/api/axios.config";
@@ -16,10 +16,6 @@ import { API_ROUTES } from "@/shared/lib/api/routes";
  * @throws Error si la petición falla
  */
 export async function getInvitationsByEvent(eventId: string): Promise<Guest[]> {
-  if (FEATURE_FLAGS.USE_MOCK_LIST_INVITATIONS) {
-    await new Promise((resolve) => setTimeout(resolve, TIMEOUTS.MOCK_DELAY));
-    return MOCK_GUESTS_BY_LIST_ID[eventId] ?? [];
-  }
   const response = await apiClient.get<ListInvitationsResponse>(
     API_ROUTES.INVITATION.LIST(eventId),
   );

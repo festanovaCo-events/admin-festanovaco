@@ -455,6 +455,7 @@
     },
     "noLists": "No hay listas de invitados disponibles",
     "noResultsFor": "No se encontraron resultados para",
+    "loading": "Cargando listas de invitados...",
     "errorLoadingLists": "No se pudieron cargar las listas de invitados",
     "card": {
       "createdBy": "Creado por",

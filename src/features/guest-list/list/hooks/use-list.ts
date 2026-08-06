@@ -13,7 +13,10 @@ export function useGuestList() {
     setSortBy: state.setSortBy,
   });
 
-  useListEffect();
+  useListEffect({
+    setGuestLists: state.setGuestLists,
+    setIsLoading: state.setIsLoading,
+  });
 
   const filteredAndSortedLists = useMemo(() => {
     let filtered = state.guestLists;
@@ -56,6 +59,7 @@ export function useGuestList() {
     onViewGuests: handler.onViewGuests,
     formatListDate: state.formatListDate,
     guestLists: filteredAndSortedLists,
+    isLoading: state.isLoading,
   };
 }
 
