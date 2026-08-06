@@ -1,8 +1,12 @@
 "use client";
 
-import { Search } from "lucide-react";
+import { Download, Search } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { GuestSearchAndFiltersProps } from "@/interfaces/components/app/dashboard/guest-list/interfaces";
+import {
+  buildGuestListCsvFilename,
+  downloadGuestsCsv,
+} from "@/shared/lib/download-csv";
 import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/shadcn/ui/button";
 import { Input } from "@/shared/ui/shadcn/ui/input";
@@ -16,22 +20,47 @@ export const GuestSearchAndFilters: React.FC<GuestSearchAndFiltersProps> = ({
   confirmedCount,
   pendingCount,
   declinedCount,
+  guests,
+  listName,
 }) => {
   const t = useTranslations("guestList.details");
 
+  const handleDownloadCsv = () => {
+    downloadGuestsCsv(
+      guests,
+      buildGuestListCsvFilename(listName ?? "invitados"),
+      {
+        name: t("table.name"),
+        seats: t("table.numberOfSeats"),
+        invitationUrl: t("table.invitationUrl"),
+      },
+    );
+  };
+
   return (
-    <div className="flex flex-col md:flex-row gap-4 mb-6">
-      <div className="relative flex-1">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
-        <Input
-          type="text"
-          placeholder={t("searchPlaceholder")}
-          value={searchQuery}
-          onChange={(e) => onSearchChange(e.target.value)}
-          className="pl-10"
-        />
+    <div className="flex flex-col gap-4 mb-6">
+      <div className="flex flex-col md:flex-row gap-4">
+        <div className="relative flex-1">
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+          <Input
+            type="text"
+            placeholder={t("searchPlaceholder")}
+            value={searchQuery}
+            onChange={(e) => onSearchChange(e.target.value)}
+            className="pl-10"
+          />
+        </div>
+        <Button
+          variant="outline"
+          onClick={handleDownloadCsv}
+          disabled={guests.length === 0}
+          className="cursor-pointer gap-2 shrink-0"
+        >
+          <Download className="h-4 w-4" />
+          {t("downloadCsv")}
+        </Button>
       </div>
-      <div className="flex gap-2">
+      <div className="flex flex-wrap gap-2">
         <Button
           variant={statusFilter === "all" ? "default" : "outline"}
           onClick={() => onStatusFilterChange("all")}
@@ -48,7 +77,7 @@ export const GuestSearchAndFilters: React.FC<GuestSearchAndFiltersProps> = ({
           className={cn(
             "cursor-pointer",
             statusFilter === "confirmed" &&
-              "bg-green-600 text-white hover:bg-green-700",
+            "bg-green-600 text-white hover:bg-green-700",
           )}
         >
           {t("confirmed")} ({confirmedCount})
@@ -59,7 +88,7 @@ export const GuestSearchAndFilters: React.FC<GuestSearchAndFiltersProps> = ({
           className={cn(
             "cursor-pointer",
             statusFilter === "pending" &&
-              "bg-orange-600 text-white hover:bg-orange-700",
+            "bg-orange-600 text-white hover:bg-orange-700",
           )}
         >
           {t("pending")} ({pendingCount})
@@ -70,7 +99,7 @@ export const GuestSearchAndFilters: React.FC<GuestSearchAndFiltersProps> = ({
           className={cn(
             "cursor-pointer",
             statusFilter === "declined" &&
-              "bg-red-600 text-white hover:bg-red-700",
+            "bg-red-600 text-white hover:bg-red-700",
           )}
         >
           {t("table.declinedStatus")} ({declinedCount ?? 0})

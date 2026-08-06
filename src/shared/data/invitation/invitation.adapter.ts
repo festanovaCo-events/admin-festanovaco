@@ -21,7 +21,7 @@ export function mapInvitationItemToGuest(item: InvitationItemData): Guest {
     confirmed: item.status === "ACCEPTED",
     status: item.status,
     confirmedAt: undefined,
-    numberOfSeats: 0,
+    numberOfSeats: item.total_seats ?? item.seats ?? 0,
     subGuests: undefined,
     invitationToken: extractTokenFromUrl(item.invitation_url || undefined),
     invitation_url: item.invitation_url,

@@ -119,6 +119,8 @@ export function GuestListDetailView({
               confirmedCount={confirmedCount}
               pendingCount={pendingCount}
               declinedCount={declinedCount}
+              guests={filteredGuests}
+              listName={guestList?.name}
             />
           </AsyncStateLayout>
 
